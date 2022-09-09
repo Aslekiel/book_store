@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App/App';
 import Global from './global';
 
@@ -8,7 +9,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
-    <Global/>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+    <Global />
   </React.StrictMode>,
 );

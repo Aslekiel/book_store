@@ -2,26 +2,43 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   
   width: 100%;
 
-  padding: 24px 0px 40px;
+  padding-top: 24px;
 
-  .header__logo {
+  .header__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
-    width: 88px;
-    height: 46px;
+    width: 1290px;
 
+    padding: 0 5px;
   }
 
+  .header__logo {
+    width: 88px;
+    height: 46px;
+  }
 
   .header__catalog {
     color: black;
     text-decoration: none;
     padding: 0 5px;
+
+    width: 15%;
+  }
+
+  .header__form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 60%;
   }
 
   .header__input {
@@ -30,14 +47,34 @@ export const HeaderContainer = styled.header`
 
     background-color: #F0F4EF;
     border-radius: 16px;
-    width: 100%;
     border: none;
-    color: #B9BAC3;
-    padding: 14px 0 14px 64px;
-    width: 50%;
+     padding: 18px 0 18px 64px;
+    width: 90%;
     height: 64px;
 
     margin:0 5px;
+  }
+
+  .header__input::placeholder {
+    color: #B9BAC3;
+  }
+
+  .button__login {
+    color: #F0F4EF;
+    letter-spacing: 0.75px;
+    text-decoration: none;
+    white-space: nowrap;
+
+    cursor: pointer;
+  }
+
+  .button__signup {
+    color: #F0F4EF;
+    letter-spacing: 0.75px;
+    text-decoration: none;
+    white-space: nowrap;
+
+    cursor: pointer;
   }
 
 `;

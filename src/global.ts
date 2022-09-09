@@ -18,7 +18,11 @@ body {
 }
 
 #root {
-  width: 1280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .button {
