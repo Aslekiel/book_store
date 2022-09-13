@@ -1,10 +1,10 @@
-import axios from 'axios';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { CommonButton } from '../CommonButton/CommonButton';
 import { Input } from '../Input/Input';
 import { LogInContainer } from './LogIn.styles';
+import { logIn } from '../../API/userRequests';
 
 const SignupSchema = yup.object().shape({
   email: yup.string().email('Email is not correct').required('Enter your email'),
@@ -17,12 +17,16 @@ const LogIn = () => {
 
     (async () => {
       try {
-        const response = await axios.post('http://localhost:5000/api/auth/login', {
-          email: formik.values.email,
-          password: formik.values.password,
-        }).catch((error) => {
-          (() => toast(error.response.data.message))();
-        });
+        if (!formik.values.email) {
+          (() => toast('Email input field is empty'))();
+        }
+
+        if (!formik.values.password) {
+          (() => toast('Password input field is empty'))();
+        }
+
+        const response = await logIn(formik.values.email, formik.values.password);
+
         if (response) {
           window.location.assign('http://localhost:3000/');
         }

@@ -1,15 +1,17 @@
 import { useFormik } from 'formik';
-import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { ReactComponent as HeaderLogo } from './img/logo.svg';
 import { Input } from '../Input/Input';
 import { HeaderContainer } from './Header.styles';
 
 import { HeaderMenu } from './HeaderMenu/HeaderMenu';
 import { LoginSignupButton } from '../LogiSignupButton/LogiSignupButton';
-import type { IUser } from '../../store/reducers/user';
 
 const Header = () => {
-  const state = useSelector((state: IUser) => state);
+  const isToken = localStorage.getItem('accessToken');
+
+  const navigate = useNavigate();
+  const homePage = () => navigate('/');
 
   const formik = useFormik({
     initialValues: {
@@ -27,13 +29,11 @@ const Header = () => {
         <nav className="header__nav">
           <HeaderLogo
             className="header__logo"
-            onClick={() => {
-              window.location.assign('http://localhost:3000/');
-            }}
+            onClick={homePage}
           />
-          <a className="header__catalog" href="http://localhost:3000/catalog">
+          <Link className="header__catalog" to={'/catalog'}>
             Catalog
-          </a>
+          </Link>
         </nav>
         <form className="header__form" onSubmit={formik.handleSubmit}>
           <Input
@@ -45,7 +45,7 @@ const Header = () => {
           />
         </form>
 
-        {!state.email ? <LoginSignupButton /> : <HeaderMenu />}
+        {!isToken ? <LoginSignupButton /> : <HeaderMenu />}
       </div>
     </HeaderContainer>
   );

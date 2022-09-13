@@ -77,14 +77,23 @@ export const UserProfile = () => {
     }
   };
 
+  const onClickLogOut = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    localStorage.setItem('accessToken', '');
+    window.location.assign('http://localhost:3000/');
+  };
+
   return (
     <UserProfileContainer>
       <div className="user-profile__wrapper">
-        <div className="user-profile__photo">
-          <UserLogo className="user-profile__user-logo" />
-          <button className="user-profile__button">
-            <CameraLogo className="user-profile__camera-logo" />
-          </button>
+        <div className='user-profile__photo'>
+          <div className="user-profile__photo__wrapper">
+            <UserLogo className="user-profile__user-logo" />
+            <button className="user-profile__button">
+              <CameraLogo className="user-profile__camera-logo" />
+            </button>
+          </div>
+          <CommonButton title={'Log Out'} onClick={onClickLogOut} />
         </div>
         <form className="user-profile__info">
           <div className="user-profile__caption">
@@ -100,9 +109,9 @@ export const UserProfile = () => {
             </button>
           </div>
           <Input
-            name="name"
+            name="fullname"
             type="text"
-            placeholder="Your name"
+            placeholder="Your fullname"
             value={formik.values.name}
             onChange={formik.handleChange}
           />

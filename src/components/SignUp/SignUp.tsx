@@ -1,14 +1,14 @@
-import axios from 'axios';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import React from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { useAppDispatch } from '../../store/hooks/hooks';
 import { signUpUser } from '../../store/reducers/user';
 import { CommonButton } from '../CommonButton/CommonButton';
 import { Input } from '../Input/Input';
 import { SignUpContainer } from './SignUp.styles';
 import 'react-toastify/dist/ReactToastify.css';
+import { signUp } from '../../API/userRequests';
 
 const SignupSchema = yup.object().shape({
   email: yup.string().email('Email is not correct').required('Enter your email'),
@@ -65,15 +65,10 @@ const SignUp = () => {
     if (formik.values.password === formik.values.confirmPassword) {
       (async () => {
         try {
-          const response = await axios.post('http://localhost:5000/api/auth/signup', {
-            email: formik.values.email,
-            password: formik.values.password,
-          }).catch((error) => {
-            (() => toast(error.response.data.message))();
-          });
-          // response?.data.accessToken
+          const response = await signUp(formik.values.email, formik.values.password);
+
           if (response) {
-            // window.location.assign('http://localhost:3000/');
+            window.location.assign('http://localhost:3000/');
           }
         } catch (error) {
           // eslint-disable-next-line no-console

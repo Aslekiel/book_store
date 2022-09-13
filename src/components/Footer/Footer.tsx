@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { FooterContainer } from './Footer.styles';
 
 const Footer = () => {
@@ -16,26 +17,26 @@ const Footer = () => {
         <nav className="footer__navigation">
           <ul className="footer__list">
             <li>
-              <a className="footer__link" href="http://localhost:3000/">
+              <Link className="footer__link" to={'/'} >
                 Home Page
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="footer__link" href="http://localhost:3000/catalog">
+              <Link className="footer__link" to={'/catalog'} >
                 Catalog
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                className="footer__link"
-                href="http://localhost:3000/user-profile">
+              <Link
+                className="footer__link" to={'/user-profile'}
+              >
                 My account
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="footer__link" href="http://localhost:3000/cart">
+              <Link className="footer__link" to={'/cart'} >
                 Cart
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

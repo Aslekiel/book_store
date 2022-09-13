@@ -16,7 +16,12 @@ interface IInput {
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-// eslint-disable-next-line max-len
+type LogosType = {
+  search: React.ElementType;
+  email: React.ElementType;
+  fullname: React.ElementType;
+};
+
 export const Input: React.FC<IInput> = ({
   name,
   type,
@@ -26,20 +31,26 @@ export const Input: React.FC<IInput> = ({
 }) => {
   const [inputState, setInputState] = useState(false);
 
+  const onFormFocus = () => { setInputState(true); };
+
+  const onFormBlur = () => { setInputState(false); };
+
   const [hideEye, setHideEye] = useState(false);
 
+  const logo: LogosType = {
+    search: SearchLogo,
+    email: EmailLogo,
+    fullname: UserProfile,
+  };
+
+  const InputLogo = logo[name as keyof LogosType];
+
+  const EyeLogo = !hideEye ? HideEye : OpenEye;
+
   const title =
-    name === 'email' || name === 'search' || name === 'name'
+    name === 'email' || name === 'search' || name === 'fullname'
       ? name[0].toUpperCase() + name.slice(1)
       : 'Password';
-
-  const onFormFocus = () => {
-    setInputState(true);
-  };
-
-  const onFormBlur = () => {
-    setInputState(false);
-  };
 
   const onClickEye = () => {
     if (hideEye) {
@@ -49,33 +60,15 @@ export const Input: React.FC<IInput> = ({
     }
   };
 
-  let ToggleLogo;
-  if (name === 'email') {
-    ToggleLogo = EmailLogo;
-  } else if (name === 'search') {
-    ToggleLogo = SearchLogo;
-  } else {
-    ToggleLogo = UserProfile;
-  }
-  const ToggleEyeLogo = !hideEye ? HideEye : OpenEye;
-
   return (
     <InputContainer
       onFocus={onFormFocus}
       onBlur={onFormBlur}
       filterLogo={inputState}
       inputType={name}>
-      {name === 'password' || name === 'confirmPassword' || name === 'newPassword' ? (
-        <ToggleEyeLogo
-          className="input__eye"
-          onClick={onClickEye}
-          onMouseDown={() => {
-            return false;
-          }}
-        />
-      ) : (
-        <ToggleLogo className="input__general" />
-      )}
+      {name === 'password' || name === 'confirmPassword' || name === 'newPassword'
+        ? <EyeLogo className="input__eye" onClick={onClickEye} />
+        : <InputLogo className="input__general" />}
       <input
         className="input__inner"
         name={name}

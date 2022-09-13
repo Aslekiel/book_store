@@ -31,6 +31,7 @@ export const LogInContainer = styled.main`
     width: 100%;
     padding: 60px 0;
   }
+
   .form__email {
     background: url('./img/mail.svg') no-repeat;
     background-position: 24px;
@@ -59,6 +60,7 @@ export const LogInContainer = styled.main`
     color: #344966;
     padding: 9px 0 30px;
   }
+
   .form__label:last-child {
     padding-bottom: 0;
   }

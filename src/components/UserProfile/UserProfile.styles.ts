@@ -6,17 +6,28 @@ export const UserProfileContainer = styled.main`
   align-items: center;
   width: 100%;
   padding: 60px 5px 110px 5px;
+
   .user-profile__wrapper {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     width: 1290px;
   }
+
   .user-profile__photo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .user-profile__photo__wrapper {
     width: 305px;
     height: 305px;
     background-color: #f0f4ef;
     position: relative;
     border-radius: 16px;
+
+    margin-bottom: 20px;
   }
   .user-profile__user-logo {
     position: absolute;
@@ -46,16 +57,15 @@ export const UserProfileContainer = styled.main`
     flex-direction: column;
     justify-self: end;
     width: 82%;
-    &__fullName {
-      margin: 30px 0 20px;
-    }
   }
+
   .user-profile__caption {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+
     &__title {
       font-size: 20px;
       line-height: 30px;
