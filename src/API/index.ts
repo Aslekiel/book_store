@@ -1,18 +1,16 @@
 import axios from 'axios';
 
 export const instance = axios.create({
-  baseURL: 'http://localhost:5000/',
+  baseURL: 'http://localhost:5000/api/',
 });
 
-instance.interceptors.request.use((config) => {
+instance.interceptors.request.use((req) => {
   const token = localStorage.getItem('accessToken');
   if (token) {
-    // eslint-disable-next-line no-param-reassign
-    config.headers = {
+    req.headers = {
+      ...req.headers,
       Authorization: `Bearer ${token}`,
     };
   }
-  return config;
-}, (error) => {
-  return Promise.reject(error);
+  return req;
 });

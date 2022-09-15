@@ -13,7 +13,9 @@ interface IInput {
   type: string;
   placeholder: string;
   value: string;
+  title: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
+  isActive: boolean;
 }
 
 type LogosType = {
@@ -27,9 +29,11 @@ export const Input: React.FC<IInput> = ({
   type,
   placeholder,
   value,
+  title,
   onChange,
+  isActive,
 }) => {
-  const [inputState, setInputState] = useState(false);
+  const [inputState, setInputState] = useState(isActive);
 
   const onFormFocus = () => { setInputState(true); };
 
@@ -47,11 +51,6 @@ export const Input: React.FC<IInput> = ({
 
   const EyeLogo = !hideEye ? HideEye : OpenEye;
 
-  const title =
-    name === 'email' || name === 'search' || name === 'fullname'
-      ? name[0].toUpperCase() + name.slice(1)
-      : 'Password';
-
   const onClickEye = () => {
     if (hideEye) {
       setHideEye(false);
@@ -65,9 +64,11 @@ export const Input: React.FC<IInput> = ({
       onFocus={onFormFocus}
       onBlur={onFormBlur}
       filterLogo={inputState}
-      inputType={name}>
-      {name === 'password' || name === 'confirmPassword' || name === 'newPassword'
-        ? <EyeLogo className="input__eye" onClick={onClickEye} />
+      isActive={isActive}
+      inputType={name}
+    // tabIndex={1}
+    >
+      {type === 'password' ? <EyeLogo className="input__eye" onClick={onClickEye} />
         : <InputLogo className="input__general" />}
       <input
         className="input__inner"
@@ -76,13 +77,13 @@ export const Input: React.FC<IInput> = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+
       />
-      {inputState && (
-        <>
-          <label className="input__title">{title}</label>
-          <CloseCross className="input__cross" />
-        </>
-      )}
+      {inputState && <label className="input__title">{title}</label>}
+      {inputState && !isActive && <CloseCross className="input__cross" onClick={() => {
+        // eslint-disable-next-line no-console
+        console.log('asd');
+      }} />}
     </InputContainer>
   );
 };

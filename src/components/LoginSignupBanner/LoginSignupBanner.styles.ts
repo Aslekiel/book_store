@@ -1,23 +1,26 @@
 import styled from 'styled-components';
 
 export const LoginSignupBannerContainer = styled.section`
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   position: relative;
-  /* overflow: hidden; */
-  margin: 97px 0 54px;
-  padding: 0 108px 96px;
+  margin: 30px 0 44px;
+  padding: 0 108px;
   background: url('./img/bg_banner.svg') no-repeat;
+  background-position-y: 62px;
+
   .banner__castle-img {
-    position: absolute;
-    left: 108px;
-    top: -62px;
+    z-index: 10;
   }
   .banner__info {
     display: flex;
     flex-direction: column;
     justify-self: end;
     align-items: flex-start;
+
+    z-index: 1000;
     &__title {
       font-weight: 700;
       font-size: 40px;
@@ -34,5 +37,8 @@ export const LoginSignupBannerContainer = styled.section`
     }
   }
   .banner__sprite-img {
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 `;

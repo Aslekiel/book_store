@@ -6,9 +6,15 @@ import { HeaderContainer } from './Header.styles';
 
 import { HeaderMenu } from './HeaderMenu/HeaderMenu';
 import { LoginSignupButton } from '../LogiSignupButton/LogiSignupButton';
+import { useAppSelector } from '../../store/hooks/hooks';
 
-const Header = () => {
-  const isToken = localStorage.getItem('accessToken');
+// eslint-disable-next-line @typescript-eslint/naming-convention
+type Props = {
+  auth: boolean;
+};
+
+const Header: React.FC<Props> = ({ auth }) => {
+  const user = useAppSelector((state) => state.user.email);
 
   const navigate = useNavigate();
   const homePage = () => navigate('/');
@@ -31,7 +37,7 @@ const Header = () => {
             className="header__logo"
             onClick={homePage}
           />
-          <Link className="header__catalog" to={'/catalog'}>
+          <Link className="header__catalog" to="/catalog">
             Catalog
           </Link>
         </nav>
@@ -41,11 +47,14 @@ const Header = () => {
             name="search"
             placeholder="Search"
             value={formik.values.search}
+            title="Search"
             onChange={formik.handleChange}
+            isActive={false}
           />
         </form>
-
-        {!isToken ? <LoginSignupButton /> : <HeaderMenu />}
+        {(!user && auth)
+          ? <LoginSignupButton />
+          : <HeaderMenu />}
       </div>
     </HeaderContainer>
   );

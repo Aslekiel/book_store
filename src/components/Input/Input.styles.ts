@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 type ChangeColorType = {
   filterLogo: boolean;
+  isActive: boolean;
   inputType: string;
 };
 
@@ -23,10 +24,12 @@ export const InputContainer = styled.div<ChangeColorType>`
     left: 42px;
     top: 50%;
     transform: translate(-50%, -50%);
+    
     path {
       stroke: #b9bac3;
     }
-    ${(p) => p.filterLogo &&
+    
+    ${(p) => p.filterLogo && !p.isActive &&
     css`
         path {
           stroke: #344966;
@@ -53,7 +56,7 @@ export const InputContainer = styled.div<ChangeColorType>`
       fill: #b9bac3;
     }
 
-    ${(p) => p.filterLogo &&
+    ${(p) => p.filterLogo && !p.isActive &&
     css`
         path {
           stroke: #344966;
@@ -76,6 +79,7 @@ export const InputContainer = styled.div<ChangeColorType>`
     width: 100%;
     height: 64px;
     margin: 0 5px;
+
     &::placeholder {
       color: #b9bac3;
     }
@@ -85,6 +89,15 @@ export const InputContainer = styled.div<ChangeColorType>`
       outline-color: #344966;
     }
 
+    ${(p) => p.isActive &&
+    css`
+        /* z-index: -2; */
+        padding: 30px 0 6px 64px;
+        ::placeholder {
+          color: #344966;
+        }
+    `}
+/* 
     &--err {
       background-color: #FFF2F7;
       border: 2px solid #ED2E7E;
@@ -103,7 +116,7 @@ export const InputContainer = styled.div<ChangeColorType>`
         padding: 30px 0 6px 64px;
         outline-color: #F3FDFA;
       }
-    }
+    } */
   }
 
   .input__title {

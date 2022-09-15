@@ -1,20 +1,24 @@
+import { useAppSelector } from '../../store/hooks/hooks';
 import { Catalog } from '../Catalog/Catalog';
 import { LoginSignupBanner } from '../LoginSignupBanner/LoginSignupBanner';
 import { MainContainer } from './Main.styles';
 
 import { MainCatalogBanner } from './MainCatalogBanner/MainCatalogBanner';
 
-type IsTokenType = {
-  isToken: string | null;
+// eslint-disable-next-line @typescript-eslint/naming-convention
+type Props = {
+  auth: boolean;
 };
 
-export const Main: React.FC<IsTokenType> = ({ isToken }) => {
+export const Main: React.FC<Props> = ({ auth }) => {
+  const user = useAppSelector((state) => state.user.email);
+
   return (
     <MainContainer>
       <div className="main__wrapper">
         <MainCatalogBanner />
         <Catalog />
-        {!isToken ? <LoginSignupBanner /> : ''}
+        {!user && auth && <LoginSignupBanner />}
       </div>
     </MainContainer>
   );

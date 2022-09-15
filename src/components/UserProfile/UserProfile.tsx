@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import { Input } from '../Input/Input';
 import { ReactComponent as UserLogo } from './img/user profile.svg';
 import { ReactComponent as CameraLogo } from './img/camera.svg';
@@ -16,6 +17,11 @@ interface IValues {
 
 export const UserProfile = () => {
   const [changePassword, setChangePassword] = useState(false);
+  const [changeInformation, setChangeInformation] = useState(false);
+  const [activeState, setActiveState] = useState(true);
+
+  const navigate = useNavigate();
+  const homePage = () => navigate('/');
 
   const validate = (values: IValues) => {
     const errors = {
@@ -77,23 +83,36 @@ export const UserProfile = () => {
     }
   };
 
+  const onClickChangeInformation = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
+    if (changeInformation) {
+      setChangeInformation(false);
+      setActiveState(true);
+    } else {
+      setChangeInformation(true);
+      setActiveState(false);
+    }
+  };
+
   const onClickLogOut = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     localStorage.setItem('accessToken', '');
-    window.location.assign('http://localhost:3000/');
+    homePage();
   };
 
   return (
     <UserProfileContainer>
       <div className="user-profile__wrapper">
-        <div className='user-profile__photo'>
+        <div className="user-profile__photo">
           <div className="user-profile__photo__wrapper">
             <UserLogo className="user-profile__user-logo" />
             <button className="user-profile__button">
               <CameraLogo className="user-profile__camera-logo" />
             </button>
           </div>
-          <CommonButton title={'Log Out'} onClick={onClickLogOut} />
+          <CommonButton title="Log Out" onClick={onClickLogOut} />
         </div>
         <form className="user-profile__info">
           <div className="user-profile__caption">
@@ -102,31 +121,35 @@ export const UserProfile = () => {
             </h2>
             <button
               className="user-profile__caption__link"
-              onClick={(event) => {
-                event.preventDefault();
-              }}>
+              onClick={onClickChangeInformation}
+            >
               Change information
             </button>
           </div>
           <Input
             name="fullname"
             type="text"
-            placeholder="Your fullname"
+            placeholder="Enter your firstname and lastname"
             value={formik.values.name}
+            title="Your name"
             onChange={formik.handleChange}
+            isActive={activeState}
           />
           <Input
             name="email"
             type="text"
             placeholder="Email"
             value={formik.values.email}
+            title="Your email"
             onChange={formik.handleChange}
+            isActive={activeState}
           />
           <div className="user-profile__caption">
             <h2 className="user-profile__caption__title">Password</h2>
             <button
               className="user-profile__caption__link"
-              onClick={onClickChangePassword}>
+              onClick={onClickChangePassword}
+            >
               Change password
             </button>
           </div>
@@ -135,17 +158,21 @@ export const UserProfile = () => {
             type="password"
             placeholder="Password"
             value={formik.values.password}
+            title="Your password"
             onChange={formik.handleChange}
+            isActive={activeState}
           />
           {changePassword && (
             <>
-              <form className="change-form">
+              <div className="change-form">
                 <Input
                   name="newPassword"
                   type="password"
                   placeholder="Password"
                   value={formik.values.newPassword}
                   onChange={formik.handleChange}
+                  title="New password"
+                  isActive={false}
                 />
                 {formik.errors.newPassword ? (
                   <label className="change-form__label">
@@ -161,7 +188,9 @@ export const UserProfile = () => {
                   type="password"
                   placeholder="Password replay"
                   value={formik.values.confirmPassword}
+                  title="Replay new password"
                   onChange={formik.handleChange}
+                  isActive={false}
                 />
                 {formik.errors.confirmPassword ? (
                   <label className="change-form__label">
@@ -172,7 +201,7 @@ export const UserProfile = () => {
                     Repeat your password without errors
                   </label>
                 )}
-              </form>
+              </div>
               {/* <CommonButton title={'Confirm'} /> */}
             </>
           )}

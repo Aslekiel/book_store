@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
+import { useEffect, useState } from 'react';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import Main from '../components/Main/Main';
@@ -14,21 +15,44 @@ import { Catalog } from '../components/Catalog/Catalog';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
 
 function App() {
-  const isToken = localStorage.getItem('accessToken');
+  const [auth, setAuth] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+
+    if (!token) {
+      setAuth(true);
+    } else {
+      setAuth(false);
+    }
+  }, []);
 
   return (
     <AppContainer>
-      <Header />
+      <Header auth={auth} />
       <Routes>
-        <Route path="/" element={<Main isToken={isToken} />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/cart" element={<ProtectedRoute isToken={isToken} redirectPath={'/'} children={<Cart />} />} />
+        <Route path="/" element={<Main auth={auth} />} />
+        <Route path="/login" element={
+          (<ProtectedRoute redirectPath="/user-profile" auth={!auth}>
+            <Login />
+          </ProtectedRoute>)}
+        />
+        <Route path="/signup" element={
+          (<ProtectedRoute redirectPath="/user-profile" auth={!auth}>
+            <SignUp />
+          </ProtectedRoute>)}
+        />
+        <Route path="/cart" element={
+          (<ProtectedRoute redirectPath="/" auth={auth}>
+            <Cart />
+          </ProtectedRoute>)}
+        />
         <Route path="/catalog" element={<Catalog />} />
-        <Route
-          path="/user-profile"
-          element={<ProtectedRoute isToken={isToken} redirectPath={'/'} children={<UserProfile />} />
-          } />
+        <Route path="/user-profile" element={
+          (<ProtectedRoute redirectPath="/" auth={auth}>
+            <UserProfile />
+          </ProtectedRoute>)}
+        />
       </Routes>
       <Footer />
     </AppContainer>

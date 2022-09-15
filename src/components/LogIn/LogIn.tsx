@@ -1,51 +1,40 @@
-import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import { CommonButton } from '../CommonButton/CommonButton';
 import { Input } from '../Input/Input';
 import { LogInContainer } from './LogIn.styles';
 import { logIn } from '../../API/userRequests';
-
-const SignupSchema = yup.object().shape({
-  email: yup.string().email('Email is not correct').required('Enter your email'),
-  password: yup.string().required('Enter your password').min(6, 'Password has to be longer than 6 characters'),
-});
+import { useAppDispatch } from '../../store/hooks/hooks';
+import { setUser } from '../../store/reducers/user';
+import { LogInSchema } from '../../Schemas/LogInSchema';
 
 const LogIn = () => {
-  const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const navigate = useNavigate();
+  const homePage = () => navigate('/');
 
-    (async () => {
-      try {
-        if (!formik.values.email) {
-          (() => toast('Email input field is empty'))();
-        }
-
-        if (!formik.values.password) {
-          (() => toast('Password input field is empty'))();
-        }
-
-        const response = await logIn(formik.values.email, formik.values.password);
-
-        if (response) {
-          window.location.assign('http://localhost:3000/');
-        }
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
-    })();
-  };
+  const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
-    validationSchema: SignupSchema,
-    onSubmit: (values) => {
-      // eslint-disable-next-line no-alert
-      alert(JSON.stringify(values, null, 2));
+    validationSchema: LogInSchema,
+    onSubmit: async () => {
+      try {
+        const res = await logIn(formik.values.email, formik.values.password)
+          .catch((error) => {
+            (() => toast(error.response.data.message))();
+          });
+        if (res?.data) {
+          homePage();
+        }
+        dispatch(setUser(res?.data));
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
     },
   });
 
@@ -57,13 +46,16 @@ const LogIn = () => {
           <form
             className="login__form"
             method="post"
-            onSubmit={formik.handleSubmit}>
+            onSubmit={formik.handleSubmit}
+          >
             <Input
               name="email"
               type="text"
               placeholder="Email"
               value={formik.values.email}
               onChange={formik.handleChange}
+              title="Email"
+              isActive={false}
             />
             {formik.errors.email ? (
               <label className="form__label">{formik.errors.email}</label>
@@ -75,15 +67,17 @@ const LogIn = () => {
               type="password"
               placeholder="Password"
               value={formik.values.password}
+              title="Password"
               onChange={formik.handleChange}
+              isActive={false}
             />
             {formik.errors.password ? (
               <label className="form__label">{formik.errors.password}</label>
             ) : (
               <label className="form__label">Enter your password</label>
             )}
+            <CommonButton title="Log In" type="submit" />
           </form>
-          <CommonButton title={'Log In'} onClick={onClickHandler} />
         </div>
         <img
           className="login__img"
