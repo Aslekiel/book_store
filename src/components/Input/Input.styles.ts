@@ -67,6 +67,7 @@ export const InputContainer = styled.div<ChangeColorType>`
       width: 100%;
       height: 64px;
       margin: 0 5px;
+      color: #344966;
 
       ::placeholder {
         color: #344966;

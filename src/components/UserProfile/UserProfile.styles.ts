@@ -18,10 +18,28 @@ export const UserProfileContainer = styled.main`
     flex-direction: column;
     justify-self: end;
     width: 82%;
-
-    &:nth-child(2) {
-    margin-bottom: 120px;
-    }
   }
+
+  form > button {
+    margin-top: 40px;
+  }
+
+  .change-password {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+
+      &__label {
+        margin: 9px 0 10px;
+
+        color: #344966;
+      }
+  }
+
+
+
+
 
 `;

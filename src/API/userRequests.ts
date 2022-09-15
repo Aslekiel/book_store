@@ -16,3 +16,27 @@ export const logIn = async (email: string, password: string): Promise<AxiosRespo
 
   return userData;
 };
+
+export const findUser = async (id: number): Promise<AxiosResponse> => {
+  const userData = await instance.post('auth/', { id });
+
+  return userData;
+};
+
+export const editUserInformation =
+  async (fullname: string, email: string): Promise<AxiosResponse> => {
+    const userData = await instance.patch('user/info', { fullname, email });
+
+    return userData;
+  };
+
+export const editUserPassword =
+  async (
+    password: string,
+    newPassword: string,
+    confirmPassword: string,
+  ): Promise<AxiosResponse> => {
+    const userData = await instance.patch('user/password', { password, newPassword, confirmPassword });
+
+    return userData;
+  };

@@ -1,5 +1,5 @@
 import type { ChangeEventHandler } from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ReactComponent as SearchLogo } from './img/search.svg';
 import { ReactComponent as EmailLogo } from './img/mail.svg';
 import { ReactComponent as HideEye } from './img/hide.svg';
@@ -35,6 +35,8 @@ export const Input: React.FC<IInput> = ({
 }) => {
   const [inputState, setInputState] = useState(false);
 
+  const [inputValue, setInputValue] = useState(value);
+
   const onFormFocus = () => { setInputState(true); };
 
   const onFormBlur = () => { setInputState(false); };
@@ -59,6 +61,17 @@ export const Input: React.FC<IInput> = ({
     }
   };
 
+  const onClickDeleteInputValue = (event: React.MouseEvent<SVGElement>) => {
+    setInputState(false);
+    event.preventDefault();
+    setInputValue('');
+  };
+
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(event);
+    setInputValue(event.currentTarget.value);
+  };
+
   return (
     <InputContainer
       onFocus={onFormFocus}
@@ -74,15 +87,12 @@ export const Input: React.FC<IInput> = ({
         name={name}
         type={hideEye ? 'text' : type}
         placeholder={placeholder}
-        value={value}
-        onChange={onChange}
+        value={inputValue}
+        onChange={onChangeInput}
         disabled={isActive}
       />
       {inputState || isActive ? <label className="input__title">{title}</label> : null}
-      {inputState && !isActive && (<CloseCross className="input__cross" onClick={() => {
-        // eslint-disable-next-line no-console
-        console.log('asd');
-      }}
+      {inputState && !isActive && (<CloseCross className="input__cross" onClick={onClickDeleteInputValue}
       />)}
     </InputContainer>
   );

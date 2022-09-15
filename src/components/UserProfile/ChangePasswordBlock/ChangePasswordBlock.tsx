@@ -1,5 +1,4 @@
 import { useFormik } from 'formik';
-import { CommonButton } from '../../CommonButton/CommonButton';
 import { Input } from '../../Input/Input';
 import { ChangePasswordBlockContainer } from './ChangePasswordBlock.styles';
 
@@ -20,7 +19,7 @@ export const ChangePasswordBlock = () => {
       <Input
         name="newPassword"
         type="password"
-        placeholder="Password"
+        placeholder="New password"
         value={formik.values.newPassword}
         onChange={formik.handleChange}
         title="New password"
@@ -53,7 +52,6 @@ export const ChangePasswordBlock = () => {
           Repeat your password without errors
         </label>
       )}
-      <CommonButton title="Confirm" />
     </ChangePasswordBlockContainer>
   );
 };

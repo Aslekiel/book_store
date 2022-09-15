@@ -9,7 +9,7 @@ const initialState: IUser = {
 };
 
 export interface IUser {
-  id?: string;
+  id?: number | string;
   fullname?: string;
   email: string;
   avatar?: string;
@@ -20,6 +20,8 @@ const user = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<IUser>) {
+      state.id = action.payload.id;
+      state.fullname = action.payload.fullname;
       state.email = action.payload.email;
     },
   },

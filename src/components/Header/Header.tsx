@@ -8,12 +8,7 @@ import { HeaderMenu } from './HeaderMenu/HeaderMenu';
 import { LoginSignupButton } from '../LogiSignupButton/LogiSignupButton';
 import { useAppSelector } from '../../store/hooks/hooks';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-type Props = {
-  auth: boolean;
-};
-
-const Header: React.FC<Props> = ({ auth }) => {
+const Header = () => {
   const user = useAppSelector((state) => state.user.email);
 
   const navigate = useNavigate();
@@ -52,9 +47,7 @@ const Header: React.FC<Props> = ({ auth }) => {
             isActive={false}
           />
         </form>
-        {(!user && !auth)
-          ? <LoginSignupButton />
-          : <HeaderMenu />}
+        {!user ? <LoginSignupButton /> : <HeaderMenu />}
       </div>
     </HeaderContainer>
   );

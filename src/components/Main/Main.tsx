@@ -5,12 +5,7 @@ import { MainContainer } from './Main.styles';
 
 import { MainCatalogBanner } from './MainCatalogBanner/MainCatalogBanner';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-type Props = {
-  auth: boolean;
-};
-
-export const Main: React.FC<Props> = ({ auth }) => {
+export const Main = () => {
   const user = useAppSelector((state) => state.user.email);
 
   return (
@@ -18,7 +13,7 @@ export const Main: React.FC<Props> = ({ auth }) => {
       <div className="main__wrapper">
         <MainCatalogBanner />
         <Catalog />
-        {!user && !auth ? <LoginSignupBanner /> : null}
+        {!user ? <LoginSignupBanner /> : null}
       </div>
     </MainContainer>
   );

@@ -16,7 +16,7 @@ export const MainCatalogBanner = () => {
         <p className="main__banner__info__text">
           Buy two books and <br /> get one for free
         </p>
-        {/* <CommonButton title={'Choose a book'} /> */}
+        <CommonButton title="Choose a book" />
       </div>
       <img
         className="main__banner__reading-girl-img"

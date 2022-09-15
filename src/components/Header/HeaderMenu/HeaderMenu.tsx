@@ -13,7 +13,8 @@ export const HeaderMenu = () => {
     <HeaderMenuContainer>
       <button
         className="header-menu__button"
-        onClick={cartPage}>
+        onClick={cartPage}
+      >
         <CartLogo className="header-menu__logo header-menu__cart" />
       </button>
       <button className="header-menu__button">
@@ -21,7 +22,8 @@ export const HeaderMenu = () => {
       </button>
       <button
         className="header-menu__button"
-        onClick={userProfilePage}>
+        onClick={userProfilePage}
+      >
         <UserLogo className="header-menu__logo header-menu__user" />
       </button>
     </HeaderMenuContainer>
