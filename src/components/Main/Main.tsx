@@ -18,7 +18,7 @@ export const Main: React.FC<Props> = ({ auth }) => {
       <div className="main__wrapper">
         <MainCatalogBanner />
         <Catalog />
-        {!user && auth && <LoginSignupBanner />}
+        {!user && !auth ? <LoginSignupBanner /> : null}
       </div>
     </MainContainer>
   );

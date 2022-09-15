@@ -52,7 +52,7 @@ const Header: React.FC<Props> = ({ auth }) => {
             isActive={false}
           />
         </form>
-        {(!user && auth)
+        {(!user && !auth)
           ? <LoginSignupButton />
           : <HeaderMenu />}
       </div>

@@ -31,10 +31,10 @@ const SignUp: React.FC = () => {
             .catch((error) => {
               (() => toast(error.response.data.message))();
             });
-          if (res?.data) {
+          if (res?.data.user) {
             homePage();
           }
-          dispatch(setUser(res?.data));
+          dispatch(setUser(res?.data.user));
         } catch (error) {
           // eslint-disable-next-line no-console
           console.log(error);

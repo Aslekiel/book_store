@@ -15,15 +15,15 @@ import { Catalog } from '../components/Catalog/Catalog';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
 
 function App() {
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
 
     if (!token) {
-      setAuth(true);
-    } else {
       setAuth(false);
+    } else {
+      setAuth(true);
     }
   }, []);
 

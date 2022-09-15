@@ -20,10 +20,7 @@ const user = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<IUser>) {
-      state.id = action.payload.id;
-      state.fullname = action.payload.fullname;
       state.email = action.payload.email;
-      state.avatar = action.payload.avatar;
     },
   },
 });

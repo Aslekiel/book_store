@@ -11,7 +11,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteType> = ({
   redirectPath, auth, children }) => {
   const user = useAppSelector((state) => state.user.email);
 
-  if (!user && auth) {
+  if (!user && !auth) {
     return <Navigate to={redirectPath} replace />;
   }
 

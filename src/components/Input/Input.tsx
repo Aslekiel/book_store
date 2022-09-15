@@ -33,7 +33,7 @@ export const Input: React.FC<IInput> = ({
   onChange,
   isActive,
 }) => {
-  const [inputState, setInputState] = useState(isActive);
+  const [inputState, setInputState] = useState(false);
 
   const onFormFocus = () => { setInputState(true); };
 
@@ -65,7 +65,6 @@ export const Input: React.FC<IInput> = ({
       onBlur={onFormBlur}
       filterLogo={inputState}
       isActive={isActive}
-      inputType={name}
     // tabIndex={1}
     >
       {type === 'password' ? <EyeLogo className="input__eye" onClick={onClickEye} />
@@ -77,13 +76,14 @@ export const Input: React.FC<IInput> = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-
+        disabled={isActive}
       />
-      {inputState && <label className="input__title">{title}</label>}
-      {inputState && !isActive && <CloseCross className="input__cross" onClick={() => {
+      {inputState || isActive ? <label className="input__title">{title}</label> : null}
+      {inputState && !isActive && (<CloseCross className="input__cross" onClick={() => {
         // eslint-disable-next-line no-console
         console.log('asd');
-      }} />}
+      }}
+      />)}
     </InputContainer>
   );
 };
