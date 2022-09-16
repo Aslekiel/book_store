@@ -1,17 +1,19 @@
 import { LoginSignupButton } from '../LogiSignupButton/LogiSignupButton';
 import { LoginSignupBannerContainer } from './LoginSignupBanner.styles';
+import castle from '../../assets/castle.png';
+import sprite from '../../assets/sprite.png';
 
 export const LoginSignupBanner = () => {
   return (
     <LoginSignupBannerContainer>
       <img
         className="banner__castle-img"
-        src="./img/castle.png"
+        src={castle}
         alt="castle-img"
       />
       <img
         className="banner__sprite-img"
-        src="./img/sprite.png"
+        src={sprite}
         alt="sprite-img"
       />
       <div className="banner__info">

@@ -10,12 +10,14 @@ export const LoginSignupButton = () => {
     <LoginSignupButtonContainer>
       <button
         className="header__button button__login"
-        onClick={loginPage}>
+        onClick={loginPage}
+      >
         Log In/
       </button>
       <button
         className="header__button button__signup"
-        onClick={signupPage}>
+        onClick={signupPage}
+      >
         Sign Up
       </button>
     </LoginSignupButtonContainer>

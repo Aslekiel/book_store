@@ -61,6 +61,20 @@ export const LogInContainer = styled.main`
     padding: 9px 0 30px;
   }
 
+  .form__label--err {
+    font-size: 14px;
+    line-height: 24px;
+    color:  #C30052;
+    padding: 9px 0 30px;
+  }
+
+  .form__label--acc {
+    font-size: 14px;
+    line-height: 24px;
+    color:  #00966D;
+    padding: 9px 0 30px;
+  }
+
   .form__label:last-child {
     padding-bottom: 0;
   }

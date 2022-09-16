@@ -1,4 +1,4 @@
-import { ReactComponent as BooksImg } from './img/books.svg';
+import { ReactComponent as BooksImg } from '../../assets/books.svg';
 import { CartContainer } from './Cart.styles';
 import { CommonButton } from '../CommonButton/CommonButton';
 
@@ -12,7 +12,7 @@ export const Cart = () => {
           Add items to cart to make a purchase.
           <br /> Go to the catalogue no.
         </p>
-        {/* <CommonButton title="Go to catalog" /> */}
+        <CommonButton title="Go to catalog" />
       </div>
     </CartContainer>
   );

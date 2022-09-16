@@ -148,6 +148,44 @@ export const InputContainer = styled.div<ChangeColorType>`
 
   }
 
+  .input__inner--err {
+    background: #FFF2F7;
+    border-radius: 16px;
+    border: 2px solid #ED2E7E;
+    padding: 18px 0 18px 64px;
+    width: 100%;
+    height: 64px;
+    margin: 0 5px;
+
+    &::placeholder {
+      color: #b9bac3;
+    }
+
+    &:focus {
+      padding: 30px 0 6px 64px;
+      outline-color: #ED2E7E;
+    }
+  }
+
+  .input__inner--acc {
+    background: #F3FDFA;
+    border-radius: 16px;
+    border: 2px solid #00BA88;
+    padding: 18px 0 18px 64px;
+    width: 100%;
+    height: 64px;
+    margin: 0 5px;
+
+    &::placeholder {
+      color: #b9bac3;
+    }
+
+    &:focus {
+      padding: 30px 0 6px 64px;
+      outline-color: #00BA88;
+    }
+  }
+
   .input__title {
     display: block;
     position: absolute;
@@ -155,6 +193,24 @@ export const InputContainer = styled.div<ChangeColorType>`
     top: 6px;
     font-size: 14px;
     color: #344966;
+  }
+
+  .input__title--err {
+    display: block;
+    position: absolute;
+    left: 69px;
+    top: 6px;
+    font-size: 14px;
+    color: #C30052;
+  }
+
+  .input__title--acc {
+    display: block;
+    position: absolute;
+    left: 69px;
+    top: 6px;
+    font-size: 14px;
+    color: #00966D;
   }
 
   .input__cross {
@@ -167,6 +223,32 @@ export const InputContainer = styled.div<ChangeColorType>`
     
     path {
       stroke: #b9bac3;
+    }
+  }
+
+  .input__cross--err {
+    display: block;
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    
+    path {
+      stroke: #C30052;
+    }
+  }
+
+  .input__cross--acc {
+    display: block;
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    
+    path {
+      stroke: #00966D;
     }
   }
 `;

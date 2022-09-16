@@ -1,12 +1,14 @@
 import { CommonButton } from '../../CommonButton/CommonButton';
 import { MainCatalogBannerContainer } from './MainCatalogBanner.styles';
+import books from '../../../assets/books.png';
+import readingGirl from '../../../assets/reading-girl.png';
 
 export const MainCatalogBanner = () => {
   return (
     <MainCatalogBannerContainer>
       <img
         className="main__banner__books-img"
-        src="./img/books.svg"
+        src={books}
         alt="books-img"
       />
       <div className="main__banner__info">
@@ -20,7 +22,7 @@ export const MainCatalogBanner = () => {
       </div>
       <img
         className="main__banner__reading-girl-img"
-        src="./img/reading-girl.svg"
+        src={readingGirl}
         alt="reding-girl-img"
       />
     </MainCatalogBannerContainer>

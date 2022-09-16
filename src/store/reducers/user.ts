@@ -1,14 +1,21 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
+interface IUser {
+  user: UserType;
+}
+
 const initialState: IUser = {
-  id: '',
-  fullname: '',
-  email: '',
-  avatar: '',
+  user: {
+    id: '',
+    fullname: '',
+    email: '',
+    avatar: '',
+  },
 };
 
-export interface IUser {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+interface UserType {
   id?: number | string;
   fullname?: string;
   email: string;
@@ -20,9 +27,7 @@ const user = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<IUser>) {
-      state.id = action.payload.id;
-      state.fullname = action.payload.fullname;
-      state.email = action.payload.email;
+      state.user = action.payload!.user;
     },
   },
 });

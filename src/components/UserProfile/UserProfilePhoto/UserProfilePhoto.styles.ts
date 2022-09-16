@@ -26,12 +26,22 @@ export const UserProfilePhotoContainer = styled.div`
         background-color: #344966;
         position: relative;
         left: 237px;
-        top: 237px;
+        top: 247px;
         color: #f0f4ef;
         border: 0;
-        padding: 24px;
+        padding: 12px 24px;
         border-radius: 50%;
         cursor: pointer;
+
+        &-load {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
       }
 
       &__camera-logo {

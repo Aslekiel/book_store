@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { HeaderMenuContainer } from './HeaderMenu.styles';
-import { ReactComponent as CartLogo } from '../img/cart.svg';
-import { ReactComponent as HeartLogo } from '../img/heart.svg';
-import { ReactComponent as UserLogo } from '../img/user profile.svg';
+import { ReactComponent as CartLogo } from '../../../assets/cart.svg';
+import { ReactComponent as HeartLogo } from '../../../assets/heart.svg';
+import { ReactComponent as UserLogo } from '../../../assets/user profile.svg';
 
 export const HeaderMenu = () => {
   const navigate = useNavigate();

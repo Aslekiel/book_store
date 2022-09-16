@@ -8,7 +8,7 @@ type ProtectedRouteType = {
 
 export const ProtectedRoute: React.FC<ProtectedRouteType> = ({
   redirectPath, children }) => {
-  const user = useAppSelector((state) => state.user.email);
+  const user = useAppSelector((state) => state.user.user.email);
 
   if (!user) {
     return <Navigate to={redirectPath} replace />;

@@ -6,7 +6,7 @@ import { MainContainer } from './Main.styles';
 import { MainCatalogBanner } from './MainCatalogBanner/MainCatalogBanner';
 
 export const Main = () => {
-  const user = useAppSelector((state) => state.user.email);
+  const user = useAppSelector((state) => state.user.user.email);
 
   return (
     <MainContainer>

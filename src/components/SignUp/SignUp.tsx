@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import { useAppDispatch } from '../../store/hooks/hooks';
 import { setUser } from '../../store/reducers/user';
 import { CommonButton } from '../CommonButton/CommonButton';
@@ -9,7 +10,8 @@ import { Input } from '../Input/Input';
 import { SignUpContainer } from './SignUp.styles';
 import 'react-toastify/dist/ReactToastify.css';
 import { signUp } from '../../API/userRequests';
-import { SignupSchema } from '../../Schemas/SignupSchema';
+import { signupSchema } from '../../Schemas/signupSchema';
+import { ReactComponent as ReadingMan } from '../../assets/login-signup-man.svg';
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -23,19 +25,19 @@ const SignUp: React.FC = () => {
       password: '',
       confirmPassword: '',
     },
-    validationSchema: SignupSchema,
+    validationSchema: signupSchema,
     onSubmit: async () => {
       if (formik.values.password === formik.values.confirmPassword) {
         try {
-          const res = await signUp(formik.values.email, formik.values.password)
-            .catch((error) => {
-              (() => toast(error.response.data.message))();
-            });
-          if (res?.data.user) {
+          const res = await signUp(formik.values.email, formik.values.password);
+          if (res?.data) {
             homePage();
           }
-          dispatch(setUser(res?.data.user));
+          dispatch(setUser(res?.data));
         } catch (error) {
+          if (error instanceof AxiosError) {
+            return toast(error.response?.data.message);
+          }
           // eslint-disable-next-line no-console
           console.log(error);
         }
@@ -61,11 +63,13 @@ const SignUp: React.FC = () => {
               title="Email"
               onChange={formik.handleChange}
               isActive={false}
+              isError={!!formik.errors.email}
+              defaultClassState
             />
-            {formik.errors.email ? (
-              <label className="form__label">{formik.errors.email}</label>
+            {formik.errors.email && formik.values.email ? (
+              <label className="form__label--err">{formik.errors.email}</label>
             ) : (
-              <label className="form__label">Enter your email</label>
+              <label className={!formik.values.email ? 'form__label' : 'form__label--acc'}>Enter your email</label>
             )}
             <Input
               name="password"
@@ -75,11 +79,13 @@ const SignUp: React.FC = () => {
               title="Password"
               onChange={formik.handleChange}
               isActive={false}
+              isError={!!formik.errors.password}
+              defaultClassState
             />
-            {formik.errors.password ? (
-              <label className="form__label">{formik.errors.password}</label>
+            {formik.errors.password && formik.values.password ? (
+              <label className="form__label--err">{formik.errors.password}</label>
             ) : (
-              <label className="form__label">Enter your password</label>
+              <label className={!formik.values.password ? 'form__label' : 'form__label--acc'}>Enter your password</label>
             )}
             <Input
               name="confirmPassword"
@@ -89,24 +95,22 @@ const SignUp: React.FC = () => {
               title="Password replay"
               onChange={formik.handleChange}
               isActive={false}
+              isError={!!formik.errors.confirmPassword}
+              defaultClassState
             />
-            {formik.errors.confirmPassword ? (
-              <label className="form__label">
+            {formik.errors.confirmPassword && formik.values.confirmPassword ? (
+              <label className="form__label--err">
                 {formik.errors.confirmPassword}
               </label>
             ) : (
-              <label className="form__label">
+              <label className={!formik.values.confirmPassword ? 'form__label' : 'form__label--acc'}>
                 Repeat your password without errors
               </label>
             )}
             <CommonButton title="Sign Up" type="submit" />
           </form>
         </div>
-        <img
-          className="signup__img"
-          src="./img/login-signup-man.svg"
-          alt="reading man"
-        />
+        <ReadingMan className="signup__img" />
       </div>
       <ToastContainer />
     </SignUpContainer>

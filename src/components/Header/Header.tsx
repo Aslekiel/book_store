@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
-import { ReactComponent as HeaderLogo } from './img/logo.svg';
+import { ReactComponent as HeaderLogo } from '../../assets/logo.svg';
 import { Input } from '../Input/Input';
 import { HeaderContainer } from './Header.styles';
 
@@ -9,7 +9,7 @@ import { LoginSignupButton } from '../LogiSignupButton/LogiSignupButton';
 import { useAppSelector } from '../../store/hooks/hooks';
 
 const Header = () => {
-  const user = useAppSelector((state) => state.user.email);
+  const user = useAppSelector((state) => state.user.user.email);
 
   const navigate = useNavigate();
   const homePage = () => navigate('/');
@@ -45,6 +45,7 @@ const Header = () => {
             title="Search"
             onChange={formik.handleChange}
             isActive={false}
+            defaultClassState={false}
           />
         </form>
         {!user ? <LoginSignupButton /> : <HeaderMenu />}

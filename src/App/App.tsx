@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { RotatingLines } from 'react-loader-spinner';
+import { AxiosError } from 'axios';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import Main from '../components/Main/Main';
@@ -15,15 +15,9 @@ import { Cart } from '../components/Cart/Cart';
 import { UserProfile } from '../components/UserProfile/UserProfile';
 import { Catalog } from '../components/Catalog/Catalog';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
-import { findUser } from '../API/userRequests';
 import { setUser } from '../store/reducers/user';
 import { useAppDispatch } from '../store/hooks/hooks';
-
-type DecodedTokenType = {
-  id: number;
-  iat: number;
-  exp: number;
-};
+import { checkUser } from '../API/userRequests';
 
 function App() {
   const [isInit, setIsInit] = useState(false);
@@ -34,13 +28,18 @@ function App() {
     if (!token) {
       setIsInit(true);
     } else {
-      const decoded: DecodedTokenType = jwt_decode(token);
       (async () => {
-        const res = await findUser(decoded.id).catch((error) => {
-          (() => toast(error.response.data.message))();
-        });
-        dispatch(setUser(res?.data));
-        setIsInit(true);
+        try {
+          const res = await checkUser();
+          dispatch(setUser(res.data));
+          setIsInit(true);
+        } catch (error) {
+          if (error instanceof AxiosError) {
+            return toast(error.response?.data.message);
+          }
+          // eslint-disable-next-line no-console
+          console.log(error);
+        }
       })();
     }
   }, [dispatch]);

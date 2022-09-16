@@ -12,10 +12,8 @@ export const MainCatalogBannerContainer = styled.section`
   
   .main__banner__books-img {
     left: 0;
-    top: 155px;
-    /* width: 45%; */
+    top: 135px;
     position: absolute;
-    opacity: 0.2;
   }
 
   .main__banner__info {

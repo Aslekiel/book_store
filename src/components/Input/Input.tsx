@@ -1,11 +1,11 @@
 import type { ChangeEventHandler } from 'react';
 import React, { useState } from 'react';
-import { ReactComponent as SearchLogo } from './img/search.svg';
-import { ReactComponent as EmailLogo } from './img/mail.svg';
-import { ReactComponent as HideEye } from './img/hide.svg';
-import { ReactComponent as OpenEye } from './img/view.svg';
-import { ReactComponent as CloseCross } from './img/close.svg';
-import { ReactComponent as UserProfile } from './img/user profile.svg';
+import { ReactComponent as SearchLogo } from '../../assets/search.svg';
+import { ReactComponent as EmailLogo } from '../../assets/mail.svg';
+import { ReactComponent as HideEye } from '../../assets/hide.svg';
+import { ReactComponent as OpenEye } from '../../assets/view.svg';
+import { ReactComponent as CloseCross } from '../../assets/close.svg';
+import { ReactComponent as UserProfile } from '../../assets/user profile-2.svg';
 import { InputContainer } from './Input.styles';
 
 interface IInput {
@@ -16,6 +16,8 @@ interface IInput {
   title: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   isActive: boolean;
+  isError?: boolean;
+  defaultClassState?: boolean;
 }
 
 type LogosType = {
@@ -32,10 +34,16 @@ export const Input: React.FC<IInput> = ({
   title,
   onChange,
   isActive,
+  isError,
+  defaultClassState,
 }) => {
   const [inputState, setInputState] = useState(false);
 
   const [inputValue, setInputValue] = useState(value);
+
+  const inputMod = isError ? 'err' : 'acc';
+
+  const defaultClass = defaultClassState ? !inputValue : true;
 
   const onFormFocus = () => { setInputState(true); };
 
@@ -83,7 +91,7 @@ export const Input: React.FC<IInput> = ({
       {type === 'password' ? <EyeLogo className="input__eye" onClick={onClickEye} />
         : <InputLogo className="input__general" />}
       <input
-        className="input__inner"
+        className={defaultClass ? 'input__inner' : `input__inner--${inputMod}`}
         name={name}
         type={hideEye ? 'text' : type}
         placeholder={placeholder}
@@ -91,9 +99,15 @@ export const Input: React.FC<IInput> = ({
         onChange={onChangeInput}
         disabled={isActive}
       />
-      {inputState || isActive ? <label className="input__title">{title}</label> : null}
-      {inputState && !isActive && (<CloseCross className="input__cross" onClick={onClickDeleteInputValue}
-      />)}
-    </InputContainer>
+      {inputState || isActive
+        ? (<label className={defaultClass ? 'input__title' : `input__title--${inputMod}`}>{title}</label>) : null
+      }
+      {
+        inputState && !isActive && (
+          <CloseCross className={defaultClass ? 'input__cross' : `input__cross--${inputMod}`}
+            onClick={onClickDeleteInputValue}
+          />)
+      }
+    </InputContainer >
   );
 };

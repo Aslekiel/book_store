@@ -5,7 +5,16 @@ export const ChangePasswordBlockContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+
     margin-top: 20px;
+
+    .change-password__info {
+      display: flex;
+      flex-direction: column;
+      justify-self: end;
+      
+      width: 100%;
+    }
 
     .change-password__label {
       margin: 9px 0 10px;

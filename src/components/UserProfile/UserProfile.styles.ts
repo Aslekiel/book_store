@@ -13,11 +13,20 @@ export const UserProfileContainer = styled.main`
     width: 1290px;
   }
 
+  .info__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    justify-self: end;
+    width: 82%;
+  }
+
   .user-profile__info {
     display: flex;
     flex-direction: column;
-    justify-self: end;
-    width: 82%;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
   }
 
   form > button {

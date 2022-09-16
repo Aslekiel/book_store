@@ -1,9 +1,16 @@
-export type ResDataType = {
-  accessToken: string;
-  data: UserType;
-};
+export interface IResDataType {
+  user: IUserType;
+}
 
-export type UserType = {
+interface IUserType {
+  id?: number | string;
+  fullname?: string;
   email: string;
-  password: string;
+  avatar?: string;
+}
+
+export type UserPasswordsType = {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
 };

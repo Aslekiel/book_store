@@ -1,13 +1,15 @@
 import { useFormik } from 'formik';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import { CommonButton } from '../CommonButton/CommonButton';
 import { Input } from '../Input/Input';
 import { LogInContainer } from './LogIn.styles';
 import { logIn } from '../../API/userRequests';
 import { useAppDispatch } from '../../store/hooks/hooks';
 import { setUser } from '../../store/reducers/user';
-import { LogInSchema } from '../../Schemas/LogInSchema';
+import { logInSchema } from '../../Schemas/logInSchema';
+import { ReactComponent as ReadingMan } from '../../assets/login-signup-man.svg';
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -20,18 +22,18 @@ const LogIn = () => {
       email: '',
       password: '',
     },
-    validationSchema: LogInSchema,
+    validationSchema: logInSchema,
     onSubmit: async () => {
       try {
-        const res = await logIn(formik.values.email, formik.values.password)
-          .catch((error) => {
-            (() => toast(error.response.data.message))();
-          });
-        if (res?.data.user) {
+        const res = await logIn(formik.values.email, formik.values.password);
+        if (res?.data) {
           homePage();
         }
-        dispatch(setUser(res?.data.user));
+        dispatch(setUser(res.data));
       } catch (error) {
+        if (error instanceof AxiosError) {
+          return toast(error.response?.data.message);
+        }
         // eslint-disable-next-line no-console
         console.log(error);
       }
@@ -56,11 +58,15 @@ const LogIn = () => {
               onChange={formik.handleChange}
               title="Email"
               isActive={false}
+              isError={!!formik.errors.email}
+              defaultClassState
             />
-            {formik.errors.email ? (
-              <label className="form__label">{formik.errors.email}</label>
+            {formik.errors.email && formik.values.email ? (
+              <label className="form__label--err">{formik.errors.email}</label>
             ) : (
-              <label className="form__label">Enter your email</label>
+              <label className={!formik.values.email ? 'form__label' : 'form__label--acc'}>
+                Enter your email
+              </label>
             )}
             <Input
               name="password"
@@ -70,20 +76,20 @@ const LogIn = () => {
               title="Password"
               onChange={formik.handleChange}
               isActive={false}
+              isError={!!formik.errors.password}
+              defaultClassState
             />
-            {formik.errors.password ? (
-              <label className="form__label">{formik.errors.password}</label>
+            {formik.errors.password && formik.values.password ? (
+              <label className="form__label--err">{formik.errors.password}</label>
             ) : (
-              <label className="form__label">Enter your password</label>
+              <label className={!formik.values.password ? 'form__label' : 'form__label--acc'}>
+                Enter your password
+              </label>
             )}
             <CommonButton title="Log In" type="submit" />
           </form>
         </div>
-        <img
-          className="login__img"
-          src="./img/login-signup-man.svg"
-          alt="reading man"
-        />
+        <ReadingMan className="login__img" />
       </div>
       <ToastContainer />
     </LogInContainer>
