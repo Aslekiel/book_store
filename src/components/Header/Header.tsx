@@ -9,10 +9,9 @@ import { LoginSignupButton } from '../LogiSignupButton/LogiSignupButton';
 import { useAppSelector } from '../../store/hooks/hooks';
 
 const Header = () => {
-  const user = useAppSelector((state) => state.user.user.email);
+  const user = useAppSelector((state) => state.user.user?.email);
 
   const navigate = useNavigate();
-  const homePage = () => navigate('/');
 
   const formik = useFormik({
     initialValues: {
@@ -30,7 +29,7 @@ const Header = () => {
         <nav className="header__nav">
           <HeaderLogo
             className="header__logo"
-            onClick={homePage}
+            onClick={() => navigate('/')}
           />
           <Link className="header__catalog" to="/catalog">
             Catalog

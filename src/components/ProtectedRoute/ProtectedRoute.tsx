@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks/hooks';
 
 type ProtectedRouteType = {
@@ -8,10 +8,11 @@ type ProtectedRouteType = {
 
 export const ProtectedRoute: React.FC<ProtectedRouteType> = ({
   redirectPath, children }) => {
-  const user = useAppSelector((state) => state.user.user.email);
+  const location = useLocation();
+  const user = useAppSelector((state) => state.user.user?.email);
 
   if (!user) {
-    return <Navigate to={redirectPath} replace />;
+    return <Navigate to={redirectPath} state={{ path: location.pathname }} />;
   }
 
   return children;

@@ -80,18 +80,28 @@ export const Input: React.FC<IInput> = ({
     setInputValue(event.currentTarget.value);
   };
 
+  const onKeyPressed = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      setInputState(false);
+    }
+  };
+
   return (
     <InputContainer
       onFocus={onFormFocus}
       onBlur={onFormBlur}
+      onKeyDown={onKeyPressed}
       filterLogo={inputState}
       isActive={isActive}
-    // tabIndex={1}
     >
-      {type === 'password' ? <EyeLogo className="input__eye" onClick={onClickEye} />
+      {type === 'password'
+        ? (<EyeLogo className="input__eye" onClick={onClickEye} />)
         : <InputLogo className="input__general" />}
       <input
-        className={defaultClass ? 'input__inner' : `input__inner--${inputMod}`}
+        className={defaultClass
+          ? 'input__inner'
+          : `input__inner--${inputMod}`
+        }
         name={name}
         type={hideEye ? 'text' : type}
         placeholder={placeholder}
@@ -100,11 +110,22 @@ export const Input: React.FC<IInput> = ({
         disabled={isActive}
       />
       {inputState || isActive
-        ? (<label className={defaultClass ? 'input__title' : `input__title--${inputMod}`}>{title}</label>) : null
+        ? (
+          <label
+            className={defaultClass
+              ? 'input__title'
+              : `input__title--${inputMod}`
+            }
+          > {title}
+          </label>
+        ) : null
       }
       {
-        inputState && !isActive && (
-          <CloseCross className={defaultClass ? 'input__cross' : `input__cross--${inputMod}`}
+        inputValue && !isActive && (
+          <CloseCross className={defaultClass
+            ? 'input__cross'
+            : `input__cross--${inputMod}`
+          }
             onClick={onClickDeleteInputValue}
           />)
       }

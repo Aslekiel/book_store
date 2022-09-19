@@ -6,25 +6,31 @@ import { ReactComponent as UserLogo } from '../../../assets/user profile.svg';
 
 export const HeaderMenu = () => {
   const navigate = useNavigate();
-  const cartPage = () => navigate('/cart');
-  const userProfilePage = () => navigate('/user-profile');
 
   return (
     <HeaderMenuContainer>
       <button
         className="header-menu__button"
-        onClick={cartPage}
+        onClick={() => navigate('/cart')}
       >
-        <CartLogo className="header-menu__logo header-menu__cart" />
-      </button>
-      <button className="header-menu__button">
-        <HeartLogo className="header-menu__logo header-menu__heart" />
+        <CartLogo
+          className="header-menu__logo header-menu__cart"
+        />
       </button>
       <button
         className="header-menu__button"
-        onClick={userProfilePage}
       >
-        <UserLogo className="header-menu__logo header-menu__user" />
+        <HeartLogo
+          className="header-menu__logo header-menu__heart"
+        />
+      </button>
+      <button
+        className="header-menu__button"
+        onClick={() => navigate('/user-profile')}
+      >
+        <UserLogo
+          className="header-menu__logo header-menu__user"
+        />
       </button>
     </HeaderMenuContainer>
   );

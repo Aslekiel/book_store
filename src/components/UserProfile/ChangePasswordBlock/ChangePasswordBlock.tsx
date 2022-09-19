@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { editUserPassword } from '../../../API/userRequests';
 import { editPasswordSchema } from '../../../Schemas/editPasswordSchema';
 import { useAppDispatch } from '../../../store/hooks/hooks';
-import { setUser } from '../../../store/reducers/user';
+import { setUser } from '../../../store/user/user';
 import { CommonButton } from '../../CommonButton/CommonButton';
 import { Input } from '../../Input/Input';
 import { UserProfileCaption } from '../UserProfileCaption/UserProfileCaption';
@@ -32,9 +32,8 @@ export const ChangePasswordBlock = () => {
 
         const res = await editUserPassword(options);
 
-        setChangePassword(true);
-
         dispatch(setUser(res?.data));
+        setChangePassword(true);
       } catch (error) {
         if (error instanceof AxiosError) {
           return toast(error.response?.data.message);
@@ -49,12 +48,7 @@ export const ChangePasswordBlock = () => {
     event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault();
-
-    if (!changePassword) {
-      setChangePassword(true);
-    } else {
-      setChangePassword(false);
-    }
+    setChangePassword(!changePassword);
   };
 
   return (

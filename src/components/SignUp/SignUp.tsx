@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { useAppDispatch } from '../../store/hooks/hooks';
-import { setUser } from '../../store/reducers/user';
+import { setUser } from '../../store/user/user';
 import { CommonButton } from '../CommonButton/CommonButton';
 import { Input } from '../Input/Input';
 import { SignUpContainer } from './SignUp.styles';
@@ -15,7 +15,6 @@ import { ReactComponent as ReadingMan } from '../../assets/login-signup-man.svg'
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
-  const homePage = () => navigate('/');
 
   const dispatch = useAppDispatch();
 
@@ -31,7 +30,7 @@ const SignUp: React.FC = () => {
         try {
           const res = await signUp(formik.values.email, formik.values.password);
           if (res?.data) {
-            homePage();
+            navigate(-1);
           }
           dispatch(setUser(res?.data));
         } catch (error) {

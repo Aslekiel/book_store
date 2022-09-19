@@ -17,6 +17,8 @@ export const UserProfileCaptionContainer = styled.div`
       font-weight: 500;
       font-size: 20px;
       line-height: 30px;
+
+      margin-right: 10px;
     }
 
     .caption__link {

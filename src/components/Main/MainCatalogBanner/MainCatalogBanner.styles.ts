@@ -8,7 +8,7 @@ export const MainCatalogBannerContainer = styled.section`
   position: relative;
   overflow: hidden;
   padding: 0 98px 0 108px;
-  background: url('./img/bg_banner.svg') no-repeat;
+  background-color: #F0F4EF;
   
   .main__banner__books-img {
     left: 0;

@@ -6,10 +6,10 @@ export const LoginSignupBannerContainer = styled.section`
   justify-content: space-between;
   align-items: center;
   position: relative;
-  margin: 30px 0 44px;
-  padding: 0 108px;
-  background: url('./img/bg_banner.svg') no-repeat;
-  background-position-y: 62px;
+  margin-top: 62px;
+  padding: 0 108px 62px;
+  background-color: #F0F4EF;
+  height: 400px;
 
   .banner__castle-img {
     z-index: 10;
@@ -38,7 +38,8 @@ export const LoginSignupBannerContainer = styled.section`
   }
   .banner__sprite-img {
     position: absolute;
+    overflow: hidden;
     right: 0;
-    top: 0;
+    top: -62px;
   }
 `;

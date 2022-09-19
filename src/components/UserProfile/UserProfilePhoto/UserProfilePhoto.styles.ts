@@ -6,6 +6,10 @@ export const UserProfilePhotoContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
 
+    > button {
+      margin-top: 20px;
+    }
+
     .user-photo {
       width: 305px;
       height: 305px;
@@ -13,10 +17,12 @@ export const UserProfilePhotoContainer = styled.div`
       position: relative;
       border-radius: 16px;
 
-      margin-bottom: 20px;
+      position: relative;
 
         &__user-logo {
         position: absolute;
+        width: inherit;
+        height: inherit;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
@@ -24,12 +30,12 @@ export const UserProfilePhotoContainer = styled.div`
 
       &__button {
         background-color: #344966;
-        position: relative;
+        position: absolute;
         left: 237px;
-        top: 247px;
+        top: 237px;
         color: #f0f4ef;
         border: 0;
-        padding: 12px 24px;
+        padding: 24px;
         border-radius: 50%;
         cursor: pointer;
 

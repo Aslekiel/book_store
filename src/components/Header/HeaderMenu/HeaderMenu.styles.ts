@@ -5,6 +5,7 @@ export const HeaderMenuContainer = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+  
   .header-menu__button {
     background-color: #344966;
     position: relative;

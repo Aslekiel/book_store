@@ -15,7 +15,7 @@ import { Cart } from '../components/Cart/Cart';
 import { UserProfile } from '../components/UserProfile/UserProfile';
 import { Catalog } from '../components/Catalog/Catalog';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
-import { setUser } from '../store/reducers/user';
+import { setUser } from '../store/user/user';
 import { useAppDispatch } from '../store/hooks/hooks';
 import { checkUser } from '../API/userRequests';
 
@@ -67,15 +67,15 @@ function App() {
           // (
           //   <ProtectedRoute redirectPath="/user-profile">
           <Login />
-          //   {/* </ProtectedRoute>
-          // ) */}
+          //   </ProtectedRoute>
+          // )
         }
         />
         <Route path="/signup" element={
           // (
-          // <ProtectedRoute redirectPath="/user-profile">
+          //   <ProtectedRoute redirectPath="/user-profile">
           <SignUp />
-          //  </ProtectedRoute>
+          //   </ProtectedRoute>
           // )
         }
         />

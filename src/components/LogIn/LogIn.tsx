@@ -7,13 +7,12 @@ import { Input } from '../Input/Input';
 import { LogInContainer } from './LogIn.styles';
 import { logIn } from '../../API/userRequests';
 import { useAppDispatch } from '../../store/hooks/hooks';
-import { setUser } from '../../store/reducers/user';
+import { setUser } from '../../store/user/user';
 import { logInSchema } from '../../Schemas/logInSchema';
 import { ReactComponent as ReadingMan } from '../../assets/login-signup-man.svg';
 
 const LogIn = () => {
   const navigate = useNavigate();
-  const homePage = () => navigate('/');
 
   const dispatch = useAppDispatch();
 
@@ -27,7 +26,7 @@ const LogIn = () => {
       try {
         const res = await logIn(formik.values.email, formik.values.password);
         if (res?.data) {
-          homePage();
+          navigate(-1);
         }
         dispatch(setUser(res.data));
       } catch (error) {

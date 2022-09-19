@@ -1,9 +1,12 @@
-import { CatalogFilter } from './CatalogFilter/CatalogFilter';
+import { CatalogContainer } from './CatalogContainer.styles';
+import { CatalogFilters } from './CatalogFilters/CatalogFilter';
+import { Pagination } from './Pagination/Pagination';
 
 export const Catalog = () => {
   return (
-    <section>
-      <CatalogFilter />
-    </section>
+    <CatalogContainer>
+      <CatalogFilters />
+      <Pagination />
+    </CatalogContainer>
   );
 };

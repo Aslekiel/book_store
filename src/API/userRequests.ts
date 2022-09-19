@@ -44,3 +44,10 @@ export const checkUser = async (): Promise<AxiosResponse<IResDataType>> => {
 
   return userData;
 };
+
+export const uploadAvatar =
+  async (avatar: string | ArrayBuffer): Promise<AxiosResponse<IResDataType>> => {
+    const userData = await instance.post('user/upload', { avatar });
+
+    return userData;
+  };

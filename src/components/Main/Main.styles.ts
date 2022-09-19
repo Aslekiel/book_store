@@ -7,7 +7,9 @@ export const MainContainer = styled.main`
   align-items: center;
   width: 100%;
   padding: 40px 5px 110px;
+  
   .main__wrapper {
-    width: 1290px;
+    max-width: 1290px;
+    width: 100%;
   }
 `;

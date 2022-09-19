@@ -7,7 +7,7 @@ import { UserProfileContainer } from './UserProfile.styles';
 import { UserProfilePhoto } from './UserProfilePhoto/UserProfilePhoto';
 import { UserProfileCaption } from './UserProfileCaption/UserProfileCaption';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
-import { setUser } from '../../store/reducers/user';
+import { setUser } from '../../store/user/user';
 import { editUserInformation } from '../../API/userRequests';
 import { CommonButton } from '../CommonButton/CommonButton';
 import { editInfoSchema } from '../../Schemas/editInfoSchema';
@@ -46,11 +46,7 @@ export const UserProfile = () => {
     event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault();
-    if (!changeInformation) {
-      setChangeInformation(true);
-    } else {
-      setChangeInformation(false);
-    }
+    setChangeInformation(!changeInformation);
   };
 
   return (
@@ -58,7 +54,7 @@ export const UserProfile = () => {
       <div className="user-profile__wrapper">
         <UserProfilePhoto />
         <div className="info__wrapper">
-          <form className="user-profile__info" method="patch" onSubmit={formik.handleSubmit}>
+          <form className="user-profile__info" onSubmit={formik.handleSubmit}>
             <UserProfileCaption
               captionTitle="Personal information"
               onClick={onClickChangeInformation}
