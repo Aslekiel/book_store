@@ -6,7 +6,7 @@ export const LoginSignupBannerContainer = styled.section`
   justify-content: space-between;
   align-items: center;
   position: relative;
-  margin-top: 62px;
+  margin-top: 100px;
   padding: 0 108px 62px;
   background-color: #F0F4EF;
   height: 400px;

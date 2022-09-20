@@ -95,7 +95,10 @@ export const Input: React.FC<IInput> = ({
       isActive={isActive}
     >
       {type === 'password'
-        ? (<EyeLogo className="input__eye" onClick={onClickEye} />)
+        ? (<EyeLogo
+          className="input__eye"
+          onClick={onClickEye}
+        />)
         : <InputLogo className="input__general" />}
       <input
         className={defaultClass
@@ -122,10 +125,12 @@ export const Input: React.FC<IInput> = ({
       }
       {
         inputValue && !isActive && (
-          <CloseCross className={defaultClass
-            ? 'input__cross'
-            : `input__cross--${inputMod}`
-          }
+          <CloseCross
+            className={
+              defaultClass
+                ? 'input__cross'
+                : `input__cross--${inputMod}`
+            }
             onClick={onClickDeleteInputValue}
           />)
       }

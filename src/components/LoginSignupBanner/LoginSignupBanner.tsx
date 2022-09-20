@@ -17,7 +17,9 @@ export const LoginSignupBanner = () => {
         alt="sprite-img"
       />
       <div className="banner__info">
-        <h1 className="banner__info__title">Authorize now</h1>
+        <h1 className="banner__info__title">
+          Authorize now
+        </h1>
         <p className="banner__info__text">
           Authorize now and discover the fabulous <br /> world of books
         </p>

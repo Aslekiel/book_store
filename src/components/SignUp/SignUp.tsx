@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { useAppDispatch } from '../../store/hooks/hooks';
 import { setUser } from '../../store/user/user';
@@ -9,14 +9,22 @@ import { CommonButton } from '../CommonButton/CommonButton';
 import { Input } from '../Input/Input';
 import { SignUpContainer } from './SignUp.styles';
 import 'react-toastify/dist/ReactToastify.css';
-import { signUp } from '../../API/userRequests';
+import { signUp } from '../../api/userRequests';
 import { signupSchema } from '../../Schemas/signupSchema';
 import { ReactComponent as ReadingMan } from '../../assets/login-signup-man.svg';
 
+interface ILocationStateType {
+  from: { pathname: string };
+}
+
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const dispatch = useAppDispatch();
+
+  const locationState = location.state as ILocationStateType;
+
+  const from = locationState?.from?.pathname || '/';
 
   const formik = useFormik({
     initialValues: {
@@ -30,7 +38,7 @@ const SignUp: React.FC = () => {
         try {
           const res = await signUp(formik.values.email, formik.values.password);
           if (res?.data) {
-            navigate(-1);
+            navigate(from, { replace: true });
           }
           dispatch(setUser(res?.data));
         } catch (error) {
@@ -48,7 +56,9 @@ const SignUp: React.FC = () => {
     <SignUpContainer>
       <div className="signup__wrapper">
         <div className="signup__registration">
-          <h1 className="signup__title">Sign Up</h1>
+          <h1 className="signup__title">
+            Sign Up
+          </h1>
           <form
             className="signup__form"
             method="post"
@@ -65,11 +75,23 @@ const SignUp: React.FC = () => {
               isError={!!formik.errors.email}
               defaultClassState
             />
-            {formik.errors.email && formik.values.email ? (
-              <label className="form__label--err">{formik.errors.email}</label>
-            ) : (
-              <label className={!formik.values.email ? 'form__label' : 'form__label--acc'}>Enter your email</label>
-            )}
+            {formik.errors.email && formik.values.email
+              ? (
+                <label
+                  className="form__label--err"
+                >
+                  {formik.errors.email}
+                </label>
+              ) : (
+                <label
+                  className={
+                    !formik.values.email
+                      ? 'form__label'
+                      : 'form__label--acc'}
+                >
+                  Enter your email
+                </label>
+              )}
             <Input
               name="password"
               type="password"
@@ -81,11 +103,24 @@ const SignUp: React.FC = () => {
               isError={!!formik.errors.password}
               defaultClassState
             />
-            {formik.errors.password && formik.values.password ? (
-              <label className="form__label--err">{formik.errors.password}</label>
-            ) : (
-              <label className={!formik.values.password ? 'form__label' : 'form__label--acc'}>Enter your password</label>
-            )}
+            {formik.errors.password && formik.values.password
+              ? (
+                <label
+                  className="form__label--err"
+                >
+                  {formik.errors.password}
+                </label>
+              ) : (
+                <label
+                  className={
+                    !formik.values.password
+                      ? 'form__label'
+                      : 'form__label--acc'
+                  }
+                >
+                  Enter your password
+                </label>
+              )}
             <Input
               name="confirmPassword"
               type="password"
@@ -97,19 +132,32 @@ const SignUp: React.FC = () => {
               isError={!!formik.errors.confirmPassword}
               defaultClassState
             />
-            {formik.errors.confirmPassword && formik.values.confirmPassword ? (
-              <label className="form__label--err">
-                {formik.errors.confirmPassword}
-              </label>
-            ) : (
-              <label className={!formik.values.confirmPassword ? 'form__label' : 'form__label--acc'}>
-                Repeat your password without errors
-              </label>
-            )}
-            <CommonButton title="Sign Up" type="submit" />
+            {formik.errors.confirmPassword && formik.values.confirmPassword
+              ? (
+                <label
+                  className="form__label--err"
+                >
+                  {formik.errors.confirmPassword}
+                </label>
+              ) : (
+                <label
+                  className={
+                    !formik.values.confirmPassword
+                      ? 'form__label'
+                      : 'form__label--acc'}
+                >
+                  Repeat your password without errors
+                </label>
+              )}
+            <CommonButton
+              title="Sign Up"
+              type="submit"
+            />
           </form>
         </div>
-        <ReadingMan className="signup__img" />
+        <ReadingMan
+          className="signup__img"
+        />
       </div>
       <ToastContainer />
     </SignUpContainer>

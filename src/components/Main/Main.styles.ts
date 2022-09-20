@@ -6,7 +6,7 @@ export const MainContainer = styled.main`
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 40px 5px 110px;
+  padding: 40px 5px 0;
   
   .main__wrapper {
     max-width: 1290px;

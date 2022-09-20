@@ -2,17 +2,30 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks/hooks';
 
 type ProtectedRouteType = {
-  redirectPath: string;
+  isInit?: boolean;
   children: JSX.Element;
 };
 
-export const ProtectedRoute: React.FC<ProtectedRouteType> = ({
-  redirectPath, children }) => {
+interface ILocationStateType {
+  from: { pathname: string };
+}
+
+export const ProtectedRoute: React.FC<ProtectedRouteType> = ({ isInit, children }) => {
   const location = useLocation();
+  const locationState = location.state as ILocationStateType;
+  const from = locationState?.from?.pathname || '/';
+
   const user = useAppSelector((state) => state.user.user?.email);
 
-  if (!user) {
-    return <Navigate to={redirectPath} state={{ path: location.pathname }} />;
+  if (!isInit) {
+    if (!user) {
+      return <Navigate to="/login" state={{ from: location }} replace />;
+    }
+    return children;
+  }
+
+  if (user) {
+    return <Navigate to={from} state={{ from: location }} replace />;
   }
 
   return children;

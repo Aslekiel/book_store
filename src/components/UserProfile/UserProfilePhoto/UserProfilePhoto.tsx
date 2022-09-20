@@ -8,7 +8,7 @@ import { ReactComponent as CameraLogo } from '../../../assets/camera.svg';
 import { CommonButton } from '../../CommonButton/CommonButton';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
 import { setUser } from '../../../store/user/user';
-import { uploadAvatar } from '../../../API/userRequests';
+import { uploadAvatar } from '../../../api/userRequests';
 
 export const UserProfilePhoto = () => {
   const user = useAppSelector((state) => state.user.user);
@@ -57,11 +57,16 @@ export const UserProfilePhoto = () => {
               type="file"
               onChange={handleImageChange}
             />
-            <CameraLogo className="user-photo__camera-logo" />
+            <CameraLogo
+              className="user-photo__camera-logo"
+            />
           </label>
         </form>
       </div>
-      <CommonButton title="Log Out" onClick={onClickLogOut} />
+      <CommonButton
+        title="Log Out"
+        onClick={onClickLogOut}
+      />
     </UserProfilePhotoContainer>
   );
 };

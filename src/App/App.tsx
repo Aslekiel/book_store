@@ -17,7 +17,7 @@ import { Catalog } from '../components/Catalog/Catalog';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
 import { setUser } from '../store/user/user';
 import { useAppDispatch } from '../store/hooks/hooks';
-import { checkUser } from '../API/userRequests';
+import { checkUser } from '../api/userRequests';
 
 function App() {
   const [isInit, setIsInit] = useState(false);
@@ -64,24 +64,24 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={
-          // (
-          //   <ProtectedRoute redirectPath="/user-profile">
-          <Login />
-          //   </ProtectedRoute>
-          // )
+          (
+            <ProtectedRoute isInit={isInit}>
+              <Login />
+            </ProtectedRoute>
+          )
         }
         />
         <Route path="/signup" element={
-          // (
-          //   <ProtectedRoute redirectPath="/user-profile">
-          <SignUp />
-          //   </ProtectedRoute>
-          // )
+          (
+            <ProtectedRoute isInit={isInit}>
+              <SignUp />
+            </ProtectedRoute>
+          )
         }
         />
         <Route path="/cart" element={
           (
-            <ProtectedRoute redirectPath="/">
+            <ProtectedRoute>
               <Cart />
             </ProtectedRoute>
           )}
@@ -89,7 +89,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/user-profile" element={
           (
-            <ProtectedRoute redirectPath="/">
+            <ProtectedRoute>
               <UserProfile />
             </ProtectedRoute>
           )}

@@ -31,11 +31,17 @@ const Header = () => {
             className="header__logo"
             onClick={() => navigate('/')}
           />
-          <Link className="header__catalog" to="/catalog">
+          <Link
+            className="header__catalog"
+            to="/catalog"
+          >
             Catalog
           </Link>
         </nav>
-        <form className="header__form" onSubmit={formik.handleSubmit}>
+        <form
+          className="header__form"
+          onSubmit={formik.handleSubmit}
+        >
           <Input
             type="text"
             name="search"

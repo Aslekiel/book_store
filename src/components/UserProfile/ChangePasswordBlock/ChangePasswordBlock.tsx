@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { editUserPassword } from '../../../API/userRequests';
+import { editUserPassword } from '../../../api/userRequests';
 import { editPasswordSchema } from '../../../Schemas/editPasswordSchema';
 import { useAppDispatch } from '../../../store/hooks/hooks';
 import { setUser } from '../../../store/user/user';
@@ -58,13 +58,20 @@ export const ChangePasswordBlock = () => {
         onClick={onClickChangePassword}
         buttonTitle="Change password"
       />
-      <form className="change-password__info" method="patch" onSubmit={formik.handleSubmit}>
+      <form
+        className="change-password__info"
+        onSubmit={formik.handleSubmit}
+      >
         <Input
           name="password"
           type="password"
           placeholder="Password"
           value={formik.values.password}
-          title={!changePassword ? 'Old password' : 'Your password'}
+          title={
+            !changePassword
+              ? 'Old password'
+              : 'Your password'
+          }
           onChange={formik.handleChange}
           isActive={changePassword}
           isError={!!formik.errors.password}
@@ -83,15 +90,21 @@ export const ChangePasswordBlock = () => {
               isError={!!formik.errors.newPassword}
               defaultClassState={!changePassword}
             />
-            {formik.errors.newPassword ? (
-              <label className="change-password__label">
-                {formik.errors.newPassword}
-              </label>
-            ) : (
-              <label className="change-password__label">
-                Enter your password
-              </label>
-            )}
+            {
+              formik.errors.newPassword
+                ? (
+                  <label
+                    className="change-password__label"
+                  >
+                    {formik.errors.newPassword}
+                  </label>
+                ) : (
+                  <label
+                    className="change-password__label"
+                  >
+                    Enter your password
+                  </label>
+                )}
             <Input
               name="confirmPassword"
               type="password"
@@ -103,17 +116,29 @@ export const ChangePasswordBlock = () => {
               isError={!!formik.errors.confirmPassword}
               defaultClassState
             />
-            {formik.errors.confirmPassword ? (
-              <label className="change-password__label">
-                {formik.errors.confirmPassword}
-              </label>
-            ) : (
-              <label className="change-password__label">
-                Repeat your password without errors
-              </label>
-            )}
+            {
+              formik.errors.confirmPassword
+                ? (
+                  <label
+                    className="change-password__label"
+                  >
+                    {formik.errors.confirmPassword}
+                  </label>
+                ) : (
+                  <label
+                    className="change-password__label"
+                  >
+                    Repeat your password without errors
+                  </label>
+                )}
           </div>)}
-        {!changePassword && <CommonButton title="Confirm" type="submit" />}
+        {
+          !changePassword &&
+          (<CommonButton
+            title="Confirm"
+            type="submit"
+          />)
+        }
       </form>
 
     </ChangePasswordBlockContainer>

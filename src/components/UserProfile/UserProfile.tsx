@@ -8,7 +8,7 @@ import { UserProfilePhoto } from './UserProfilePhoto/UserProfilePhoto';
 import { UserProfileCaption } from './UserProfileCaption/UserProfileCaption';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import { setUser } from '../../store/user/user';
-import { editUserInformation } from '../../API/userRequests';
+import { editUserInformation } from '../../api/userRequests';
 import { CommonButton } from '../CommonButton/CommonButton';
 import { editInfoSchema } from '../../Schemas/editInfoSchema';
 import { ChangePasswordBlock } from './ChangePasswordBlock/ChangePasswordBlock';
@@ -27,7 +27,9 @@ export const UserProfile = () => {
     validationSchema: editInfoSchema,
     onSubmit: async () => {
       try {
-        const res = await editUserInformation(formik.values.fullname, formik.values.email);
+        const res = await editUserInformation(
+          formik.values.fullname, formik.values.email,
+        );
 
         dispatch(setUser(res?.data));
 
@@ -54,7 +56,10 @@ export const UserProfile = () => {
       <div className="user-profile__wrapper">
         <UserProfilePhoto />
         <div className="info__wrapper">
-          <form className="user-profile__info" onSubmit={formik.handleSubmit}>
+          <form
+            className="user-profile__info"
+            onSubmit={formik.handleSubmit}
+          >
             <UserProfileCaption
               captionTitle="Personal information"
               onClick={onClickChangeInformation}
@@ -63,7 +68,10 @@ export const UserProfile = () => {
             <Input
               name="fullname"
               type="text"
-              placeholder={formik.values.fullname || 'Enter your firstname and lastname'}
+              placeholder={
+                formik.values.fullname ||
+                'Enter your firstname and lastname'
+              }
               value={formik.values.fullname}
               title="Your name"
               onChange={formik.handleChange}
@@ -82,7 +90,13 @@ export const UserProfile = () => {
               isError={!!formik.errors.email}
               defaultClassState={!changeInformation}
             />
-            {!changeInformation && <CommonButton title="Confirm" type="submit" />}
+            {
+              !changeInformation &&
+              (<CommonButton
+                title="Confirm"
+                type="submit"
+              />)
+            }
           </form>
           <ChangePasswordBlock />
         </div>
