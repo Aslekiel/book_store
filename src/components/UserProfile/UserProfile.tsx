@@ -10,7 +10,8 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import { CommonButton } from '../CommonButton/CommonButton';
 import { editInfoSchema } from '../../Schemas/editInfoSchema';
 import { ChangePasswordBlock } from './ChangePasswordBlock/ChangePasswordBlock';
-import { editUserInformationThunk } from '../../store/thunks/userThunks/userThunk';
+import { setUser } from '../../store/user/user';
+import { userApi } from '../../api/userApi';
 
 export const UserProfile = () => {
   const [changeInformation, setChangeInformation] = useState(true);
@@ -26,9 +27,11 @@ export const UserProfile = () => {
     validationSchema: editInfoSchema,
     onSubmit: async () => {
       try {
-        await dispatch(editUserInformationThunk({
-          fullname: formik.values.fullname, email: formik.values.email,
-        })).unwrap();
+        const options = { fullname: formik.values.fullname, email: formik.values.email };
+
+        const res = await userApi.editUserInformation(options);
+
+        dispatch(setUser(res?.data));
 
         setChangeInformation(true);
       } catch (error) {

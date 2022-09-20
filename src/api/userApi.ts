@@ -2,7 +2,7 @@ import type { AxiosResponse } from 'axios';
 import { instance } from '.';
 import type { IResDataType, UserPasswordsType, IPropsType } from './types';
 
-export const logIn = async (
+const logIn = async (
   options: IPropsType,
 ): Promise<AxiosResponse<IResDataType>> => {
   const userData = await instance.post('auth/login',
@@ -13,7 +13,7 @@ export const logIn = async (
   return userData;
 };
 
-export const signUp = async (
+const signUp = async (
   options: IPropsType,
 ): Promise<AxiosResponse<IResDataType>> => {
   const userData = await instance.post('auth/signup',
@@ -24,7 +24,7 @@ export const signUp = async (
   return userData;
 };
 
-export const editUserInformation =
+const editUserInformation =
   async (options: IPropsType): Promise<AxiosResponse<IResDataType>> => {
     const userData = await instance.patch('user/info',
       { fullname: options.fullname, email: options.email });
@@ -32,7 +32,7 @@ export const editUserInformation =
     return userData;
   };
 
-export const editUserPassword =
+const editUserPassword =
   async (options: UserPasswordsType): Promise<AxiosResponse> => {
     const userData = await instance.patch('user/password', {
       oldPassword: options.oldPassword,
@@ -42,15 +42,19 @@ export const editUserPassword =
     return userData;
   };
 
-export const checkUser = async (): Promise<AxiosResponse<IResDataType>> => {
+const checkUser = async (): Promise<AxiosResponse<IResDataType>> => {
   const userData = await instance.get('auth/');
 
   return userData;
 };
 
-export const uploadAvatar =
+const uploadAvatar =
   async (avatar: string | ArrayBuffer): Promise<AxiosResponse<IResDataType>> => {
     const userData = await instance.post('user/upload', { avatar });
 
     return userData;
   };
+
+export const userApi = {
+  logIn, signUp, editUserInformation, editUserPassword, checkUser, uploadAvatar,
+};

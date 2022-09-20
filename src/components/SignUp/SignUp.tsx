@@ -1,7 +1,8 @@
 import { useFormik } from 'formik';
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import { useAppDispatch } from '../../store/hooks/hooks';
 import { CommonButton } from '../CommonButton/CommonButton';
 import { Input } from '../Input/Input';
@@ -9,7 +10,8 @@ import { SignUpContainer } from './SignUp.styles';
 
 import { signupSchema } from '../../Schemas/signupSchema';
 import { ReactComponent as ReadingMan } from '../../assets/login-signup-man.svg';
-import { signUpThunk } from '../../store/thunks/userThunks/userThunk';
+import { setUser } from '../../store/user/user';
+import { userApi } from '../../api/userApi';
 
 interface ILocationStateType {
   from: { pathname: string };
@@ -34,14 +36,18 @@ const SignUp: React.FC = () => {
     onSubmit: async () => {
       if (formik.values.password === formik.values.confirmPassword) {
         try {
-          const res = await dispatch(signUpThunk({
-            email: formik.values.email, password: formik.values.password,
-          })).unwrap();
+          const options = { email: formik.values.email, password: formik.values.password };
+
+          const res = await userApi.signUp(options);
 
           if (res?.data) {
             navigate(from, { replace: true });
           }
+          dispatch(setUser(res?.data));
         } catch (error) {
+          if (error instanceof AxiosError) {
+            return toast(error.response?.data.message);
+          }
           // eslint-disable-next-line no-console
           console.log(error);
         }

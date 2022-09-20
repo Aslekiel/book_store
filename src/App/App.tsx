@@ -1,7 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { RotatingLines } from 'react-loader-spinner';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import { AxiosError } from 'axios';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import Main from '../components/Main/Main';
@@ -14,8 +15,9 @@ import { UserProfile } from '../components/UserProfile/UserProfile';
 import { Catalog } from '../components/Catalog/Catalog';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
 import { useAppDispatch } from '../store/hooks/hooks';
-import { checkUserThunk } from '../store/thunks/userThunks/userThunk';
 import 'react-toastify/dist/ReactToastify.css';
+import { userApi } from '../api/userApi';
+import { setUser } from '../store/user/user';
 
 function App() {
   const [isInit, setIsInit] = useState(false);
@@ -28,10 +30,14 @@ function App() {
     } else {
       (async () => {
         try {
-          await dispatch(checkUserThunk()).unwrap();
+          const res = await userApi.checkUser();
+          dispatch(setUser(res.data));
 
           setIsInit(true);
         } catch (error) {
+          if (error instanceof AxiosError) {
+            return toast(error.response?.data.message);
+          }
           // eslint-disable-next-line no-console
           console.log(error);
         }

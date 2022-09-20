@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import forward from '../../../assets/forward.png';
+import { SortBy } from '../ModalWindows/SortBy/SortBy';
+import { SortGenre } from '../ModalWindows/SortGenre/SortGenre';
+
 import { CatalogFilterContainer } from './CatalogFilter.styles';
 
 interface IProps {
@@ -26,6 +29,9 @@ export const CatalogFilter: React.FC<IProps> = ({ title }) => {
         alt="forward"
         className="catalog__filter-forward"
       />
+      {title === 'Genre' && !filterState && <SortGenre />}
+      {title === 'Price' && !filterState && <SortBy />}
+      {title === 'Sort by price' && !filterState && <SortBy />}
     </CatalogFilterContainer>
   );
 };

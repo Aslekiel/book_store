@@ -2,9 +2,10 @@ import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { userApi } from '../../../api/userApi';
 import { editPasswordSchema } from '../../../Schemas/editPasswordSchema';
 import { useAppDispatch } from '../../../store/hooks/hooks';
-import { editUserPasswordThunk } from '../../../store/thunks/userThunks/userThunk';
+import { setUser } from '../../../store/user/user';
 import { CommonButton } from '../../CommonButton/CommonButton';
 import { Input } from '../../Input/Input';
 import { UserProfileCaption } from '../UserProfileCaption/UserProfileCaption';
@@ -29,8 +30,9 @@ export const ChangePasswordBlock = () => {
           confirmPassword: formik.values.confirmPassword,
         };
 
-        await dispatch(editUserPasswordThunk(options)).unwrap();
+        const res = await userApi.editUserPassword(options);
 
+        dispatch(setUser(res?.data));
         setChangePassword(true);
       } catch (error) {
         if (error instanceof AxiosError) {

@@ -1,9 +1,5 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  checkUserThunk, editUserInformationThunk, editUserPasswordThunk,
-  logInThunk, signUpThunk, uploadAvatarThunk,
-} from '../thunks/userThunks/userThunk';
 
 interface IUser {
   user: IUserType | null;
@@ -32,26 +28,6 @@ const user = createSlice({
     setUser(state, action: PayloadAction<IUser | null>) {
       state.user = action.payload!.user;
     },
-  },
-  extraReducers: (builer) => {
-    builer.addCase(logInThunk.fulfilled, (state, action) => {
-      state.user = action.payload.data?.user;
-    });
-    builer.addCase(signUpThunk.fulfilled, (state, action) => {
-      state.user = action.payload.data?.user;
-    });
-    builer.addCase(editUserInformationThunk.fulfilled, (state, action) => {
-      state.user = action.payload.data?.user;
-    });
-    builer.addCase(editUserPasswordThunk.fulfilled, (state, action) => {
-      state.user = action.payload.data?.user;
-    });
-    builer.addCase(checkUserThunk.fulfilled, (state, action) => {
-      state.user = action.payload.data?.user;
-    });
-    builer.addCase(uploadAvatarThunk.fulfilled, (state, action) => {
-      state.user = action.payload.data?.user;
-    });
   },
 });
 
