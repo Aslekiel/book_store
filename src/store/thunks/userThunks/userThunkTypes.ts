@@ -1,11 +1,5 @@
 export interface IResDataType {
-  user: IUserType;
-}
-
-export interface IPropsType {
-  fullname?: string;
-  email: string;
-  password?: string;
+  user: IUserType | null;
 }
 
 export interface IUserType {
@@ -20,3 +14,9 @@ export type UserPasswordsType = {
   newPassword: string;
   confirmPassword: string;
 };
+
+export interface IPropsType {
+  fullname?: string;
+  email: string;
+  password?: string;
+}

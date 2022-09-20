@@ -7,11 +7,10 @@ import { UserProfileContainer } from './UserProfile.styles';
 import { UserProfilePhoto } from './UserProfilePhoto/UserProfilePhoto';
 import { UserProfileCaption } from './UserProfileCaption/UserProfileCaption';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
-import { setUser } from '../../store/user/user';
-import { editUserInformation } from '../../api/userRequests';
 import { CommonButton } from '../CommonButton/CommonButton';
 import { editInfoSchema } from '../../Schemas/editInfoSchema';
 import { ChangePasswordBlock } from './ChangePasswordBlock/ChangePasswordBlock';
+import { editUserInformationThunk } from '../../store/thunks/userThunks/userThunk';
 
 export const UserProfile = () => {
   const [changeInformation, setChangeInformation] = useState(true);
@@ -27,11 +26,9 @@ export const UserProfile = () => {
     validationSchema: editInfoSchema,
     onSubmit: async () => {
       try {
-        const res = await editUserInformation(
-          formik.values.fullname, formik.values.email,
-        );
-
-        dispatch(setUser(res?.data));
+        await dispatch(editUserInformationThunk({
+          fullname: formik.values.fullname, email: formik.values.email,
+        })).unwrap();
 
         setChangeInformation(true);
       } catch (error) {

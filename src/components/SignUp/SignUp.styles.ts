@@ -5,7 +5,8 @@ export const SignUpContainer = styled.main`
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 90px 0 154px;
+  padding-top: 90px;
+
   .signup__wrapper {
     display: flex;
     flex-direction: row;
@@ -14,15 +15,18 @@ export const SignUpContainer = styled.main`
     width: 1290px;
     padding: 0 5px;
   }
+
   .signup__registration {
     width: 40%;
   }
+
   .signup__title {
     color: #0d1821;
     font-weight: 700;
     font-size: 40px;
     line-height: 60px;
   }
+
   .signup__form {
     display: flex;
     flex-direction: column;
@@ -31,6 +35,7 @@ export const SignUpContainer = styled.main`
     width: 100%;
     padding: 60px 0;
   }
+
   .form__password {
     background: url('./img/hide.svg') no-repeat;
     background-position: 24px;
@@ -45,6 +50,7 @@ export const SignUpContainer = styled.main`
       color: #b9bac3;
     }
   }
+  
   .form__label {
     font-size: 14px;
     line-height: 24px;

@@ -1,8 +1,12 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+import {
+  checkUserThunk, editUserInformationThunk, editUserPasswordThunk,
+  logInThunk, signUpThunk, uploadAvatarThunk,
+} from '../thunks/userThunks/userThunk';
 
 interface IUser {
-  user: UserType | null;
+  user: IUserType | null;
 }
 
 const initialState: IUser = {
@@ -14,8 +18,7 @@ const initialState: IUser = {
   },
 };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-interface UserType {
+interface IUserType {
   id?: number | string;
   fullname?: string;
   email: string;
@@ -30,9 +33,28 @@ const user = createSlice({
       state.user = action.payload!.user;
     },
   },
+  extraReducers: (builer) => {
+    builer.addCase(logInThunk.fulfilled, (state, action) => {
+      state.user = action.payload.data?.user;
+    });
+    builer.addCase(signUpThunk.fulfilled, (state, action) => {
+      state.user = action.payload.data?.user;
+    });
+    builer.addCase(editUserInformationThunk.fulfilled, (state, action) => {
+      state.user = action.payload.data?.user;
+    });
+    builer.addCase(editUserPasswordThunk.fulfilled, (state, action) => {
+      state.user = action.payload.data?.user;
+    });
+    builer.addCase(checkUserThunk.fulfilled, (state, action) => {
+      state.user = action.payload.data?.user;
+    });
+    builer.addCase(uploadAvatarThunk.fulfilled, (state, action) => {
+      state.user = action.payload.data?.user;
+    });
+  },
 });
 
-// eslint-disable-next-line no-empty-pattern
 export const { setUser } = user.actions;
 
 export default user.reducer;

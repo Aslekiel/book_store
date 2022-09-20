@@ -5,7 +5,8 @@ export const LogInContainer = styled.main`
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 90px 0 80px;
+  padding-top: 90px;
+  
   .login__wrapper {
     display: flex;
     flex-direction: row;
@@ -14,15 +15,18 @@ export const LogInContainer = styled.main`
     width: 1290px;
     padding: 0 5px;
   }
+
   .login__registration {
     width: 40%;
   }
+
   .login__title {
     color: #0d1821;
     font-weight: 700;
     font-size: 40px;
     line-height: 60px;
   }
+
   .login__form {
     display: flex;
     flex-direction: column;
@@ -43,6 +47,7 @@ export const LogInContainer = styled.main`
     height: 64px;
     margin: 0 5px;
   }
+
   .form__password {
     background: url('./img/hide.svg') no-repeat;
     background-position: 24px;
@@ -54,6 +59,7 @@ export const LogInContainer = styled.main`
     height: 64px;
     margin: 0 5px;
   }
+
   .form__label {
     font-size: 14px;
     line-height: 24px;
@@ -78,9 +84,11 @@ export const LogInContainer = styled.main`
   .form__label:last-child {
     padding-bottom: 0;
   }
+
   .login__img {
     padding-left: 10px;
   }
+
   .form__email::placeholder,
   .form__password::placeholder {
     color: #b9bac3;

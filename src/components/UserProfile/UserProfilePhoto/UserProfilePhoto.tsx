@@ -8,7 +8,7 @@ import { ReactComponent as CameraLogo } from '../../../assets/camera.svg';
 import { CommonButton } from '../../CommonButton/CommonButton';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
 import { setUser } from '../../../store/user/user';
-import { uploadAvatar } from '../../../api/userRequests';
+import { uploadAvatarThunk } from '../../../store/thunks/userThunks/userThunk';
 
 export const UserProfilePhoto = () => {
   const user = useAppSelector((state) => state.user.user);
@@ -30,8 +30,7 @@ export const UserProfilePhoto = () => {
     reader.readAsDataURL(file);
     reader.onload = async (event) => {
       try {
-        const res = await uploadAvatar(event.target.result);
-        dispatch(setUser(res.data));
+        dispatch(uploadAvatarThunk(event.target.result));
       } catch (error) {
         if (error instanceof AxiosError) {
           return toast(error.response?.data.message);

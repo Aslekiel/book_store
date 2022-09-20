@@ -5,7 +5,7 @@ export const UserProfileContainer = styled.main`
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 60px 5px 80px 5px;
+  padding: 60px 5px 0;
 
   .user-profile__wrapper {
     display: grid;

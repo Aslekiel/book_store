@@ -1,21 +1,23 @@
 import type { AxiosResponse } from 'axios';
 import { instance } from '.';
-import type { IResDataType, UserPasswordsType } from './types';
+import type { IResDataType, UserPasswordsType, IPropsType } from './types';
 
-export const signUp = async (
-  email: string, password: string,
+export const logIn = async (
+  options: IPropsType,
 ): Promise<AxiosResponse<IResDataType>> => {
-  const userData = await instance.post('auth/signup', { email, password });
+  const userData = await instance.post('auth/login',
+    { email: options.email, password: options.password });
 
   localStorage.setItem('accessToken', userData?.data.accessToken);
 
   return userData;
 };
 
-export const logIn = async (
-  email: string, password: string,
+export const signUp = async (
+  options: IPropsType,
 ): Promise<AxiosResponse<IResDataType>> => {
-  const userData = await instance.post('auth/login', { email, password });
+  const userData = await instance.post('auth/signup',
+    { email: options.email, password: options.password });
 
   localStorage.setItem('accessToken', userData?.data.accessToken);
 
@@ -23,8 +25,9 @@ export const logIn = async (
 };
 
 export const editUserInformation =
-  async (fullname: string, email: string): Promise<AxiosResponse<IResDataType>> => {
-    const userData = await instance.patch('user/info', { fullname, email });
+  async (options: IPropsType): Promise<AxiosResponse<IResDataType>> => {
+    const userData = await instance.patch('user/info',
+      { fullname: options.fullname, email: options.email });
 
     return userData;
   };
