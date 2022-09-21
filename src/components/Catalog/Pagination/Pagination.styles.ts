@@ -9,7 +9,8 @@ export const PaginationContainer = styled.div`
   width: 268px;
 
   margin: auto;
-  padding-top: 80px;
+
+  margin-top: 20px;
 
   .pagination__back-arrow {
     transform: rotate(180deg);

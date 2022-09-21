@@ -4,7 +4,8 @@ export const CatalogFiltersContainer = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  padding-bottom: 38px;
+  
   .catalog__title {
     font-weight: 700;
     font-size: 40px;

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import forward from '../../../assets/forward.png';
 import { SortBy } from '../ModalWindows/SortBy/SortBy';
 import { SortGenre } from '../ModalWindows/SortGenre/SortGenre';
+import { SortSlider } from '../ModalWindows/SortSlider/SortSlider';
 
 import { CatalogFilterContainer } from './CatalogFilter.styles';
 
@@ -30,7 +31,7 @@ export const CatalogFilter: React.FC<IProps> = ({ title }) => {
         className="catalog__filter-forward"
       />
       {title === 'Genre' && !filterState && <SortGenre />}
-      {title === 'Price' && !filterState && <SortBy />}
+      {title === 'Price' && !filterState && <SortSlider />}
       {title === 'Sort by price' && !filterState && <SortBy />}
     </CatalogFilterContainer>
   );

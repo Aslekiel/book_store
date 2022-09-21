@@ -1,5 +1,6 @@
 export interface IResDataType {
   user: IUserType;
+  books: IBook[];
 }
 
 export interface IPropsType {
@@ -20,3 +21,16 @@ export type UserPasswordsType = {
   newPassword: string;
   confirmPassword: string;
 };
+
+export interface IBook {
+  id?: number | string;
+  title: string;
+  author: string;
+  genre: string;
+  description?: string;
+  logo: string;
+  rating?: string;
+  comments?: string;
+  price: string;
+  dateOfIssue?: string;
+}

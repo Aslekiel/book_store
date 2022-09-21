@@ -9,6 +9,8 @@ type Props = {
 export const CatalogFilterContainer = styled.div<Props>`
     position: relative;
 
+    z-index: 10;
+
     :nth-child(2) {
       margin: 0 20px;
     }
