@@ -5,17 +5,17 @@ import { BooksContainer } from './BooksContainer.styles';
 import { Book } from './Book/Book';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
 import { booksApi } from '../../../api/booksApi';
-import { setBook } from '../../../store/books/books';
+import { setBooks } from '../../../store/books/books';
 
 export const Books = () => {
-  const books = useAppSelector((state) => state.book.books);
+  const books = useAppSelector((state) => state.books.books);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     (async () => {
       try {
         const res = await booksApi.getAllBooks();
-        dispatch(setBook(res.data));
+        dispatch(setBooks(res.data));
       } catch (error) {
         if (error instanceof AxiosError) {
           return toast(error.response?.data.message);

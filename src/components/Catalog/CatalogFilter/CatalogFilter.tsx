@@ -8,10 +8,11 @@ import { CatalogFilterContainer } from './CatalogFilter.styles';
 
 interface IProps {
   title: string;
+  isActive?: boolean;
 }
 
 export const CatalogFilter: React.FC<IProps> = ({ title }) => {
-  const [filterState, setFilterState] = useState(true);
+  const [filterState, setFilterState] = useState(false);
 
   const onClickHandler = () => {
     setFilterState(!filterState);
@@ -30,9 +31,9 @@ export const CatalogFilter: React.FC<IProps> = ({ title }) => {
         alt="forward"
         className="catalog__filter-forward"
       />
-      {title === 'Genre' && !filterState && <SortGenre />}
-      {title === 'Price' && !filterState && <SortSlider />}
-      {title === 'Sort by price' && !filterState && <SortBy />}
+      {title === 'Genre' && filterState && <SortGenre />}
+      {title === 'Price' && filterState && <SortSlider />}
+      {title === 'Sort by price' && filterState && <SortBy />}
     </CatalogFilterContainer>
   );
 };

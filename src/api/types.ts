@@ -1,6 +1,7 @@
 export interface IResDataType {
   user: IUserType;
   books: IBook[];
+  genres: IBookGenres[];
 }
 
 export interface IPropsType {
@@ -26,11 +27,16 @@ export interface IBook {
   id?: number | string;
   title: string;
   author: string;
-  genre: string;
+  genres: IBookGenres[];
   description?: string;
   logo: string;
   rating?: string;
   comments?: string;
-  price: string;
+  price: number;
   dateOfIssue?: string;
+}
+
+export interface IBookGenres {
+  id?: number;
+  name: string;
 }

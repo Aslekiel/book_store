@@ -7,7 +7,7 @@ import heartEmpty from '../../../../assets/heart-empty.png';
 interface IProps {
   title: string;
   author: string;
-  price: string;
+  price: number;
   logo: string;
 }
 
@@ -19,7 +19,7 @@ export const Book: React.FC<IProps> = ({ title, author, price, logo }) => {
   };
 
   return (
-    <BookContainer>
+    <BookContainer favorite={favorite}>
       <img
         className="book__logo"
         src={logo}
@@ -50,7 +50,7 @@ export const Book: React.FC<IProps> = ({ title, author, price, logo }) => {
           alt="heart-favorite"
         />
       </button>
-      <CommonButton title={`${price} USD`} />
+      <CommonButton title={`$ ${price} USD`} />
     </BookContainer>
   );
 };

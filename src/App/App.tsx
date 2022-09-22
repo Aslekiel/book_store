@@ -27,22 +27,22 @@ function App() {
     const token = localStorage.getItem('accessToken');
     if (!token) {
       setIsInit(true);
-    } else {
-      (async () => {
-        try {
-          const res = await userApi.checkUser();
-          dispatch(setUser(res.data));
-
-          setIsInit(true);
-        } catch (error) {
-          if (error instanceof AxiosError) {
-            return toast(error.response?.data.message);
-          }
-          // eslint-disable-next-line no-console
-          console.log(error);
-        }
-      })();
+      return;
     }
+    (async () => {
+      try {
+        const res = await userApi.checkUser();
+        dispatch(setUser(res.data));
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          return toast(error.response?.data.message);
+        }
+        // eslint-disable-next-line no-console
+        console.log(error);
+      } finally {
+        setIsInit(true);
+      }
+    })();
   }, [dispatch]);
 
   if (!isInit) {
@@ -66,7 +66,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={
           (
-            <ProtectedRoute isInit={isInit}>
+            <ProtectedRoute>
               <Login />
             </ProtectedRoute>
           )
@@ -74,7 +74,7 @@ function App() {
         />
         <Route path="/signup" element={
           (
-            <ProtectedRoute isInit={isInit}>
+            <ProtectedRoute>
               <SignUp />
             </ProtectedRoute>
           )
@@ -82,7 +82,7 @@ function App() {
         />
         <Route path="/cart" element={
           (
-            <ProtectedRoute>
+            <ProtectedRoute isLogIn>
               <Cart />
             </ProtectedRoute>
           )}
@@ -90,7 +90,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/user-profile" element={
           (
-            <ProtectedRoute>
+            <ProtectedRoute isLogIn>
               <UserProfile />
             </ProtectedRoute>
           )}

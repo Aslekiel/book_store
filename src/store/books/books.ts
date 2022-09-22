@@ -3,35 +3,45 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface IBooks {
   books: IBook[] | null;
+  genres: IBookGenres[] | null;
 }
 
 const initialState: IBooks = {
   books: [],
+  genres: [],
 };
 
 interface IBook {
   id?: number | string;
   title: string;
   author: string;
-  genre: string;
+  genres: IBookGenres[];
   description?: string;
   logo: string;
   rating?: string;
   comments?: string;
-  price: string;
+  price: number;
   dateOfIssue?: string;
 }
 
-const book = createSlice({
-  name: 'book',
+interface IBookGenres {
+  id?: number;
+  name: string;
+}
+
+const books = createSlice({
+  name: 'books',
   initialState,
   reducers: {
-    setBook(state, action: PayloadAction<IBooks | null>) {
+    setBooks(state, action: PayloadAction<IBooks | null>) {
       state.books = action.payload.books;
+    },
+    setGenres(state, action: PayloadAction<IBooks | null>) {
+      state.genres = action.payload.genres;
     },
   },
 });
 
-export const { setBook } = book.actions;
+export const { setBooks, setGenres } = books.actions;
 
-export default book.reducer;
+export default books.reducer;

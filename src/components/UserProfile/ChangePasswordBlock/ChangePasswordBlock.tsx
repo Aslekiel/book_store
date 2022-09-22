@@ -12,7 +12,7 @@ import { UserProfileCaption } from '../UserProfileCaption/UserProfileCaption';
 import { ChangePasswordBlockContainer } from './ChangePasswordBlock.styles';
 
 export const ChangePasswordBlock = () => {
-  const [changePassword, setChangePassword] = useState(true);
+  const [changePassword, setChangePassword] = useState(false);
   const dispatch = useAppDispatch();
 
   const formik = useFormik({
@@ -33,7 +33,7 @@ export const ChangePasswordBlock = () => {
         const res = await userApi.editUserPassword(options);
 
         dispatch(setUser(res?.data));
-        setChangePassword(true);
+        setChangePassword(!changePassword);
       } catch (error) {
         if (error instanceof AxiosError) {
           return toast(error.response?.data.message);
@@ -73,11 +73,11 @@ export const ChangePasswordBlock = () => {
               : 'Your password'
           }
           onChange={formik.handleChange}
-          isActive={changePassword}
+          isActive={!changePassword}
           isError={!!formik.errors.password}
           defaultClassState={!changePassword}
         />
-        {!changePassword && (
+        {changePassword && (
           <div className="change-password">
             <Input
               name="newPassword"
@@ -133,7 +133,7 @@ export const ChangePasswordBlock = () => {
                 )}
           </div>)}
         {
-          !changePassword &&
+          changePassword &&
           (<CommonButton
             title="Confirm"
             type="submit"

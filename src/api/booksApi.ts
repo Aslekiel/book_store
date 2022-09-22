@@ -8,4 +8,16 @@ const getAllBooks = async (): Promise<AxiosResponse<IResDataType>> => {
   return booksData;
 };
 
-export const booksApi = { getAllBooks };
+const getAllGenres = async (): Promise<AxiosResponse<IResDataType>> => {
+  const genresData = await instance.get('books/genres');
+
+  return genresData;
+};
+
+const getFilteredArrayOfBooks = async (): Promise<AxiosResponse<IResDataType>> => {
+  const genresData = await instance.get('books/filter');
+
+  return genresData;
+};
+
+export const booksApi = { getAllBooks, getAllGenres, getFilteredArrayOfBooks };

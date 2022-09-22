@@ -12,7 +12,7 @@ export const SortGenreContainer = styled.div`
     margin-top: 26px;
     padding: 10px 15px 10px;
 
-    width: 305px;
+    width: 330px;
 
     .sort__triangle {
       position: absolute;

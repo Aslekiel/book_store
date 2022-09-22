@@ -38,6 +38,6 @@ export const CatalogFilterContainer = styled.div<Props>`
       top: 22px;
       cursor: pointer;
       z-index: 0;
-      transform: translate(-50%, -50%) rotate(${(p) => (p.filterState ? 0 : 90)}deg);
+      transform: translate(-50%, -50%) rotate(${(p) => (!p.filterState ? 0 : 90)}deg);
     }
 `;

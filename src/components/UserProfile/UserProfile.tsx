@@ -14,7 +14,7 @@ import { setUser } from '../../store/user/user';
 import { userApi } from '../../api/userApi';
 
 export const UserProfile = () => {
-  const [changeInformation, setChangeInformation] = useState(true);
+  const [changeInformation, setChangeInformation] = useState(false);
 
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
@@ -33,7 +33,7 @@ export const UserProfile = () => {
 
         dispatch(setUser(res?.data));
 
-        setChangeInformation(true);
+        setChangeInformation(!changeInformation);
       } catch (error) {
         if (error instanceof AxiosError) {
           return toast(error.response?.data.message);
@@ -75,9 +75,9 @@ export const UserProfile = () => {
               value={formik.values.fullname}
               title="Your name"
               onChange={formik.handleChange}
-              isActive={changeInformation}
+              isActive={!changeInformation}
               isError={!!formik.errors.fullname}
-              defaultClassState={!changeInformation}
+              defaultClassState={changeInformation}
             />
             <Input
               name="email"
@@ -86,12 +86,12 @@ export const UserProfile = () => {
               value={formik.values.email}
               title="Your email"
               onChange={formik.handleChange}
-              isActive={changeInformation}
+              isActive={!changeInformation}
               isError={!!formik.errors.email}
-              defaultClassState={!changeInformation}
+              defaultClassState={changeInformation}
             />
             {
-              !changeInformation &&
+              changeInformation &&
               (<CommonButton
                 title="Confirm"
                 type="submit"

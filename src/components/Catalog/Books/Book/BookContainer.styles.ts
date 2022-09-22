@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const BookContainer = styled.section`
+interface IProps {
+  favorite: boolean;
+}
+
+export const BookContainer = styled.section<IProps>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,7 +58,7 @@ export const BookContainer = styled.section`
     border: 0;
     padding: 24px;
     border-radius: 50%;
-    opacity: 0.5;
+    opacity: ${(p) => (p.favorite ? 1 : 0.5)};
     cursor: pointer;
 
     &-favorite {
