@@ -41,6 +41,10 @@ export const BookContainer = styled.section<IProps>`
     padding: 10px 0 20px;
   }
 
+  .book__data-of-issue {
+    color: #344966;
+  }
+
   .book__rating {
     padding-bottom: 32px;
   }

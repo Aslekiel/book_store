@@ -7,6 +7,9 @@ export const SortSlider = () => {
 
   const sortedByPrice = [...books].sort((a, b) => (Number(a.price) > Number(b.price) ? 1 : -1));
 
+  const minPrice = sortedByPrice[0].price;
+  const maxPrice = sortedByPrice[sortedByPrice.length - 1].price;
+
   return (
     <SortSliderContainer>
       <div className="sort__triangle" />
@@ -24,12 +27,12 @@ export const SortSlider = () => {
       <div
         className="sort__min-Price"
       >
-        $ {sortedByPrice[0].price}
+        $ {minPrice}
       </div>
       <div
         className="sort__max-Price"
       >
-        $ {sortedByPrice[sortedByPrice.length - 1].price}
+        $ {maxPrice}
       </div>
     </SortSliderContainer>
   );

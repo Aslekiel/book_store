@@ -9,9 +9,10 @@ interface IProps {
   author: string;
   price: number;
   logo: string;
+  dataOfIssue: string;
 }
 
-export const Book: React.FC<IProps> = ({ title, author, price, logo }) => {
+export const Book: React.FC<IProps> = ({ title, author, price, logo, dataOfIssue }) => {
   const [favorite, setFavorite] = useState(false);
 
   const onClickHandler = () => {
@@ -35,6 +36,7 @@ export const Book: React.FC<IProps> = ({ title, author, price, logo }) => {
       >
         {author}
       </h4>
+      <h4 className="book__data-of-issue">{dataOfIssue}</h4>
       <div
         className="book__rating"
       >

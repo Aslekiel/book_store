@@ -8,10 +8,11 @@ import { CatalogFilterContainer } from './CatalogFilter.styles';
 
 interface IProps {
   title: string;
-  isActive?: boolean;
+  sortByState?: string;
+  setSortByState?: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const CatalogFilter: React.FC<IProps> = ({ title }) => {
+export const CatalogFilter: React.FC<IProps> = ({ title, sortByState, setSortByState }) => {
   const [filterState, setFilterState] = useState(false);
 
   const onClickHandler = () => {
@@ -19,7 +20,7 @@ export const CatalogFilter: React.FC<IProps> = ({ title }) => {
   };
 
   return (
-    <CatalogFilterContainer filterState={filterState} title={title}>
+    <CatalogFilterContainer filterState={filterState} title={title} sortByState={sortByState}>
       <button
         className="catalog__filter-btn"
         onClick={onClickHandler}
@@ -33,7 +34,10 @@ export const CatalogFilter: React.FC<IProps> = ({ title }) => {
       />
       {title === 'Genre' && filterState && <SortGenre />}
       {title === 'Price' && filterState && <SortSlider />}
-      {title === 'Sort by price' && filterState && <SortBy />}
+      {title === `Sort by ${sortByState}` && filterState &&
+        (<SortBy
+          setSortByState={setSortByState}
+        />)}
     </CatalogFilterContainer>
   );
 };
