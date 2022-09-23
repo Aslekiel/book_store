@@ -9,12 +9,20 @@ import { setBooks } from '../../../store/books/books';
 
 export const Books = () => {
   const books = useAppSelector((state) => state.books.books);
+  const filteredGenres = useAppSelector((state) => state.filteredGenres.genres);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await booksApi.getAllBooks();
+        if (!filteredGenres.length) {
+          const res = await booksApi.getAllBooks();
+          dispatch(setBooks(res.data));
+          return;
+        }
+        const res = await booksApi.getFilteredArrayOfBooks(filteredGenres);
+        // eslint-disable-next-line no-console
+        console.log(res.data);
         dispatch(setBooks(res.data));
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -24,7 +32,7 @@ export const Books = () => {
         console.log(error);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, filteredGenres]);
 
   return (
     <BooksContainer>

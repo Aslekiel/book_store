@@ -3,12 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface IBooks {
   books: IBook[] | null;
-  genres: IBookGenres[] | null;
 }
 
 const initialState: IBooks = {
   books: [],
-  genres: [],
 };
 
 interface IBook {
@@ -36,12 +34,9 @@ const books = createSlice({
     setBooks(state, action: PayloadAction<IBooks | null>) {
       state.books = action.payload.books;
     },
-    setGenres(state, action: PayloadAction<IBooks | null>) {
-      state.genres = action.payload.genres;
-    },
   },
 });
 
-export const { setBooks, setGenres } = books.actions;
+export const { setBooks } = books.actions;
 
 export default books.reducer;

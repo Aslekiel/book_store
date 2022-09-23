@@ -1,21 +1,18 @@
 import { AxiosError } from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { booksApi } from '../../../../api/booksApi';
-import { setGenres } from '../../../../store/books/books';
-import { useAppDispatch, useAppSelector } from '../../../../store/hooks/hooks';
 import { Genre } from './Genre/Genre';
 import { SortGenreContainer } from './SortGenreContainer.styles';
 
 export const SortGenre = () => {
-  const genres = useAppSelector((state) => state.books.genres);
-  const dispatch = useAppDispatch();
+  const [genres, setGenres] = useState([]);
 
   useEffect(() => {
     (async () => {
       try {
         const res = await booksApi.getAllGenres();
-        dispatch(setGenres(res.data));
+        setGenres(res.data.genres);
       } catch (error) {
         if (error instanceof AxiosError) {
           return toast(error.response?.data.message);
@@ -24,7 +21,7 @@ export const SortGenre = () => {
         console.log(error);
       }
     })();
-  }, [dispatch]);
+  }, [setGenres]);
 
   return (
     <SortGenreContainer>

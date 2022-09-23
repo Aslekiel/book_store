@@ -2,6 +2,7 @@ export interface IResDataType {
   user: IUserType;
   books: IBook[];
   genres: IBookGenres[];
+  filters: string[];
 }
 
 export interface IPropsType {
