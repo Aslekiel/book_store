@@ -1,21 +1,17 @@
-import { ReactComponent as BooksImg } from '../../assets/books.svg';
-import { CartContainer } from './Cart.styles';
-import { CommonButton } from '../CommonButton/CommonButton';
+import { useState } from 'react';
+import { EmptyCart } from './EmptyCart/EmptyCart';
 
 export const Cart = () => {
+  const [emptyCart, setEmptyCart] = useState(true);
+
   return (
-    <CartContainer>
-      <BooksImg />
-      <div className="cart__info">
-        <h2 className="cart__title">
-          Your cart is empty
-        </h2>
-        <p className="cart__help">
-          Add items to cart to make a purchase.
-          <br /> Go to the catalogue no.
-        </p>
-        <CommonButton title="Go to catalog" />
-      </div>
-    </CartContainer>
+    <div>
+        {!emptyCart
+          ? (<div>
+                <div>123</div>
+                <div>321321</div>
+             </div>)
+          : <EmptyCart /> }
+    </div>
   );
 };

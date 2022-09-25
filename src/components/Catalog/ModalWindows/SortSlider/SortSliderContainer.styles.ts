@@ -9,6 +9,8 @@ export const SortSliderContainer = styled.div`
   background-color: #F0F4EF;
   border-radius: 16px;
 
+  z-index: 999;
+
   margin-top: 26px;
   padding: 0 18px;
 

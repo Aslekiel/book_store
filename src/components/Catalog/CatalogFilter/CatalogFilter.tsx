@@ -12,7 +12,11 @@ interface IProps {
   setSortByState?: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const CatalogFilter: React.FC<IProps> = ({ title, sortByState, setSortByState }) => {
+export const CatalogFilter: React.FC<IProps> = ({
+  title,
+  sortByState,
+  setSortByState,
+}) => {
   const [filterState, setFilterState] = useState(false);
 
   const onClickHandler = () => {
@@ -20,24 +24,28 @@ export const CatalogFilter: React.FC<IProps> = ({ title, sortByState, setSortByS
   };
 
   return (
-    <CatalogFilterContainer filterState={filterState} title={title} sortByState={sortByState}>
-      <button
-        className="catalog__filter-btn"
-        onClick={onClickHandler}
+    <CatalogFilterContainer
+      filterState={filterState}
+      title={title}
+      sortByState={sortByState}
       >
-        {title}
-      </button>
-      <img
-        src={forward}
-        alt="forward"
-        className="catalog__filter-forward"
-      />
-      {title === 'Genre' && filterState && <SortGenre />}
-      {title === 'Price' && filterState && <SortSlider />}
-      {title === `Sort by ${sortByState}` && filterState &&
-        (<SortBy
-          setSortByState={setSortByState}
-        />)}
+        <button
+          className="catalog__filter-btn"
+          onClick={onClickHandler}
+        >
+          {title}
+        </button>
+        <img
+          src={forward}
+          alt="forward"
+          className="catalog__filter-forward"
+        />
+        {title === 'Genre' && filterState && <SortGenre />}
+        {title === 'Price' && filterState && <SortSlider />}
+        {title === `Sort by ${sortByState}` && filterState &&
+          (<SortBy
+            setSortByState={setSortByState}
+          />)}
     </CatalogFilterContainer>
   );
 };

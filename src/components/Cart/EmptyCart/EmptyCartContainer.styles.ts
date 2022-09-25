@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CartContainer = styled.main`
+export const EmptyCartContainer = styled.main`
   display: flex;
   flex-direction: row;
   justify-content: center;

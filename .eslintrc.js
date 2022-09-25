@@ -25,6 +25,7 @@ module.exports = {
   },
   parser: '@typescript-eslint/parser',
   rules: {
+    "linebreak-style": ["error", (process.platform === "win32" ? "windows" : "unix")],
     'react-hooks/exhaustive-deps': 'error',
     'react/jsx-boolean-value': 'error',
     'react/jsx-no-useless-fragment': 'error',

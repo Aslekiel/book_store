@@ -3,6 +3,7 @@ export interface IResDataType {
   books: IBook[];
   genres: IBookGenres[];
   filters: string[];
+  booksIds: number[];
 }
 
 export interface IPropsType {

@@ -9,8 +9,12 @@ export const CatalogFilters = () => {
     <CatalogFiltersContainer>
       <h2 className="catalog__title">Catalog</h2>
       <div className="catalog__filters">
-        <CatalogFilter title="Genre" />
-        <CatalogFilter title="Price" />
+        <CatalogFilter
+        title="Genre"
+        />
+        <CatalogFilter
+        title="Price"
+        />
         <CatalogFilter
           title={`Sort by ${sortByState}`}
           sortByState={sortByState}

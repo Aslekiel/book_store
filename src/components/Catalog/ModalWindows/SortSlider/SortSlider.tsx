@@ -1,14 +1,37 @@
+import { useEffect, useState } from 'react';
 import ReactSlider from 'react-slider';
-import { useAppSelector } from '../../../../store/hooks/hooks';
+import { booksApi } from '../../../../api/booksApi';
+import { setBooks } from '../../../../store/books/books';
+import { useAppDispatch } from '../../../../store/hooks/hooks';
 import { SortSliderContainer } from './SortSliderContainer.styles';
 
 export const SortSlider = () => {
-  const books = useAppSelector((state) => state.books.books);
+  const dispatch = useAppDispatch();
 
-  const sortedByPrice = [...books].sort((a, b) => (Number(a.price) > Number(b.price) ? 1 : -1));
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(100);
 
-  const minPrice = sortedByPrice[0].price;
-  const maxPrice = sortedByPrice[sortedByPrice.length - 1].price;
+  const onChangeHandler = (value: number[]) => {
+    const changedMinPrice = +(value[0] + value[0] / 10).toFixed(2);
+    const changedMaxPrice = +(value[1] - (10 - value[1] / 10)).toFixed(2);
+    setMinPrice(changedMinPrice);
+    setMaxPrice(changedMaxPrice);
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await booksApi.getAllBooks();
+        const sortedByMinMaxPrice = [...res.data.books].filter(
+          (book) => book.price >= minPrice && book.price <= maxPrice,
+        );
+        dispatch(setBooks({ books: sortedByMinMaxPrice }));
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    })();
+  }, [dispatch, maxPrice, minPrice]);
 
   return (
     <SortSliderContainer>
@@ -23,6 +46,7 @@ export const SortSlider = () => {
         renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
         pearling
         minDistance={10}
+        onChange={(value) => onChangeHandler(value)}
       />
       <div
         className="sort__min-Price"

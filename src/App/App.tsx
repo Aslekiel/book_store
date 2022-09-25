@@ -10,7 +10,6 @@ import Login from '../components/LogIn/LogIn';
 import SignUp from '../components/SignUp/SignUp';
 
 import { AppContainer, RotatingLinesContainer } from './App.styles';
-import { Cart } from '../components/Cart/Cart';
 import { UserProfile } from '../components/UserProfile/UserProfile';
 import { Catalog } from '../components/Catalog/Catalog';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
@@ -18,6 +17,8 @@ import { useAppDispatch } from '../store/hooks/hooks';
 import 'react-toastify/dist/ReactToastify.css';
 import { userApi } from '../api/userApi';
 import { setUser } from '../store/user/user';
+import { BookInfo } from '../components/BookInfo/BookInfo';
+import { Cart } from '../components/Cart/Cart';
 
 function App() {
   const [isInit, setIsInit] = useState(false);
@@ -95,6 +96,7 @@ function App() {
             </ProtectedRoute>
           )}
         />
+        <Route path="/book" element={<BookInfo />} />
       </Routes>
       <Footer />
       <ToastContainer />

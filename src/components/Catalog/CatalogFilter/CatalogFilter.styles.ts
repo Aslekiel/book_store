@@ -2,9 +2,9 @@ import styled, { css } from 'styled-components';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 type Props = {
-  filterState: boolean;
-  sortByState: string;
-  title: string;
+  filterState?: boolean;
+  sortByState?: string;
+  title?: string;
 };
 
 export const CatalogFilterContainer = styled.div<Props>`

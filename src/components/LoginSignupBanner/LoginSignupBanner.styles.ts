@@ -11,9 +11,12 @@ export const LoginSignupBannerContainer = styled.section`
   background-color: #F0F4EF;
   height: 400px;
 
+  width: 100%;
+
   .banner__castle-img {
     z-index: 10;
   }
+
   .banner__info {
     display: flex;
     flex-direction: column;
@@ -21,6 +24,7 @@ export const LoginSignupBannerContainer = styled.section`
     align-items: flex-start;
 
     z-index: 1000;
+
     &__title {
       font-weight: 700;
       font-size: 40px;
@@ -28,6 +32,7 @@ export const LoginSignupBannerContainer = styled.section`
       color: #0d1821;
       padding-top: 80px;
     }
+
     &__text {
       font-weight: 500;
       font-size: 20px;
@@ -36,6 +41,7 @@ export const LoginSignupBannerContainer = styled.section`
       padding: 10px 0 50px;
     }
   }
+
   .banner__sprite-img {
     position: absolute;
     overflow: hidden;
