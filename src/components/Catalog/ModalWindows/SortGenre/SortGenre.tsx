@@ -30,6 +30,7 @@ export const SortGenre = () => {
         return (
           <Genre
             key={genre.id}
+            id={genre.id}
             title={genre.name}
           />);
       })}

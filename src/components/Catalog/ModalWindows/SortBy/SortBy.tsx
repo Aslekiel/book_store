@@ -4,10 +4,11 @@ import { SortByContainer } from './SortByContainer.styles';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 type Props = {
+  title: string;
   setSortByState: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const SortBy: React.FC<Props> = ({ setSortByState }) => {
+export const SortBy: React.FC<Props> = ({ title, setSortByState }) => {
   const books = useAppSelector((state) => state.books.books);
   const dispatch = useAppDispatch();
 
@@ -60,11 +61,49 @@ export const SortBy: React.FC<Props> = ({ setSortByState }) => {
   return (
     <SortByContainer>
       <div className="sort__triangle" />
-      <div className="sort__btn" onClick={sortByPrice}>Price</div>
-      <div className="sort__btn" onClick={sortByName}>Name</div>
-      <div className="sort__btn" onClick={sortByAuthorName}>Author name</div>
-      <div className="sort__btn">Rating</div>
-      <div className="sort__btn" onClick={sortByDataOfIssue}>Date of issue</div>
+      <div
+        className={
+          title === 'Sort by price'
+            ? 'sort__btn--active'
+            : 'sort__btn'}
+        onClick={sortByPrice}
+      >
+        Price
+      </div>
+      <div
+        className={
+          title === 'Sort by name'
+            ? 'sort__btn--active'
+            : 'sort__btn'}
+        onClick={sortByName}
+      >
+        Name
+      </div>
+      <div
+        className={
+          title === 'Sort by author name'
+            ? 'sort__btn--active'
+            : 'sort__btn'}
+        onClick={sortByAuthorName}
+      >
+        Author name
+      </div>
+      <div
+        className={
+          title === 'Sort by rating'
+            ? 'sort__btn--active'
+            : 'sort__btn'}
+      >Rating
+      </div>
+      <div
+        className={
+          title === 'Sort by data of issue'
+            ? 'sort__btn--active'
+            : 'sort__btn'}
+        onClick={sortByDataOfIssue}
+      >
+        Date of issue
+      </div>
     </SortByContainer>
   );
 };

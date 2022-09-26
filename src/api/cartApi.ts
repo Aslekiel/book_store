@@ -8,10 +8,17 @@ const addBooksToCart = async (bookId: number | string): Promise<AxiosResponse<IR
   return booksData;
 };
 
-const getAllBooksFromCart = async (options: number[]): Promise<AxiosResponse<IResDataType>> => {
-  const booksData = await instance.post('cart/', { options });
+const getAllBooksFromCart = async (): Promise<AxiosResponse<IResDataType>> => {
+  const booksData = await instance.get('cart/');
 
   return booksData;
 };
 
-export const cartApi = { addBooksToCart, getAllBooksFromCart };
+const deleteBookFromCart =
+  async (bookId: number | string): Promise<AxiosResponse<IResDataType>> => {
+    const booksData = await instance.post('cart/delete', { bookId });
+
+    return booksData;
+  };
+
+export const cartApi = { addBooksToCart, getAllBooksFromCart, deleteBookFromCart };

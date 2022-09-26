@@ -7,10 +7,11 @@ import { removeFilter, setFilteredGenres } from '../../../../../store/books/genr
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 type Props = {
+  id: number;
   title: string;
 };
 
-export const Genre: React.FC<Props> = ({ title }) => {
+export const Genre: React.FC<Props> = ({ id, title }) => {
   const [checkBoxState, setCheckBoxState] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -18,10 +19,10 @@ export const Genre: React.FC<Props> = ({ title }) => {
   const onClickHandler = () => {
     setCheckBoxState(!checkBoxState);
     if (checkBoxState) {
-      dispatch(removeFilter(title));
+      dispatch(removeFilter(id));
       return;
     }
-    dispatch(setFilteredGenres(title));
+    dispatch(setFilteredGenres(id));
   };
 
   return (

@@ -2,7 +2,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 interface IGenres {
-  genres: string[] | null;
+  genres: number[] | null;
 }
 
 const initialState: IGenres = {
@@ -13,12 +13,12 @@ const filteredGenres = createSlice({
   name: 'genres',
   initialState,
   reducers: {
-    setFilteredGenres(state, action: PayloadAction<string>) {
+    setFilteredGenres(state, action: PayloadAction<number>) {
       if (!state.genres.includes(action.payload)) {
         state.genres.push(action.payload);
       }
     },
-    removeFilter(state, action: PayloadAction<string>) {
+    removeFilter(state, action: PayloadAction<number>) {
       state.genres = state.genres.filter((filter) => filter !== action.payload);
     },
   },

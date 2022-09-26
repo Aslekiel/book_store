@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ReactSlider from 'react-slider';
 import { booksApi } from '../../../../api/booksApi';
 import { setBooks } from '../../../../store/books/books';
@@ -16,9 +16,6 @@ export const SortSlider = () => {
     const changedMaxPrice = +(value[1] - (10 - value[1] / 10)).toFixed(2);
     setMinPrice(changedMinPrice);
     setMaxPrice(changedMaxPrice);
-  };
-
-  useEffect(() => {
     (async () => {
       try {
         const res = await booksApi.getAllBooks();
@@ -31,7 +28,7 @@ export const SortSlider = () => {
         console.log(error);
       }
     })();
-  }, [dispatch, maxPrice, minPrice]);
+  };
 
   return (
     <SortSliderContainer>

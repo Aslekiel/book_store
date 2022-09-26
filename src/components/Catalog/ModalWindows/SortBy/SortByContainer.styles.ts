@@ -31,5 +31,15 @@ export const SortByContainer = styled.div`
       width: 100%;
 
       padding-bottom: 12px;
+
+      &--active {
+        background-color: inherit;
+        color: #344966;
+        cursor: pointer;
+        width: 100%;
+        text-decoration: underline;
+
+        padding-bottom: 12px;
+      }
     }
 `;

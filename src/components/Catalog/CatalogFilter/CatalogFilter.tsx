@@ -28,24 +28,25 @@ export const CatalogFilter: React.FC<IProps> = ({
       filterState={filterState}
       title={title}
       sortByState={sortByState}
+    >
+      <button
+        className="catalog__filter-btn"
+        onClick={onClickHandler}
       >
-        <button
-          className="catalog__filter-btn"
-          onClick={onClickHandler}
-        >
-          {title}
-        </button>
-        <img
-          src={forward}
-          alt="forward"
-          className="catalog__filter-forward"
-        />
-        {title === 'Genre' && filterState && <SortGenre />}
-        {title === 'Price' && filterState && <SortSlider />}
-        {title === `Sort by ${sortByState}` && filterState &&
-          (<SortBy
-            setSortByState={setSortByState}
-          />)}
+        {title}
+      </button>
+      <img
+        src={forward}
+        alt="forward"
+        className="catalog__filter-forward"
+      />
+      {title === 'Genre' && filterState && <SortGenre />}
+      {title === 'Price' && filterState && <SortSlider />}
+      {title === `Sort by ${sortByState}` && filterState &&
+        (<SortBy
+          title={title}
+          setSortByState={setSortByState}
+        />)}
     </CatalogFilterContainer>
   );
 };
