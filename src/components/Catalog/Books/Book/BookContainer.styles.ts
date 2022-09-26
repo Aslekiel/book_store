@@ -23,6 +23,8 @@ export const BookContainer = styled.section<IProps>`
     height: 448px;
     margin-bottom: 30px;
     border-radius: 16px;
+
+    cursor: pointer;
   }
 
   .book__title {
@@ -43,10 +45,22 @@ export const BookContainer = styled.section<IProps>`
 
   .book__data-of-issue {
     color: #344966;
+    padding-bottom: 20px;
   }
 
   .book__rating {
-    padding-bottom: 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px 32px;
+
+    width: 100%;
+
+    &__integer {
+      line-height: 24px;
+      color: #B9BAC4;
+    }
   }
 
   > button:last-child {

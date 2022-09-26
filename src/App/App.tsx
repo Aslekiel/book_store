@@ -96,7 +96,7 @@ function App() {
             </ProtectedRoute>
           )}
         />
-        <Route path="/book" element={<BookInfo />} />
+        <Route path="/book/:id" element={<BookInfo />} />
       </Routes>
       <Footer />
       <ToastContainer />

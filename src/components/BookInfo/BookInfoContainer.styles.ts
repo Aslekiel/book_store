@@ -15,7 +15,7 @@ export const BookInfoContainer = styled.section<Props>`
     width: 100%;
 
     margin: auto;
-    padding-top: 60px;
+    padding: 60px 5px 0;
 
     .book__info-wrapper {
         display: flex;
@@ -62,6 +62,8 @@ export const BookInfoContainer = styled.section<Props>`
         }
 
         .book__info {
+            padding-left: 10px;
+
             width: 50%;
 
             &__title {
@@ -78,11 +80,39 @@ export const BookInfoContainer = styled.section<Props>`
                 color: #0D1821;
             }
 
+            &__rating {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 30px 0;
+
+                &__integer {
+                    line-height: 24px;
+                    color: #B9BAC4;
+
+                    padding: 0 40px 0 15px;
+                }
+
+                &__arrow {
+                    padding-left: 45px;
+                }
+
+                &__rate-this {
+                    line-height: 24px;
+                    color: #B9BAC4;
+                    
+                    padding-left: 10px;
+                    
+                }
+            }
+
             &__description {
                 font-weight: 500;
                 font-size: 16px;
                 line-height: 24px;
                 color: #344966;
+                text-align: justify;
 
                 padding: 10px 0 74px;
             }
@@ -106,6 +136,8 @@ export const BookInfoContainer = styled.section<Props>`
                         font-size: 16px;
                         line-height: 24px;
                         color: #344966;
+
+                        padding-bottom: 14px;
                     }
                 }
             }

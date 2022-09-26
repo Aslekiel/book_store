@@ -46,6 +46,7 @@ export const Books = () => {
             price={book.price}
             logo={book.logo}
             dataOfIssue={book.dateOfIssue}
+            rating={book.rating}
           />);
       })}
       <ToastContainer />

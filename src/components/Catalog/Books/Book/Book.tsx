@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CommonButton } from '../../../CommonButton/CommonButton';
 import { BookContainer } from './BookContainer.styles';
 import heartFull from '../../../../assets/heart-full.png';
 import heartEmpty from '../../../../assets/heart-empty.png';
 import { cartApi } from '../../../../api/cartApi';
+import fullStar from '../../../../assets/full-star.png';
+import emptyStar from '../../../../assets/empty-star.png';
 
 interface IProps {
   id: number | string;
@@ -12,17 +15,20 @@ interface IProps {
   price: number;
   logo: string;
   dataOfIssue: string;
+  rating: string;
 }
 
-export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfIssue }) => {
+export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfIssue, rating }) => {
   const [favorite, setFavorite] = useState(false);
+
+  const navigate = useNavigate();
 
   const onClickHandler = () => {
     setFavorite(!favorite);
   };
 
   const onClickCheckBook = () => {
-    // dispatch(addBook(1));
+    navigate(`/book/:${id}`);
   };
 
   const addBookToCart = () => {
@@ -58,7 +64,13 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
       <div
         className="book__rating"
       >
-        Rating
+        {new Array(5).fill(null).map((_, index) => (
+        <img
+          src={index >= +rating ? emptyStar : fullStar}
+          key={index}
+        />
+        ))}
+       <span className="book__rating__integer">{rating}</span>
       </div>
       <button
         className="book__save"

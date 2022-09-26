@@ -45,6 +45,17 @@ export const SortBy: React.FC<Props> = ({ title, setSortByState }) => {
     }
   };
 
+  const sortByRating = () => {
+    try {
+      const sortedByRating = [...books].sort((a, b) => (a.rating > b.rating ? 1 : -1));
+      dispatch(setBooks({ books: sortedByRating }));
+      setSortByState('rating');
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
+  };
+
   const sortByDataOfIssue = () => {
     try {
       const sortedByDataOfIssue = [...books].sort(
@@ -93,7 +104,9 @@ export const SortBy: React.FC<Props> = ({ title, setSortByState }) => {
           title === 'Sort by rating'
             ? 'sort__btn--active'
             : 'sort__btn'}
-      >Rating
+          onClick={sortByRating}
+      >
+        Rating
       </div>
       <div
         className={

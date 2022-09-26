@@ -18,6 +18,9 @@
     "suppressExcessPropertyErrors": true,
     "strictNullChecks": false,
     "strictPropertyInitialization": false,
+    "paths": {
+     "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"],
+    }
   },
   "include": ["src/**/*", "node_modules/@types/express", "src/custom.d.ts"]
 }

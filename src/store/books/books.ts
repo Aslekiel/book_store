@@ -34,6 +34,9 @@ const books = createSlice({
     setBooks(state, action: PayloadAction<IBooks | null>) {
       state.books = action.payload.books;
     },
+    getBookById(state, action: PayloadAction<IBooks | null>) {
+      state.books = action.payload.books;
+    },
   },
 });
 
