@@ -17,6 +17,9 @@ export interface IUserType {
   fullname?: string;
   email: string;
   avatar?: string;
+  cart?: IUserCart[];
+  favorites?: object[];
+  ratings?: object[];
 }
 
 export type UserPasswordsType = {
@@ -41,4 +44,11 @@ export interface IBook {
 export interface IBookGenres {
   id?: number;
   name: string;
+}
+
+export interface IUserCart {
+  id: number;
+  bookId: number;
+  userId: number;
+  count: number;
 }

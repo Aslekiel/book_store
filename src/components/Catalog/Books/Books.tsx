@@ -21,8 +21,6 @@ export const Books = () => {
           return;
         }
         const res = await booksApi.getFilteredArrayOfBooks(filteredGenres);
-        // eslint-disable-next-line no-console
-        console.log(res.data);
         dispatch(setBooks(res.data));
       } catch (error) {
         if (error instanceof AxiosError) {

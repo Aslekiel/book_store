@@ -11,6 +11,9 @@ const initialState: IUser = {
     fullname: '',
     email: '',
     avatar: '',
+    cart: [],
+    favorites: [],
+    ratings: [],
   },
 };
 
@@ -19,6 +22,16 @@ interface IUserType {
   fullname?: string;
   email: string;
   avatar?: string;
+  cart?: IUserCart[];
+  favorites?: object[];
+  ratings?: object[];
+}
+
+interface IUserCart {
+  id: number;
+  bookId: number;
+  userId: number;
+  count: number;
 }
 
 const user = createSlice({
@@ -28,9 +41,12 @@ const user = createSlice({
     setUser(state, action: PayloadAction<IUser | null>) {
       state.user = action.payload!.user;
     },
+    setUserCart(state, action: PayloadAction<IUserType | null>) {
+      state.user.cart = action.payload.cart;
+    },
   },
 });
 
-export const { setUser } = user.actions;
+export const { setUser, setUserCart } = user.actions;
 
 export default user.reducer;

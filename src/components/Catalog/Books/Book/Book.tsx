@@ -7,6 +7,8 @@ import heartEmpty from '../../../../assets/heart-empty.png';
 import { cartApi } from '../../../../api/cartApi';
 import fullStar from '../../../../assets/full-star.png';
 import emptyStar from '../../../../assets/empty-star.png';
+import { useAppDispatch } from '../../../../store/hooks/hooks';
+import { setUserCart } from '../../../../store/user/user';
 
 interface IProps {
   id: number | string;
@@ -21,6 +23,8 @@ interface IProps {
 export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfIssue, rating }) => {
   const [favorite, setFavorite] = useState(false);
 
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
 
   const onClickHandler = () => {
@@ -34,7 +38,8 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
   const addBookToCart = () => {
     (async () => {
       try {
-        await cartApi.addBooksToCart(id);
+        const res = await cartApi.addBooksToCart(id);
+        dispatch(setUserCart(res.data));
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
@@ -65,12 +70,12 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
         className="book__rating"
       >
         {new Array(5).fill(null).map((_, index) => (
-        <img
-          src={index >= +rating ? emptyStar : fullStar}
-          key={index}
-        />
+          <img
+            src={index >= +rating ? emptyStar : fullStar}
+            key={index}
+          />
         ))}
-       <span className="book__rating__integer">{rating}</span>
+        <span className="book__rating__integer">{rating}</span>
       </div>
       <button
         className="book__save"

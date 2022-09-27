@@ -1,8 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as BooksImg } from '../../../assets/books.svg';
 import { CommonButton } from '../../CommonButton/CommonButton';
 import { EmptyCartContainer } from './EmptyCartContainer.styles';
 
 export const EmptyCart = () => {
+  const navigate = useNavigate();
+
+  const onClickNavigate = () => {
+    navigate('/catalog');
+  };
+
   return (
     <EmptyCartContainer>
       <BooksImg />
@@ -14,7 +21,7 @@ export const EmptyCart = () => {
           Add items to cart to make a purchase.
           <br /> Go to the catalogue no.
         </p>
-        <CommonButton title="Go to catalog" />
+        <CommonButton title="Go to catalog" onClick={onClickNavigate} />
       </div>
     </EmptyCartContainer>
   );

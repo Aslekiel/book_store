@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { cartApi } from '../../api/cartApi';
 import { setBooks } from '../../store/books/books';
-import { useAppDispatch } from '../../store/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import { CartWithBooks } from './CartWithBooks/CartWithBooks';
 import { EmptyCart } from './EmptyCart/EmptyCart';
 
 export const Cart = () => {
-  const [emptyCart, setEmptyCart] = useState(true);
+  const user = useAppSelector((state) => state.user.user);
 
   const dispatch = useAppDispatch();
 
@@ -15,7 +15,6 @@ export const Cart = () => {
       try {
         const res = await cartApi.getAllBooksFromCart();
         dispatch(setBooks(res.data));
-        setEmptyCart(false);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
@@ -25,7 +24,7 @@ export const Cart = () => {
 
   return (
     <div>
-      {!emptyCart
+      {user.cart.length
         ? <CartWithBooks />
         : <EmptyCart />}
     </div>
