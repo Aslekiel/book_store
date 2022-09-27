@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const UserProfilePhotoContainer = styled.div`
+interface IProps {
+  noAvatar: boolean;
+}
+
+export const UserProfilePhotoContainer = styled.div<IProps>`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -21,8 +25,8 @@ export const UserProfilePhotoContainer = styled.div`
 
         &__user-logo {
         position: absolute;
-        width: inherit;
-        height: inherit;
+        width: ${(p) => (p.noAvatar ? '' : 'inherit')};
+        height:  ${(p) => (p.noAvatar ? '' : 'inherit')};
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);

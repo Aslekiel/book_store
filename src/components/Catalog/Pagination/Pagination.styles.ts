@@ -14,6 +14,11 @@ export const PaginationContainer = styled.div`
 
   .pagination__back-arrow {
     transform: rotate(180deg);
+    cursor: pointer;
+  }
+
+  .pagination__forward-arrow {
+    cursor: pointer;
   }
 
   .pagination__list {

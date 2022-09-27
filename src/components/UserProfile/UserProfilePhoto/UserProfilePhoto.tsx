@@ -43,7 +43,7 @@ export const UserProfilePhoto = () => {
   };
 
   return (
-    <UserProfilePhotoContainer>
+    <UserProfilePhotoContainer noAvatar={!user.avatar}>
       <div className="user-photo">
         <img
           src={user.avatar ? user.avatar : userLogo}

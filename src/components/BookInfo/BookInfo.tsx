@@ -12,18 +12,22 @@ import arrowRating from '../../assets/arrow-rating.png';
 import { RatingStar } from './RatingStars.styles';
 import { Book } from '../Catalog/Books/Book/Book';
 import { setBooks } from '../../store/books/books';
+import { setUserCart } from '../../store/user/user';
+import { cartApi } from '../../api/cartApi';
 
 export const BookInfo = () => {
   const user = useAppSelector((state) => state.user.user?.email);
   const books = useAppSelector((state) => state.books.books);
+
   const { id } = useParams();
+
   const [favorite, setFavorite] = useState(false);
+  const [toggleBtn, setToggleBtn] = useState(true);
+  const [book, setBook] = useState<IBook>(null);
 
   const dispatch = useAppDispatch();
 
   const bookId = id.slice(1);
-
-  const [book, setBook] = useState<IBook>(null);
 
   const onClickHandler = () => {
     setFavorite(!favorite);
@@ -42,6 +46,19 @@ export const BookInfo = () => {
       }
     })();
   }, [bookId, dispatch]);
+
+  const addBookToCart = () => {
+    (async () => {
+      try {
+        const res = await cartApi.addBooksToCart(Number(bookId));
+        dispatch(setUserCart(res.data));
+        setToggleBtn(false);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    })();
+  };
 
   return (
     book &&
@@ -110,13 +127,17 @@ export const BookInfo = () => {
                 <span className="book__info__buy-btns__btn__title">
                   Paperback
                 </span>
-                <CommonButton title="Not available" />
+                <CommonButton title="Not available" toggleBtn />
               </div>
               <div className="book__info__buy-btns__btn">
                 <span className="book__info__buy-btns__btn__title">
                   Hardcover
                 </span>
-                <CommonButton title={`$ ${book.price} USD`} />
+                <CommonButton
+                title={`$ ${book.price} USD`}
+                onClick={addBookToCart}
+                toggleBtn={toggleBtn}
+                />
               </div>
             </div>
           </div>
@@ -132,7 +153,7 @@ export const BookInfo = () => {
                   className="book__comments__textarea"
                   placeholder="Share a comment"
                 />
-                <CommonButton title="Post a comment" />
+                <CommonButton title="Post a comment" toggleBtn />
               </>
             )
           }
