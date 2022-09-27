@@ -120,6 +120,7 @@ const LogIn = () => {
             <CommonButton
               title="Log In"
               type="submit"
+              toggleBtn
             />
           </form>
         </div>

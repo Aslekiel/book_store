@@ -137,6 +137,7 @@ export const ChangePasswordBlock = () => {
           (<CommonButton
             title="Confirm"
             type="submit"
+            toggleBtn
           />)
         }
       </form>

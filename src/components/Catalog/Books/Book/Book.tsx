@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CommonButton } from '../../../CommonButton/CommonButton';
 import { BookContainer } from './BookContainer.styles';
@@ -7,7 +7,7 @@ import heartEmpty from '../../../../assets/heart-empty.png';
 import { cartApi } from '../../../../api/cartApi';
 import fullStar from '../../../../assets/full-star.png';
 import emptyStar from '../../../../assets/empty-star.png';
-import { useAppDispatch } from '../../../../store/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks/hooks';
 import { setUserCart } from '../../../../store/user/user';
 
 interface IProps {
@@ -21,7 +21,12 @@ interface IProps {
 }
 
 export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfIssue, rating }) => {
+  const user = useAppSelector((state) => state.user.user);
   const [favorite, setFavorite] = useState(false);
+
+  const [toggleBtn, setToggleBtn] = useState(true);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const booksIdsFromCart: number[] = [];
 
   const dispatch = useAppDispatch();
 
@@ -34,6 +39,18 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
   const onClickCheckBook = () => {
     navigate(`/book/:${id}`);
   };
+
+  for (let i = 0; i < user.cart.length; i++) {
+    if (id === user.cart[i].bookId) {
+      booksIdsFromCart.push(user.cart[i].bookId);
+    }
+  }
+
+  useEffect(() => {
+    if (booksIdsFromCart.includes(+id)) {
+      setToggleBtn(false);
+    }
+  }, [booksIdsFromCart, id]);
 
   const addBookToCart = () => {
     (async () => {
@@ -87,7 +104,11 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
           alt="heart-favorite"
         />
       </button>
-      <CommonButton title={`$ ${price} USD`} onClick={addBookToCart} />
+      <CommonButton
+        title={`$ ${price} USD`}
+        onClick={addBookToCart}
+        toggleBtn={toggleBtn}
+      />
     </BookContainer>
   );
 };

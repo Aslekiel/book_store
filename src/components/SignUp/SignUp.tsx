@@ -155,6 +155,7 @@ const SignUp: React.FC = () => {
             <CommonButton
               title="Sign Up"
               type="submit"
+              toggleBtn
             />
           </form>
         </div>

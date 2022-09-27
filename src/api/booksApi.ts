@@ -26,9 +26,16 @@ const getBookById = async (id: number): Promise<AxiosResponse<IBook>> => {
   return genresData;
 };
 
+const getRecommendedBooks = async (id: number): Promise<AxiosResponse<IResDataType>> => {
+  const genresData = await instance.post('books/recommend', { id });
+
+  return genresData;
+};
+
 export const booksApi = {
   getAllBooks,
   getAllGenres,
   getFilteredArrayOfBooks,
   getBookById,
+  getRecommendedBooks,
 };

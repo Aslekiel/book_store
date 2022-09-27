@@ -5,15 +5,17 @@ type Props = {
   title: string;
   type?: 'button' | 'submit';
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  toggleBtn?: boolean;
 };
 
-export const CommonButton: React.FC<Props> = ({ title, type, onClick }) => {
+export const CommonButton: React.FC<Props> = ({ title, type, onClick, toggleBtn }) => {
   return (
     <CommonButtonContainer
       type={type}
       onClick={onClick}
+      toggleBtn={toggleBtn}
     >
-      {title}
+      {toggleBtn ? title : 'Added to cart'}
     </CommonButtonContainer>
   );
 };

@@ -9,6 +9,7 @@ export const CartWithBooksContainer = styled.section`
 
   .book {
     &__line {
+      border: 1px solid #D6D8E7;
       margin: 40px 0;
     }
   }

@@ -3,9 +3,12 @@ import { HeaderMenuContainer } from './HeaderMenu.styles';
 import { ReactComponent as CartLogo } from '../../../assets/cart.svg';
 import { ReactComponent as HeartLogo } from '../../../assets/heart.svg';
 import { ReactComponent as UserLogo } from '../../../assets/user profile.svg';
+import { useAppSelector } from '../../../store/hooks/hooks';
 
 export const HeaderMenu = () => {
   const navigate = useNavigate();
+
+  const user = useAppSelector((state) => state.user.user);
 
   return (
     <HeaderMenuContainer>
@@ -14,14 +17,23 @@ export const HeaderMenu = () => {
         onClick={() => navigate('/cart')}
       >
         <CartLogo
-          className="header-menu__logo header-menu__cart"
+          className="header-menu__logo"
         />
+        {!!user.cart.length &&
+          (
+            <div
+              className="header-menu__logo__amount-books"
+            >
+              {user.cart.length}
+            </div>
+          )
+        }
       </button>
       <button
         className="header-menu__button"
       >
         <HeartLogo
-          className="header-menu__logo header-menu__heart"
+          className="header-menu__logo"
         />
       </button>
       <button
@@ -29,7 +41,7 @@ export const HeaderMenu = () => {
         onClick={() => navigate('/user-profile')}
       >
         <UserLogo
-          className="header-menu__logo header-menu__user"
+          className="header-menu__logo"
         />
       </button>
     </HeaderMenuContainer>

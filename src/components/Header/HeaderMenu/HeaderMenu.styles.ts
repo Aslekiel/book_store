@@ -15,19 +15,37 @@ export const HeaderMenuContainer = styled.div`
     border-radius: 50%;
     cursor: pointer;
   }
+
   .header-menu__button:nth-child(1) {
     margin-left: 10px;
   }
+
   .header-menu__button:nth-child(2) {
     margin: 0 27px;
   }
+
   .header-menu__button:nth-child(3) {
     margin-right: 10px;
   }
+
   .header-menu__logo {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+
+    &__amount-books {
+      position: absolute;
+      background: #BFCC94;
+      width: 23px;
+      height: 23px;
+
+      top: -6px;
+      left: 30px;
+
+      color: #344966;
+
+      border-radius: 50%;
+    }
   }
 `;

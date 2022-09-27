@@ -15,12 +15,11 @@ export const BookContainer = styled.section<IProps>`
   margin-bottom: 60px;
   padding: 0 5px;
 
-  max-width: 305px;
-  width: 100%;
-
   .book__logo {
+    max-width: 305px;
     width: 100%;
-    height: 448px;
+    max-height: 448px;
+    height: 100%;
     margin-bottom: 30px;
     border-radius: 16px;
 
@@ -31,6 +30,9 @@ export const BookContainer = styled.section<IProps>`
     font-size: 20px;
     line-height: 30px;
     color: #344966;
+
+    max-width: 305px;
+    width: 100%;
 
     height: 50px;
   }

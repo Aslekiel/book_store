@@ -6,7 +6,7 @@ import { CartWithBooks } from './CartWithBooks/CartWithBooks';
 import { EmptyCart } from './EmptyCart/EmptyCart';
 
 export const Cart = () => {
-  const user = useAppSelector((state) => state.user.user);
+  const books = useAppSelector((state) => state.books.books);
 
   const dispatch = useAppDispatch();
 
@@ -24,7 +24,7 @@ export const Cart = () => {
 
   return (
     <div>
-      {user.cart.length
+      {books.length
         ? <CartWithBooks />
         : <EmptyCart />}
     </div>

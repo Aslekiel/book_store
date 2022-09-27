@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { BookInCartContainer } from './BooInCartContainer.styles';
 import { ReactComponent as DeleteBookLogo } from '../../../../assets/delete.svg';
 import { useAppDispatch } from '../../../../store/hooks/hooks';
 import { cartApi } from '../../../../api/cartApi';
 import { setBooks } from '../../../../store/books/books';
+import { setUserCart } from '../../../../store/user/user';
 
 interface IProps {
   id: number | string;
@@ -10,9 +12,6 @@ interface IProps {
   title: string;
   author: string;
   price: number | string;
-  booksAmount: number;
-  onClickIncrement: React.MouseEventHandler<HTMLButtonElement>;
-  onClickDecrement: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export const BookInCart: React.FC<IProps> = ({
@@ -21,10 +20,8 @@ export const BookInCart: React.FC<IProps> = ({
   title,
   author,
   price,
-  booksAmount,
-  onClickIncrement,
-  onClickDecrement,
 }) => {
+  const [booksAmount, setBooksAmount] = useState(1);
   const dispatch = useAppDispatch();
 
   const onClickDeleteBook = () => {
@@ -32,11 +29,22 @@ export const BookInCart: React.FC<IProps> = ({
       try {
         const res = await cartApi.deleteBookFromCart(id);
         dispatch(setBooks(res.data));
+        dispatch(setUserCart(res.data.user));
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
       }
     })();
+  };
+
+  const onClickIncrement = () => {
+    if (booksAmount > 1) {
+      setBooksAmount(booksAmount - 1);
+    }
+  };
+
+  const onClickDecrement = () => {
+    setBooksAmount(booksAmount + 1);
   };
 
   return (

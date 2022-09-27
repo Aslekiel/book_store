@@ -29,9 +29,14 @@ export const BookInfoContainer = styled.section<Props>`
         .book__logo {
             position: relative;
 
+            max-width: 522px;
+            width: 100%;
+
             &__img {
-            width: 522px;
-            height: 779px;
+            max-width: 522px;
+            width: 100%;
+            max-height: 779px;
+            height: 100%;
             border-radius: 16px;
 
             }
@@ -151,5 +156,51 @@ export const BookInfoContainer = styled.section<Props>`
         align-items: flex-start;
 
         padding: 110px 0 68px;
+
+        &__title {
+            font-weight: 700;
+            font-size: 40px;
+            line-height: 60px;
+            color: #0D1821;
+            padding-bottom: 50px;
+        }
+
+        &__textarea {
+            resize: none;
+            width: 750px;
+            height: 120px;
+            background: #F0F4EF;
+            border-radius: 16px;
+
+            padding-top: 20px;
+            padding-left: 24px;
+
+            margin-bottom: 30px;
+
+            ::placeholder {
+                line-height: 28px;
+                letter-spacing: 0.75px;
+                color: #B9BAC4;
+            }
+        }
+    }
+
+    .book__recommendations {
+
+        &__title {
+            font-weight: 700;
+            font-size: 40px;
+            line-height: 60px;
+            color: #0D1821;
+
+            padding: 110px 0 50px;
+        }
+
+        &__books {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
     }
 `;

@@ -66,6 +66,7 @@ export const UserProfilePhoto = () => {
       <CommonButton
         title="Log Out"
         onClick={onClickLogOut}
+        toggleBtn
       />
     </UserProfilePhotoContainer>
   );

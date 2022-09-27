@@ -95,6 +95,7 @@ export const UserProfile = () => {
               (<CommonButton
                 title="Confirm"
                 type="submit"
+                toggleBtn
               />)
             }
           </form>

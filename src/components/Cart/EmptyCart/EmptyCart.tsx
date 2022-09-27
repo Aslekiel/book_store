@@ -21,7 +21,11 @@ export const EmptyCart = () => {
           Add items to cart to make a purchase.
           <br /> Go to the catalogue no.
         </p>
-        <CommonButton title="Go to catalog" onClick={onClickNavigate} />
+        <CommonButton
+          title="Go to catalog"
+          onClick={onClickNavigate}
+          toggleBtn
+        />
       </div>
     </EmptyCartContainer>
   );

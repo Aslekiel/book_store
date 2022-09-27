@@ -21,6 +21,7 @@ export const MainCatalogBanner = () => {
         </p>
         <CommonButton
           title="Choose a book"
+          toggleBtn
         />
       </div>
       <img
