@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const PaginationContainer = styled.div`
+interface IProps {
+  pagesAmount: number;
+}
+
+export const PaginationContainer = styled.div<IProps>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -25,7 +29,7 @@ export const PaginationContainer = styled.div`
 
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: ${(p) => (p.pagesAmount === 1 ? 'center' : 'space-between ')};
     align-items: center;
 
     width: 40%;

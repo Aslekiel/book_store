@@ -5,7 +5,7 @@ import { CatalogFilters } from './CatalogFilters/CatalogFilters';
 export const Catalog = () => {
   return (
     <CatalogContainer>
-      <CatalogFilters />
+      <CatalogFilters title="Catalog" />
       <Books />
     </CatalogContainer>
   );

@@ -19,7 +19,7 @@ export interface IUserType {
   avatar?: string;
   cart?: IUserCart[];
   favorites?: IUserFavorites[];
-  ratings?: object[];
+  ratings?: IUserRating[];
 }
 
 export type UserPasswordsType = {
@@ -57,4 +57,11 @@ export interface IUserFavorites {
   id: number;
   bookId: number;
   userId: number;
+}
+
+interface IUserRating {
+  id: number;
+  bookId: number;
+  userId: number;
+  grade: number;
 }

@@ -187,6 +187,8 @@ export const BookInfoContainer = styled.section<Props>`
 
     .book__recommendations {
 
+        width: 100%;
+
         &__title {
             font-weight: 700;
             font-size: 40px;
@@ -197,10 +199,8 @@ export const BookInfoContainer = styled.section<Props>`
         }
 
         &__books {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
         }
     }
 `;

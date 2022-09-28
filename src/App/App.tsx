@@ -19,6 +19,7 @@ import { userApi } from '../api/userApi';
 import { setUser } from '../store/user/user';
 import { BookInfo } from '../components/BookInfo/BookInfo';
 import { Cart } from '../components/Cart/Cart';
+import { FavoritePage } from '../components/FavoritePage/FavoritePage';
 
 function App() {
   const [isInit, setIsInit] = useState(false);
@@ -86,7 +87,8 @@ function App() {
             <ProtectedRoute isLogIn>
               <Cart />
             </ProtectedRoute>
-          )}
+          )
+        }
         />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/user-profile" element={
@@ -96,7 +98,22 @@ function App() {
             </ProtectedRoute>
           )}
         />
-        <Route path="/book/:id" element={<BookInfo />} />
+        <Route path="/book/:id" element={
+          (
+            <ProtectedRoute isLogIn>
+              <BookInfo />
+            </ProtectedRoute>
+          )
+        }
+        />
+        <Route path="/favorite" element={
+          (
+            <ProtectedRoute isLogIn>
+              <FavoritePage />
+            </ProtectedRoute>
+          )
+        }
+        />
       </Routes>
       <Footer />
       <ToastContainer />

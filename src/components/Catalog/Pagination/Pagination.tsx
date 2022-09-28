@@ -28,7 +28,7 @@ export const Pagination: React.FC<IProps> = ({ currentPage, setCurrentPage }) =>
   };
 
   return (
-    <PaginationContainer>
+    <PaginationContainer pagesAmount={pages.length}>
       <img
         src={arrow}
         alt="back-arrow"

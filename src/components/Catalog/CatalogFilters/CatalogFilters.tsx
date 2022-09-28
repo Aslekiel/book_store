@@ -2,18 +2,22 @@ import { useState } from 'react';
 import { CatalogFiltersContainer } from './CatalogFiltersContainer.styles';
 import { CatalogFilter } from '../CatalogFilter/CatalogFilter';
 
-export const CatalogFilters = () => {
+interface IProps {
+  title: string;
+}
+
+export const CatalogFilters: React.FC<IProps> = ({ title }) => {
   const [sortByState, setSortByState] = useState('price');
 
   return (
     <CatalogFiltersContainer>
-      <h2 className="catalog__title">Catalog</h2>
+      <h2 className="catalog__title">{title}</h2>
       <div className="catalog__filters">
         <CatalogFilter
-        title="Genre"
+          title="Genre"
         />
         <CatalogFilter
-        title="Price"
+          title="Price"
         />
         <CatalogFilter
           title={`Sort by ${sortByState}`}

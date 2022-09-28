@@ -12,9 +12,10 @@ import arrowRating from '../../assets/arrow-rating.png';
 import { RatingStar } from './RatingStars.styles';
 import { Book } from '../Catalog/Books/Book/Book';
 import { setBooks } from '../../store/books/books';
-import { setUserCart, setUserFavorite } from '../../store/user/user';
+import { setUserCart, setUserFavorite, setUserRating } from '../../store/user/user';
 import { cartApi } from '../../api/cartApi';
 import { favoriteApi } from '../../api/favoriteApi';
+import { ratingApi } from '../../api/ratingApi';
 
 export const BookInfo = () => {
   const user = useAppSelector((state) => state.user.user);
@@ -31,6 +32,7 @@ export const BookInfo = () => {
   const [favorite, setFavorite] = useState(isFavorite);
   const [toggleBtn, setToggleBtn] = useState(true);
   const [book, setBook] = useState<IBook>(null);
+  const [rating, setRating] = useState(0);
 
   const dispatch = useAppDispatch();
 
@@ -80,6 +82,27 @@ export const BookInfo = () => {
     })();
   };
 
+  const addRating = (event: React.SyntheticEvent) => {
+    const grade = (event.target as HTMLInputElement).value;
+    (async () => {
+      try {
+        const res = await ratingApi.addRating(Number(bookId), Number(grade));
+        dispatch(setUserRating(res.data));
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    })();
+  };
+
+  useEffect(() => {
+    for (let i = 0; i < user.ratings.length; i++) {
+      if (Number(bookId) === user.ratings[i].bookId) {
+        setRating(+user.ratings[i].grade);
+      }
+    }
+  }, [bookId, user.ratings]);
+
   return (
     book &&
     (
@@ -124,8 +147,9 @@ export const BookInfo = () => {
               </span>
               <RatingStar
                 name="half-rating"
-                defaultValue={0}
+                value={rating || 0}
                 precision={0.5}
+                onChange={addRating}
               />
               <img
                 src={arrowRating}

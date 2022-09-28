@@ -24,7 +24,7 @@ interface IUserType {
   avatar?: string;
   cart?: IUserCart[];
   favorites?: IUserFavorites[];
-  ratings?: object[];
+  ratings?: IUserRating[];
 }
 
 interface IUserCart {
@@ -40,6 +40,13 @@ interface IUserFavorites {
   userId: number;
 }
 
+interface IUserRating {
+  id: number;
+  bookId: number;
+  userId: number;
+  grade: number;
+}
+
 const user = createSlice({
   name: 'user',
   initialState,
@@ -53,9 +60,12 @@ const user = createSlice({
     setUserFavorite(state, action: PayloadAction<IUserType | null>) {
       state.user.favorites = action.payload.favorites;
     },
+    setUserRating(state, action: PayloadAction<IUserType | null>) {
+      state.user.ratings = action.payload.ratings;
+    },
   },
 });
 
-export const { setUser, setUserCart, setUserFavorite } = user.actions;
+export const { setUser, setUserCart, setUserFavorite, setUserRating } = user.actions;
 
 export default user.reducer;
