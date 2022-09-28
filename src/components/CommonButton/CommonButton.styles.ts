@@ -13,7 +13,6 @@ export const CommonButtonContainer = styled.button<IProps>`
     padding: 10px 50px;
     color: #f0f4ef;
     letter-spacing: 0.75px;
-    width: fit-content;
     white-space: nowrap;
     cursor: pointer;
     `
@@ -24,8 +23,8 @@ export const CommonButtonContainer = styled.button<IProps>`
     padding: 9px 50px;
     color: #0D1821;
     letter-spacing: 0.75px;
-    width: fit-content;
     white-space: nowrap;
+    z-index: -1;
     `)} ;
 
 `;

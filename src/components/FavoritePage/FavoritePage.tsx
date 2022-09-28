@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
 import { favoriteApi } from '../../api/favoriteApi';
 import { setBooks } from '../../store/books/books';
-import { useAppDispatch } from '../../store/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import { Books } from '../Catalog/Books/Books';
 import { CatalogFilters } from '../Catalog/CatalogFilters/CatalogFilters';
+import { EmptyFavorite } from './EmptyFavorite/EmptyFavorite';
 import { FavoritePageContainer } from './FavoritePageContainer.styles';
 
 export const FavoritePage = () => {
+  const { favorites } = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -19,12 +21,12 @@ export const FavoritePage = () => {
         console.log(error);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, favorites.length]);
 
   return (
     <FavoritePageContainer>
-      <CatalogFilters title="Favorite" />
-      <Books />
+      {!!favorites.length && <h2 className="favorite__title">Favorite</h2>}
+      {favorites.length ? <Books /> : <EmptyFavorite />}
     </FavoritePageContainer>
   );
 };

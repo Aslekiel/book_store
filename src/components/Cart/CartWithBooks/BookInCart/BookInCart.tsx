@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { BookInCartContainer } from './BooInCartContainer.styles';
 import { ReactComponent as DeleteBookLogo } from '../../../../assets/delete.svg';
-import { useAppDispatch } from '../../../../store/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks/hooks';
 import { cartApi } from '../../../../api/cartApi';
 import { setBooks } from '../../../../store/books/books';
 import { setUserCart } from '../../../../store/user/user';
@@ -11,7 +11,8 @@ interface IProps {
   logo: string;
   title: string;
   author: string;
-  price: number | string;
+  price: number;
+  setBooksPrices?: React.Dispatch<React.SetStateAction<object>>;
 }
 
 export const BookInCart: React.FC<IProps> = ({
@@ -21,7 +22,13 @@ export const BookInCart: React.FC<IProps> = ({
   author,
   price,
 }) => {
-  const [booksAmount, setBooksAmount] = useState(1);
+  const user = useAppSelector((state) => state.user.user);
+  const booksCopies = !user ? [] : user.cart
+    .filter((cart) => cart.bookId === id)
+    .map((cart) => cart.count);
+
+  const [booksAmount, setBooksAmount] = useState(+booksCopies);
+
   const dispatch = useAppDispatch();
 
   const onClickDeleteBook = () => {
@@ -40,11 +47,29 @@ export const BookInCart: React.FC<IProps> = ({
   const onClickIncrement = () => {
     if (booksAmount > 1) {
       setBooksAmount(booksAmount - 1);
+      (async () => {
+        try {
+          const res = await cartApi.removeBookCopy(id);
+          dispatch(setUserCart(res.data));
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+        }
+      })();
     }
   };
 
   const onClickDecrement = () => {
     setBooksAmount(booksAmount + 1);
+    (async () => {
+      try {
+        const res = await cartApi.addBookCopy(id);
+        dispatch(setUserCart(res.data));
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    })();
   };
 
   return (
@@ -75,7 +100,7 @@ export const BookInCart: React.FC<IProps> = ({
           <span
             className="book__info__btns__amount-books"
           >
-            {booksAmount}
+            {booksCopies}
           </span>
           <button
             className="book__info__btns__plus"
@@ -91,7 +116,7 @@ export const BookInCart: React.FC<IProps> = ({
         <h2
           className="book__info__price"
         >
-          {`$ ${price} USD`}
+          {`$ ${+(price * +booksCopies).toFixed(2)} USD`}
         </h2>
       </div>
     </BookInCartContainer>

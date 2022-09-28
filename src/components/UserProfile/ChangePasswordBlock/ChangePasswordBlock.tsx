@@ -75,7 +75,7 @@ export const ChangePasswordBlock = () => {
           onChange={formik.handleChange}
           isActive={!changePassword}
           isError={!!formik.errors.password}
-          defaultClassState={!changePassword}
+          defaultClassState={changePassword}
         />
         {changePassword && (
           <div className="change-password">
@@ -141,7 +141,6 @@ export const ChangePasswordBlock = () => {
           />)
         }
       </form>
-
     </ChangePasswordBlockContainer>
   );
 };

@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 export const BooksContainer = styled.section`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(305px, 1fr));
+  justify-items: center;
 `;

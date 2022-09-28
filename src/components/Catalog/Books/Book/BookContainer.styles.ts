@@ -15,6 +15,8 @@ export const BookContainer = styled.section<IProps>`
   margin-bottom: 60px;
   padding: 0 5px;
 
+  width: 100%;
+
   .book__logo {
     max-width: 305px;
     width: 100%;
@@ -57,6 +59,7 @@ export const BookContainer = styled.section<IProps>`
     align-items: center;
     padding: 0 5px 32px;
 
+    max-width: 305px;
     width: 100%;
 
     &__integer {
@@ -65,7 +68,8 @@ export const BookContainer = styled.section<IProps>`
     }
   }
 
-  > button:last-child {
+  > button:nth-child(odd) {
+    max-width: 305px;
     width: 100%;
   }
 

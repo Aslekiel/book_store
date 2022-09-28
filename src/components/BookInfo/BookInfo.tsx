@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import { AxiosError } from 'axios';
 import heartFull from '../../assets/heart-full.png';
 import heartEmpty from '../../assets/heart-empty.png';
 import { CommonButton } from '../CommonButton/CommonButton';
@@ -26,6 +28,14 @@ export const BookInfo = () => {
   const bookId = id.slice(1);
 
   const favoriteBooksIds = !user ? [] : user.favorites.map((favorite) => favorite.bookId);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const booksIdsFromCart = !user ? [] : user.cart.map((cart) => cart.bookId);
+
+  useEffect(() => {
+    if (booksIdsFromCart.includes(Number(bookId))) {
+      setToggleBtn(false);
+    }
+  }, [booksIdsFromCart, bookId]);
 
   const isFavorite = !!favoriteBooksIds.includes(Number(bookId));
 
@@ -76,6 +86,9 @@ export const BookInfo = () => {
         dispatch(setUserCart(res.data));
         setToggleBtn(false);
       } catch (error) {
+        if (error instanceof AxiosError) {
+          return toast(error.response?.data.message);
+        }
         // eslint-disable-next-line no-console
         console.log(error);
       }
@@ -89,6 +102,9 @@ export const BookInfo = () => {
         const res = await ratingApi.addRating(Number(bookId), Number(grade));
         dispatch(setUserRating(res.data));
       } catch (error) {
+        if (error instanceof AxiosError) {
+          return toast(error.response?.data.message);
+        }
         // eslint-disable-next-line no-console
         console.log(error);
       }
@@ -101,7 +117,7 @@ export const BookInfo = () => {
         setRating(+user.ratings[i].grade);
       }
     }
-  }, [bookId, user.ratings]);
+  }, [bookId, user?.ratings]);
 
   return (
     book &&
@@ -147,7 +163,7 @@ export const BookInfo = () => {
               </span>
               <RatingStar
                 name="half-rating"
-                value={rating || 0}
+                value={!user ? 0 : rating}
                 precision={0.5}
                 onChange={addRating}
               />
@@ -225,6 +241,7 @@ export const BookInfo = () => {
             })}
           </div>
         </div>
+        <ToastContainer />
       </BookInfoContainer>
     )
   );

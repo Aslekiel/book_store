@@ -98,14 +98,7 @@ function App() {
             </ProtectedRoute>
           )}
         />
-        <Route path="/book/:id" element={
-          (
-            <ProtectedRoute isLogIn>
-              <BookInfo />
-            </ProtectedRoute>
-          )
-        }
-        />
+        <Route path="/book/:id" element={<BookInfo />} />
         <Route path="/favorite" element={
           (
             <ProtectedRoute isLogIn>

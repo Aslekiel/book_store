@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import { AxiosError } from 'axios';
 import { CommonButton } from '../../../CommonButton/CommonButton';
 import { BookContainer } from './BookContainer.styles';
 import heartFull from '../../../../assets/heart-full.png';
@@ -24,7 +26,7 @@ interface IProps {
 export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfIssue, rating }) => {
   const user = useAppSelector((state) => state.user.user);
 
-  const favoriteBooksIds = !user ? [] : user.favorites.map((favorite) => favorite.bookId);
+  const favoriteBooksIds = !user ? [] : user.favorites?.map((favorite) => favorite.bookId);
 
   const isFavorite = !!favoriteBooksIds.includes(+id);
 
@@ -33,7 +35,7 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
   const [toggleBtn, setToggleBtn] = useState(true);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const booksIdsFromCart = !user ? [] : user.cart.map((cart) => cart.bookId);
+  const booksIdsFromCart = !user ? [] : user.cart?.map((cart) => cart.bookId);
 
   const dispatch = useAppDispatch();
 
@@ -62,6 +64,9 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
         dispatch(setUserFavorite(res.data));
         setFavorite(!favorite);
       } catch (error) {
+        if (error instanceof AxiosError) {
+          return toast(error.response?.data.message);
+        }
         // eslint-disable-next-line no-console
         console.log(error);
       }
@@ -74,6 +79,9 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
         const res = await cartApi.addBooksToCart(id);
         dispatch(setUserCart(res.data));
       } catch (error) {
+        if (error instanceof AxiosError) {
+          return toast(error.response?.data.message);
+        }
         // eslint-disable-next-line no-console
         console.log(error);
       }
@@ -125,6 +133,7 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
         onClick={addBookToCart}
         toggleBtn={toggleBtn}
       />
+      <ToastContainer />
     </BookContainer>
   );
 };

@@ -14,6 +14,10 @@ export const CartWithBooksContainer = styled.section`
     }
   }
 
+  >  hr:last-child {
+    display: none;
+  }
+
   .cart__total-price {
 
     &__price {
@@ -46,5 +50,4 @@ export const CartWithBooksContainer = styled.section`
       }
     }
   }
-
 `;

@@ -10,6 +10,8 @@ export const HeaderMenu = () => {
 
   const user = useAppSelector((state) => state.user.user);
 
+  const booksAmount = !user ? 0 : user.cart?.reduce((acc, cart) => acc + cart.count, 0);
+
   return (
     <HeaderMenuContainer>
       <button
@@ -19,12 +21,12 @@ export const HeaderMenu = () => {
         <CartLogo
           className="header-menu__logo"
         />
-        {!!user?.cart.length &&
+        {!!user.cart?.length &&
           (
             <div
               className="header-menu__logo__amount-books"
             >
-              {user.cart.length}
+              {booksAmount}
             </div>
           )
         }
@@ -36,7 +38,7 @@ export const HeaderMenu = () => {
         <HeartLogo
           className="header-menu__logo"
         />
-        {!!user?.favorites.length &&
+        {!!user.favorites?.length &&
           (
             <div
               className="header-menu__logo__amount-books"

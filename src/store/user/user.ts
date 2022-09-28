@@ -14,6 +14,7 @@ const initialState: IUser = {
     cart: [],
     favorites: [],
     ratings: [],
+    totalPrice: [],
   },
 };
 
@@ -25,6 +26,7 @@ interface IUserType {
   cart?: IUserCart[];
   favorites?: IUserFavorites[];
   ratings?: IUserRating[];
+  totalPrice?: number[];
 }
 
 interface IUserCart {
@@ -66,6 +68,11 @@ const user = createSlice({
   },
 });
 
-export const { setUser, setUserCart, setUserFavorite, setUserRating } = user.actions;
+export const {
+  setUser,
+  setUserCart,
+  setUserFavorite,
+  setUserRating,
+} = user.actions;
 
 export default user.reducer;

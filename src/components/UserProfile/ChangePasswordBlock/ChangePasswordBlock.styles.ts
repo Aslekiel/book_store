@@ -14,6 +14,10 @@ export const ChangePasswordBlockContainer = styled.div`
       justify-self: end;
       
       width: 100%;
+
+      > button {
+      width: fit-content;
+    }
     }
 
     .change-password__label {

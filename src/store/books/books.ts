@@ -10,7 +10,7 @@ const initialState: IBooks = {
 };
 
 interface IBook {
-  id?: number | string;
+  id?: number;
   title: string;
   author: string;
   genres: IBookGenres[];

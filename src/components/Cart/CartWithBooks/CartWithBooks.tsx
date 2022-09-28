@@ -7,11 +7,20 @@ import { CartWithBooksContainer } from './CartWithBooksContainer';
 
 export const CartWithBooks = () => {
   const books = useAppSelector((state) => state.books.books);
-  const [totalPrice, setTotalPrice] = useState(0);
 
+  const booksWithPrice = books.reduce((acc, book) => {
+    const index = book.id;
+    acc[index] = +book.price;
+    return acc;
+  }, {} as { [index: number]: number });
+
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [booksPrices, setBooksPrices] = useState(booksWithPrice);
   const navigate = useNavigate();
 
   const sum = books.reduce((acc, book) => acc + +book.price, 0);
+
+  // const booksPrice = books.map((book) => book.price);
 
   useEffect(() => {
     setTotalPrice(+sum.toFixed(2));
@@ -33,7 +42,7 @@ export const CartWithBooks = () => {
               author={book.author}
               price={book.price}
             />
-            <hr className="book__line" />
+            {books.length - 1 && <hr className="book__line" />}
           </div>
         );
       })}
