@@ -30,23 +30,30 @@ export const Pagination: React.FC<IProps> = ({ currentPage, setCurrentPage }) =>
   return (
     <PaginationContainer>
       <img
-      src={arrow}
-      alt="back-arrow"
-      className="pagination__back-arrow"
-      onClick={onClickGoBack}
+        src={arrow}
+        alt="back-arrow"
+        className="pagination__back-arrow"
+        onClick={onClickGoBack}
       />
       <div className="pagination__list">
         {pages.map((page, index) => {
           return (
-            <div key={index} className="pagination__list__item" />
+            <div
+              key={index}
+              className={
+                index + 1 === currentPage
+                  ? 'pagination__list__item-act'
+                  : 'pagination__list__item-def'
+              }
+            />
           );
         })}
       </div>
       <img
-      src={arrow}
-      alt="forward-arrow"
-      className="pagination__forward-arrow"
-      onClick={onClickGoForward}
+        src={arrow}
+        alt="forward-arrow"
+        className="pagination__forward-arrow"
+        onClick={onClickGoForward}
       />
     </PaginationContainer>
   );

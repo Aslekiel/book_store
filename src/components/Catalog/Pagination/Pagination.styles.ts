@@ -30,7 +30,15 @@ export const PaginationContainer = styled.div`
 
     width: 40%;
 
-    &__item {
+    &__item-def {
+      width: 14px;
+      height: 14px;
+      border: 2px solid #0D1821;
+      border-radius: 50%;
+    }
+
+    &__item-act {
+      background-color: #0D1821;
       width: 14px;
       height: 14px;
       border: 2px solid #0D1821;

@@ -8,7 +8,8 @@ import { cartApi } from '../../../../api/cartApi';
 import fullStar from '../../../../assets/full-star.png';
 import emptyStar from '../../../../assets/empty-star.png';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks/hooks';
-import { setUserCart } from '../../../../store/user/user';
+import { setUserCart, setUserFavorite } from '../../../../store/user/user';
+import { favoriteApi } from '../../../../api/favoriteApi';
 
 interface IProps {
   id: number | string;
@@ -22,35 +23,50 @@ interface IProps {
 
 export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfIssue, rating }) => {
   const user = useAppSelector((state) => state.user.user);
-  const [favorite, setFavorite] = useState(false);
+
+  const favoriteBooksIds = !user ? [] : user.favorites.map((favorite) => favorite.bookId);
+
+  const isFavorite = !!favoriteBooksIds.includes(+id);
+
+  const [favorite, setFavorite] = useState(isFavorite);
 
   const [toggleBtn, setToggleBtn] = useState(true);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const booksIdsFromCart: number[] = [];
+  const booksIdsFromCart = !user ? [] : user.cart.map((cart) => cart.bookId);
 
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
-  const onClickHandler = () => {
-    setFavorite(!favorite);
-  };
-
   const onClickCheckBook = () => {
     navigate(`/book/:${id}`);
   };
-
-  for (let i = 0; i < user.cart.length; i++) {
-    if (id === user.cart[i].bookId) {
-      booksIdsFromCart.push(user.cart[i].bookId);
-    }
-  }
 
   useEffect(() => {
     if (booksIdsFromCart.includes(+id)) {
       setToggleBtn(false);
     }
   }, [booksIdsFromCart, id]);
+
+  const onClickFavorite = () => {
+    (async () => {
+      try {
+        if (!favorite) {
+          const res = await favoriteApi.addFavoriteBook(id);
+          dispatch(setUserFavorite(res.data));
+          setFavorite(!favorite);
+          return;
+        }
+        const res = await favoriteApi.deleteFavoriteBook(id);
+        dispatch(setUserFavorite(res.data));
+        setFavorite(!favorite);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    })();
+  };
 
   const addBookToCart = () => {
     (async () => {
@@ -96,7 +112,7 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
       </div>
       <button
         className="book__save"
-        onClick={onClickHandler}
+        onClick={onClickFavorite}
       >
         <img
           className="book__save-favorite"

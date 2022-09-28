@@ -18,7 +18,7 @@ export interface IUserType {
   email: string;
   avatar?: string;
   cart?: IUserCart[];
-  favorites?: object[];
+  favorites?: IUserFavorites[];
   ratings?: object[];
 }
 
@@ -51,4 +51,10 @@ export interface IUserCart {
   bookId: number;
   userId: number;
   count: number;
+}
+
+export interface IUserFavorites {
+  id: number;
+  bookId: number;
+  userId: number;
 }

@@ -12,32 +12,52 @@ import arrowRating from '../../assets/arrow-rating.png';
 import { RatingStar } from './RatingStars.styles';
 import { Book } from '../Catalog/Books/Book/Book';
 import { setBooks } from '../../store/books/books';
-import { setUserCart } from '../../store/user/user';
+import { setUserCart, setUserFavorite } from '../../store/user/user';
 import { cartApi } from '../../api/cartApi';
+import { favoriteApi } from '../../api/favoriteApi';
 
 export const BookInfo = () => {
-  const user = useAppSelector((state) => state.user.user?.email);
+  const user = useAppSelector((state) => state.user.user);
   const books = useAppSelector((state) => state.books.books);
 
   const { id } = useParams();
 
-  const [favorite, setFavorite] = useState(false);
+  const bookId = id.slice(1);
+
+  const favoriteBooksIds = !user ? [] : user.favorites.map((favorite) => favorite.bookId);
+
+  const isFavorite = !!favoriteBooksIds.includes(Number(bookId));
+
+  const [favorite, setFavorite] = useState(isFavorite);
   const [toggleBtn, setToggleBtn] = useState(true);
   const [book, setBook] = useState<IBook>(null);
 
   const dispatch = useAppDispatch();
 
-  const bookId = id.slice(1);
-
-  const onClickHandler = () => {
-    setFavorite(!favorite);
+  const onClickFavorite = () => {
+    (async () => {
+      try {
+        if (!favorite) {
+          const res = await favoriteApi.addFavoriteBook(Number(bookId));
+          dispatch(setUserFavorite(res.data));
+          setFavorite(!favorite);
+          return;
+        }
+        const res = await favoriteApi.deleteFavoriteBook(Number(bookId));
+        dispatch(setUserFavorite(res.data));
+        setFavorite(!favorite);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    })();
   };
 
   useEffect(() => {
     (async () => {
       try {
-        const resBookById = await booksApi.getBookById(Number(+bookId));
-        const resRecommendedBooks = await booksApi.getRecommendedBooks(Number(+bookId));
+        const resBookById = await booksApi.getBookById(Number(bookId));
+        const resRecommendedBooks = await booksApi.getRecommendedBooks(Number(bookId));
         setBook(resBookById.data);
         dispatch(setBooks(resRecommendedBooks.data));
       } catch (error) {
@@ -73,7 +93,7 @@ export const BookInfo = () => {
             />
             <button
               className="book__logo__save"
-              onClick={onClickHandler}
+              onClick={onClickFavorite}
             >
               <img
                 className="book__logo__save-favorite"
@@ -134,9 +154,9 @@ export const BookInfo = () => {
                   Hardcover
                 </span>
                 <CommonButton
-                title={`$ ${book.price} USD`}
-                onClick={addBookToCart}
-                toggleBtn={toggleBtn}
+                  title={`$ ${book.price} USD`}
+                  onClick={addBookToCart}
+                  toggleBtn={toggleBtn}
                 />
               </div>
             </div>
@@ -146,7 +166,7 @@ export const BookInfo = () => {
           <h2 className="book__comments__title">
             Comments
           </h2>
-          {user &&
+          {user?.email &&
             (
               <>
                 <textarea
@@ -158,7 +178,7 @@ export const BookInfo = () => {
             )
           }
         </div>
-        {!user ? <LoginSignupBanner /> : null}
+        {!user?.email ? <LoginSignupBanner /> : null}
         <div className="book__recommendations">
           <h2
             className="book__recommendations__title"

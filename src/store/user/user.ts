@@ -23,7 +23,7 @@ interface IUserType {
   email: string;
   avatar?: string;
   cart?: IUserCart[];
-  favorites?: object[];
+  favorites?: IUserFavorites[];
   ratings?: object[];
 }
 
@@ -32,6 +32,12 @@ interface IUserCart {
   bookId: number;
   userId: number;
   count: number;
+}
+
+interface IUserFavorites {
+  id: number;
+  bookId: number;
+  userId: number;
 }
 
 const user = createSlice({
@@ -44,9 +50,12 @@ const user = createSlice({
     setUserCart(state, action: PayloadAction<IUserType | null>) {
       state.user.cart = action.payload.cart;
     },
+    setUserFavorite(state, action: PayloadAction<IUserType | null>) {
+      state.user.favorites = action.payload.favorites;
+    },
   },
 });
 
-export const { setUser, setUserCart } = user.actions;
+export const { setUser, setUserCart, setUserFavorite } = user.actions;
 
 export default user.reducer;
