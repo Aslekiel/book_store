@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import { instance } from '.';
-import type { IResDataType, UserPasswordsType, IPropsType } from './types';
+import type { IResDataType, UserPasswordsType, IPropsType, IAnotherUser } from './types';
 
 const logIn = async (
   options: IPropsType,
@@ -55,6 +55,18 @@ const uploadAvatar =
     return userData;
   };
 
+const getAnotherUser = async (anotherUserId: number): Promise<AxiosResponse<IAnotherUser>> => {
+  const userData = await instance.post('user/find-another', { anotherUserId });
+
+  return userData;
+};
+
 export const userApi = {
-  logIn, signUp, editUserInformation, editUserPassword, checkUser, uploadAvatar,
+  logIn,
+  signUp,
+  editUserInformation,
+  editUserPassword,
+  checkUser,
+  uploadAvatar,
+  getAnotherUser,
 };

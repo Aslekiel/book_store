@@ -36,9 +36,9 @@ export interface IBook {
   description?: string;
   logo: string;
   rating?: string;
-  comments?: string;
   price: number;
   dateOfIssue?: string;
+  comments?: IBookComments[];
 }
 
 export interface IBookGenres {
@@ -59,9 +59,21 @@ export interface IUserFavorites {
   userId: number;
 }
 
-interface IUserRating {
+export interface IUserRating {
   id: number;
   bookId: number;
   userId: number;
   grade: number;
+}
+
+export interface IBookComments {
+  id: number;
+  bookId: number;
+  userId: number;
+  comment: string;
+}
+
+export interface IAnotherUser {
+  avatar: string;
+  fullname: string;
 }

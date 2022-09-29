@@ -17,14 +17,21 @@ interface IBook {
   description?: string;
   logo: string;
   rating?: string;
-  comments?: string;
   price: number;
   dateOfIssue?: string;
+  comments?: IBookComments[];
 }
 
 interface IBookGenres {
   id?: number;
   name: string;
+}
+
+export interface IBookComments {
+  id: number;
+  bookId: number;
+  userId: number;
+  comment: string;
 }
 
 const books = createSlice({
@@ -37,9 +44,16 @@ const books = createSlice({
     getBookById(state, action: PayloadAction<IBooks | null>) {
       state.books = action.payload.books;
     },
+    setBookComments(state, action: PayloadAction<IBooks | null>) {
+      state.books = action.payload.books;
+    },
   },
 });
 
-export const { setBooks } = books.actions;
+export const {
+  setBooks,
+  getBookById,
+  setBookComments,
+} = books.actions;
 
 export default books.reducer;

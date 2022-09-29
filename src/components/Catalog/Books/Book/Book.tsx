@@ -26,16 +26,16 @@ interface IProps {
 export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfIssue, rating }) => {
   const user = useAppSelector((state) => state.user.user);
 
-  const favoriteBooksIds = !user ? [] : user.favorites?.map((favorite) => favorite.bookId);
+  const favoriteBooksIds = !user ? [] : user?.favorites?.map((favorite) => favorite.bookId);
 
-  const isFavorite = !!favoriteBooksIds.includes(+id);
+  const isFavorite = !!favoriteBooksIds?.includes(+id);
 
   const [favorite, setFavorite] = useState(isFavorite);
 
   const [toggleBtn, setToggleBtn] = useState(true);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const booksIdsFromCart = !user ? [] : user.cart?.map((cart) => cart.bookId);
+  const booksIdsFromCart = !user ? [] : user?.cart?.map((cart) => cart.bookId);
 
   const dispatch = useAppDispatch();
 
@@ -46,7 +46,7 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
   };
 
   useEffect(() => {
-    if (booksIdsFromCart.includes(+id)) {
+    if (booksIdsFromCart?.includes(+id)) {
       setToggleBtn(false);
     }
   }, [booksIdsFromCart, id]);

@@ -157,31 +157,14 @@ export const BookInfoContainer = styled.section<Props>`
 
         padding: 110px 0 68px;
 
+        width: 55%;
+
         &__title {
             font-weight: 700;
             font-size: 40px;
             line-height: 60px;
             color: #0D1821;
             padding-bottom: 50px;
-        }
-
-        &__textarea {
-            resize: none;
-            width: 750px;
-            height: 120px;
-            background: #F0F4EF;
-            border-radius: 16px;
-
-            padding-top: 20px;
-            padding-left: 24px;
-
-            margin-bottom: 30px;
-
-            ::placeholder {
-                line-height: 28px;
-                letter-spacing: 0.75px;
-                color: #B9BAC4;
-            }
         }
     }
 

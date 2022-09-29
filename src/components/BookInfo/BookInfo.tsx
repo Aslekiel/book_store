@@ -18,6 +18,7 @@ import { setUserCart, setUserFavorite, setUserRating } from '../../store/user/us
 import { cartApi } from '../../api/cartApi';
 import { favoriteApi } from '../../api/favoriteApi';
 import { ratingApi } from '../../api/ratingApi';
+import { CommentsBlock } from './CommentsBlock/CommentsBlock';
 
 export const BookInfo = () => {
   const user = useAppSelector((state) => state.user.user);
@@ -27,17 +28,17 @@ export const BookInfo = () => {
 
   const bookId = id.slice(1);
 
-  const favoriteBooksIds = !user ? [] : user.favorites.map((favorite) => favorite.bookId);
+  const favoriteBooksIds = !user ? [] : user?.favorites?.map((favorite) => favorite.bookId);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const booksIdsFromCart = !user ? [] : user.cart.map((cart) => cart.bookId);
+  const booksIdsFromCart = !user ? [] : user?.cart?.map((cart) => cart.bookId);
 
   useEffect(() => {
-    if (booksIdsFromCart.includes(Number(bookId))) {
+    if (booksIdsFromCart?.includes(Number(bookId))) {
       setToggleBtn(false);
     }
   }, [booksIdsFromCart, bookId]);
 
-  const isFavorite = !!favoriteBooksIds.includes(Number(bookId));
+  const isFavorite = !!favoriteBooksIds?.includes(Number(bookId));
 
   const [favorite, setFavorite] = useState(isFavorite);
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -77,7 +78,7 @@ export const BookInfo = () => {
         console.log(error);
       }
     })();
-  }, [bookId, dispatch]);
+  }, [bookId, dispatch, book?.comments]);
 
   const addBookToCart = () => {
     (async () => {
@@ -112,7 +113,7 @@ export const BookInfo = () => {
   };
 
   useEffect(() => {
-    for (let i = 0; i < user.ratings.length; i++) {
+    for (let i = 0; i < user?.ratings?.length; i++) {
       if (Number(bookId) === user.ratings[i].bookId) {
         setRating(+user.ratings[i].grade);
       }
@@ -206,17 +207,12 @@ export const BookInfo = () => {
           <h2 className="book__comments__title">
             Comments
           </h2>
-          {user?.email &&
-            (
-              <>
-                <textarea
-                  className="book__comments__textarea"
-                  placeholder="Share a comment"
-                />
-                <CommonButton title="Post a comment" toggleBtn />
-              </>
-            )
-          }
+          <CommentsBlock
+            key={+bookId}
+            id={+bookId}
+            comments={book?.comments}
+            isAuth={user?.email}
+          />
         </div>
         {!user?.email ? <LoginSignupBanner /> : null}
         <div className="book__recommendations">
@@ -226,7 +222,7 @@ export const BookInfo = () => {
             Recommendations
           </h2>
           <div className="book__recommendations__books">
-            {books.map((book) => {
+            {books?.map((book) => {
               return (
                 <Book
                   key={book.id}
