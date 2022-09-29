@@ -7,7 +7,7 @@ interface IProps {
 }
 
 export const CatalogFilters: React.FC<IProps> = ({ title }) => {
-  const [sortByState, setSortByState] = useState('price');
+  const [sortByTitleState, setSortByTitleState] = useState('price');
 
   return (
     <CatalogFiltersContainer>
@@ -20,9 +20,9 @@ export const CatalogFilters: React.FC<IProps> = ({ title }) => {
           title="Price"
         />
         <CatalogFilter
-          title={`Sort by ${sortByState}`}
-          sortByState={sortByState}
-          setSortByState={setSortByState}
+          title={`Sort by ${sortByTitleState}`}
+          sortByTitleState={sortByTitleState}
+          setSortByTitleState={setSortByTitleState}
         />
       </div>
     </CatalogFiltersContainer>

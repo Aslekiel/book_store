@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import ReactSlider from 'react-slider';
 import { booksApi } from '../../../../api/booksApi';
 import { setBooks } from '../../../../store/books/books';
@@ -16,6 +17,9 @@ export const SortSlider = () => {
     const changedMaxPrice = +(value[1] - (10 - value[1] / 10)).toFixed(2);
     setMinPrice(changedMinPrice);
     setMaxPrice(changedMaxPrice);
+  };
+
+  const onMouseUpHandler = () => {
     (async () => {
       try {
         const res = await booksApi.getAllBooks();
@@ -31,7 +35,7 @@ export const SortSlider = () => {
   };
 
   return (
-    <SortSliderContainer>
+    <SortSliderContainer onMouseUp={onMouseUpHandler}>
       <div className="sort__triangle" />
       <ReactSlider
         className="sort__slider"
