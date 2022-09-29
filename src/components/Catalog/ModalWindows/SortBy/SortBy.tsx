@@ -5,10 +5,10 @@ import { SortByContainer } from './SortByContainer.styles';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 type Props = {
   title: string;
-  setSortByState: React.Dispatch<React.SetStateAction<string>>;
+  setSortByTitleState: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const SortBy: React.FC<Props> = ({ title, setSortByState }) => {
+export const SortBy: React.FC<Props> = ({ title, setSortByTitleState }) => {
   const books = useAppSelector((state) => state.books.books);
   const dispatch = useAppDispatch();
 
@@ -16,7 +16,7 @@ export const SortBy: React.FC<Props> = ({ title, setSortByState }) => {
     try {
       const sortedByPrice = [...books].sort((a, b) => (Number(a.price) > Number(b.price) ? 1 : -1));
       dispatch(setBooks({ books: sortedByPrice }));
-      setSortByState('price');
+      setSortByTitleState('price');
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
@@ -27,7 +27,7 @@ export const SortBy: React.FC<Props> = ({ title, setSortByState }) => {
     try {
       const sortedByName = [...books].sort((a, b) => (a.title > b.title ? 1 : -1));
       dispatch(setBooks({ books: sortedByName }));
-      setSortByState('name');
+      setSortByTitleState('name');
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
@@ -38,7 +38,7 @@ export const SortBy: React.FC<Props> = ({ title, setSortByState }) => {
     try {
       const sortedByAuthorName = [...books].sort((a, b) => (a.author > b.author ? 1 : -1));
       dispatch(setBooks({ books: sortedByAuthorName }));
-      setSortByState('author name');
+      setSortByTitleState('author name');
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
@@ -49,7 +49,7 @@ export const SortBy: React.FC<Props> = ({ title, setSortByState }) => {
     try {
       const sortedByRating = [...books].sort((a, b) => (a.rating > b.rating ? 1 : -1));
       dispatch(setBooks({ books: sortedByRating }));
-      setSortByState('rating');
+      setSortByTitleState('rating');
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
@@ -62,7 +62,7 @@ export const SortBy: React.FC<Props> = ({ title, setSortByState }) => {
         (a, b) => (a.dateOfIssue > b.dateOfIssue ? 1 : -1),
       );
       dispatch(setBooks({ books: sortedByDataOfIssue }));
-      setSortByState('data of issue');
+      setSortByTitleState('data of issue');
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import forward from '../../../assets/forward.png';
 import { SortBy } from '../ModalWindows/SortBy/SortBy';
 import { SortGenre } from '../ModalWindows/SortGenre/SortGenre';
@@ -8,26 +8,39 @@ import { CatalogFilterContainer } from './CatalogFilter.styles';
 
 interface IProps {
   title: string;
-  sortByState?: string;
-  setSortByState?: React.Dispatch<React.SetStateAction<string>>;
+  sortByTitleState?: string;
+  setSortByTitleState?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const CatalogFilter: React.FC<IProps> = ({
   title,
-  sortByState,
-  setSortByState,
+  sortByTitleState,
+  setSortByTitleState,
 }) => {
   const [filterState, setFilterState] = useState(false);
+  const container = useRef<HTMLDivElement>();
 
   const onClickHandler = () => {
     setFilterState(!filterState);
   };
 
+  const handleClickOutside = ({ target }: MouseEvent): void => {
+    if (container.current && !container.current?.contains(target as Node)) {
+      setFilterState(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <CatalogFilterContainer
       filterState={filterState}
       title={title}
-      sortByState={sortByState}
+      sortByState={sortByTitleState}
+      ref={container}
     >
       <button
         className="catalog__filter-btn"
@@ -42,10 +55,10 @@ export const CatalogFilter: React.FC<IProps> = ({
       />
       {title === 'Genre' && filterState && <SortGenre />}
       {title === 'Price' && filterState && <SortSlider />}
-      {title === `Sort by ${sortByState}` && filterState &&
+      {title === `Sort by ${sortByTitleState}` && filterState &&
         (<SortBy
           title={title}
-          setSortByState={setSortByState}
+          setSortByTitleState={setSortByTitleState}
         />)}
     </CatalogFilterContainer>
   );

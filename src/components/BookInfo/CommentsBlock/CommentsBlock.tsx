@@ -47,7 +47,7 @@ export const CommentsBlock: React.FC<IProps> = ({ id, comments, isAuth }) => {
     <CommentBlockContainer
       onSubmit={onFormSubmitAddComment}
     >
-      {comments?.map((comment) => {
+      {comments && comments.map((comment) => {
         return (
           <SingleComment
             key={comment.id}

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import ReactSlider from 'react-slider';
 import { booksApi } from '../../../../api/booksApi';
 import { setBooks } from '../../../../store/books/books';
@@ -35,7 +34,9 @@ export const SortSlider = () => {
   };
 
   return (
-    <SortSliderContainer onMouseUp={onMouseUpHandler}>
+    <SortSliderContainer
+      onMouseUp={onMouseUpHandler}
+    >
       <div className="sort__triangle" />
       <ReactSlider
         className="sort__slider"
