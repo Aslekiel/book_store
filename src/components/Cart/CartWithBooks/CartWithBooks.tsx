@@ -7,20 +7,25 @@ import { CartWithBooksContainer } from './CartWithBooksContainer';
 
 export const CartWithBooks = () => {
   const books = useAppSelector((state) => state.books.books);
-
-  const booksWithPrice = books.reduce((acc, book) => {
-    const index = book.id;
-    acc[index] = +book.price;
-    return acc;
-  }, {} as { [index: number]: number });
+  const { cart } = useAppSelector((state) => state.user.user);
 
   const [totalPrice, setTotalPrice] = useState(0);
-  const [booksPrices, setBooksPrices] = useState(booksWithPrice);
   const navigate = useNavigate();
 
-  const sum = books.reduce((acc, book) => acc + +book.price, 0);
+  const booksPriceArray = books.map((book) => book.price);
+  const booksAmoutFromCart = Object.values(cart.reduce((acc, item) => {
+    const index = item.bookId;
+    acc[index] = item.count;
+    return acc;
+  }, {} as { [index: string]: number }));
 
-  // const booksPrice = books.map((book) => book.price);
+  const sumPerAmountBooks = [];
+
+  for (let i = 0; i < booksPriceArray.length; i++) {
+    sumPerAmountBooks.push(+(booksPriceArray[i] * booksAmoutFromCart[i]).toFixed(2));
+  }
+
+  const sum = sumPerAmountBooks.reduce((acc, item) => acc + item, 0);
 
   useEffect(() => {
     setTotalPrice(+sum.toFixed(2));
@@ -42,7 +47,7 @@ export const CartWithBooks = () => {
               author={book.author}
               price={book.price}
             />
-            {books.length - 1 && <hr className="book__line" />}
+            <hr className="book__line" />
           </div>
         );
       })}

@@ -12,7 +12,6 @@ interface IProps {
   title: string;
   author: string;
   price: number;
-  setBooksPrices?: React.Dispatch<React.SetStateAction<object>>;
 }
 
 export const BookInCart: React.FC<IProps> = ({

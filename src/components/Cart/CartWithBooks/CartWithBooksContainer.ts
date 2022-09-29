@@ -12,12 +12,9 @@ export const CartWithBooksContainer = styled.section`
       border: 1px solid #D6D8E7;
       margin: 40px 0;
     }
-  }
 
-  >  hr:last-child {
-    display: none;
   }
-
+  
   .cart__total-price {
 
     &__price {
