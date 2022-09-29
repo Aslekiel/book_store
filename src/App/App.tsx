@@ -20,6 +20,7 @@ import { setUser } from '../store/user/user';
 import { BookInfo } from '../components/BookInfo/BookInfo';
 import { Cart } from '../components/Cart/Cart';
 import { FavoritePage } from '../components/FavoritePage/FavoritePage';
+import { SeacrchBooks } from '../components/SearchBooks/SeacrchBooks';
 
 function App() {
   const [isInit, setIsInit] = useState(false);
@@ -107,6 +108,7 @@ function App() {
           )
         }
         />
+        <Route path="/search" element={<SeacrchBooks />} />
       </Routes>
       <Footer />
       <ToastContainer />

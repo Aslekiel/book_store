@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactComponent as HeaderLogo } from '../../assets/logo.svg';
 import { Input } from '../Input/Input';
 import { HeaderContainer } from './Header.styles';
@@ -13,8 +13,9 @@ import { booksApi } from '../../api/booksApi';
 
 const Header = () => {
   const user = useAppSelector((state) => state.user.user?.email);
-  const [searchTerm, setSearchTerm] = useState('');
   const dispatch = useAppDispatch();
+
+  const [searchTerm, setSearchTerm] = useState('');
 
   const navigate = useNavigate();
 
@@ -22,10 +23,8 @@ const Header = () => {
     initialValues: {
       search: '',
     },
-    onSubmit: (value) => {
-      // setSearchTerm(value);
-      // eslint-disable-next-line no-alert
-      alert(JSON.stringify(value, null, 2));
+    onSubmit: () => {
+      navigate('/search');
     },
   });
 
@@ -34,20 +33,24 @@ const Header = () => {
     setSearchTerm(event.currentTarget.value);
   };
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const res = await booksApi.getAllBooks();
-  //       const results = res.data.books
-  //         .filter((book) => book.title.toLowerCase().includes(searchTerm) ||
-  //           book.author.toLowerCase().includes(searchTerm));
-  //       dispatch(setBooks({ books: results }));
-  //     } catch (error) {
-  //       // eslint-disable-next-line no-console
-  //       console.log(error);
-  //     }
-  //   })();
-  // }, [dispatch, searchTerm]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await booksApi.getAllBooks();
+        const results = res.data.books
+          .filter((book) => book.title.toLowerCase().includes(searchTerm) ||
+            book.author.toLowerCase().includes(searchTerm));
+        dispatch(setBooks({ books: results }));
+        if (searchTerm.length) {
+          navigate('/search');
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, searchTerm]);
 
   return (
     <HeaderContainer>

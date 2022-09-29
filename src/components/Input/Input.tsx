@@ -22,6 +22,7 @@ interface IInput {
   isActive: boolean;
   isError?: boolean;
   defaultClassState?: boolean;
+  searchCondition?: boolean;
 }
 
 type LogosType = {
@@ -102,7 +103,7 @@ export const Input: React.FC<IInput> = ({
   };
 
   const onKeyPressed = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && title !== 'Search') {
       setInputState(false);
     }
   };
