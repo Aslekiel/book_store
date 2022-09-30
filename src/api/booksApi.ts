@@ -15,7 +15,7 @@ const getAllGenres = async (): Promise<AxiosResponse<IResDataType>> => {
 };
 
 const getFilteredArrayOfBooks = async (filters: number[]): Promise<AxiosResponse<IResDataType>> => {
-  const genresData = await instance.post('books/filter', filters);
+  const genresData = await instance.post('books/filter', { filters });
 
   return genresData;
 };

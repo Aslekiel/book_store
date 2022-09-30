@@ -1,32 +1,44 @@
-import { useEffect } from 'react';
-import { favoriteApi } from '../../api/favoriteApi';
-import { setBooks } from '../../store/books/books';
+import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
+
 import { Books } from '../Catalog/Books/Books';
-import { CatalogFilters } from '../Catalog/CatalogFilters/CatalogFilters';
 import { EmptyFavorite } from './EmptyFavorite/EmptyFavorite';
+
+import { favoriteApi } from '../../api/favoriteApi';
+
 import { FavoritePageContainer } from './FavoritePageContainer.styles';
 
 export const FavoritePage = () => {
   const { favorites } = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
 
+  const [favoriteBooks, setFavoriteBooks] = useState([]);
+
   useEffect(() => {
     (async () => {
       try {
         const res = await favoriteApi.getFavoriteBooks();
-        dispatch(setBooks(res.data));
+        setFavoriteBooks(res.data?.books);
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
+        throw new Error();
       }
     })();
   }, [dispatch, favorites.length]);
 
   return (
     <FavoritePageContainer>
-      {!!favorites.length && <h2 className="favorite__title">Favorite</h2>}
-      {favorites.length ? <Books /> : <EmptyFavorite />}
+      {
+        !!favorites.length &&
+        (
+          <h2 className="favorite__title">
+            Favorite
+          </h2>
+        )
+      }
+      {favorites.length
+        ? <Books books={favoriteBooks} />
+        : <EmptyFavorite />
+      }
     </FavoritePageContainer>
   );
 };

@@ -27,12 +27,12 @@ export const UserProfile = () => {
     validationSchema: editInfoSchema,
     onSubmit: async () => {
       try {
-        const options = { fullname: formik.values.fullname, email: formik.values.email };
-
-        const res = await userApi.editUserInformation(options);
+        const res = await userApi.editUserInformation({
+          fullname: formik.values.fullname,
+          email: formik.values.email,
+        });
 
         dispatch(setUser(res?.data));
-
         setChangeInformation(!changeInformation);
       } catch (error) {
         if (error instanceof AxiosError) {

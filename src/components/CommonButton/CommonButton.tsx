@@ -1,21 +1,19 @@
 import { CommonButtonContainer } from './CommonButton.styles';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-type Props = {
+type PropsType = {
   title: string;
   type?: 'button' | 'submit';
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  toggleBtn?: boolean;
 };
 
-export const CommonButton: React.FC<Props> = ({ title, type, onClick, toggleBtn }) => {
+export const CommonButton: React.FC<PropsType> = ({ title, type, onClick }) => {
   return (
     <CommonButtonContainer
       type={type}
       onClick={onClick}
-      toggleBtn={toggleBtn}
+      title={title}
     >
-      {toggleBtn ? title : 'Added to cart'}
+      {title}
     </CommonButtonContainer>
   );
 };

@@ -14,7 +14,7 @@ import { setUserCart, setUserFavorite } from '../../../../store/user/user';
 import { favoriteApi } from '../../../../api/favoriteApi';
 
 interface IProps {
-  id: number | string;
+  id: number;
   title: string;
   author: string;
   price: number;
@@ -51,41 +51,37 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
     }
   }, [booksIdsFromCart, id]);
 
-  const onClickFavorite = () => {
-    (async () => {
-      try {
-        if (!favorite) {
-          const res = await favoriteApi.addFavoriteBook(id);
-          dispatch(setUserFavorite(res.data));
-          setFavorite(!favorite);
-          return;
-        }
-        const res = await favoriteApi.deleteFavoriteBook(id);
+  const onClickFavorite = async () => {
+    try {
+      if (!favorite) {
+        const res = await favoriteApi.addFavoriteBook(id);
         dispatch(setUserFavorite(res.data));
         setFavorite(!favorite);
-      } catch (error) {
-        if (error instanceof AxiosError) {
-          return toast(error.response?.data.message);
-        }
-        // eslint-disable-next-line no-console
-        console.log(error);
+        return;
       }
-    })();
+      const res = await favoriteApi.deleteFavoriteBook(id);
+      dispatch(setUserFavorite(res.data));
+      setFavorite(!favorite);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return toast(error.response?.data.message);
+      }
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
   };
 
-  const addBookToCart = () => {
-    (async () => {
-      try {
-        const res = await cartApi.addBooksToCart(id);
-        dispatch(setUserCart(res.data));
-      } catch (error) {
-        if (error instanceof AxiosError) {
-          return toast(error.response?.data.message);
-        }
-        // eslint-disable-next-line no-console
-        console.log(error);
+  const addBookToCart = async () => {
+    try {
+      const res = await cartApi.addBooksToCart(id);
+      dispatch(setUserCart(res.data));
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return toast(error.response?.data.message);
       }
-    })();
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
   };
 
   return (
@@ -129,9 +125,8 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
         />
       </button>
       <CommonButton
-        title={`$ ${price} USD`}
+        title={toggleBtn ? `$ ${price} USD` : 'Added to cart'}
         onClick={addBookToCart}
-        toggleBtn={toggleBtn}
       />
       <ToastContainer />
     </BookContainer>

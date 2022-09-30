@@ -8,6 +8,7 @@ import { useAppDispatch } from '../../../store/hooks/hooks';
 import { setUser } from '../../../store/user/user';
 import { CommonButton } from '../../CommonButton/CommonButton';
 import { Input } from '../../Input/Input';
+import { InputLabel } from '../../InputLabel/InputLabel';
 import { UserProfileCaption } from '../UserProfileCaption/UserProfileCaption';
 import { ChangePasswordBlockContainer } from './ChangePasswordBlock.styles';
 
@@ -24,13 +25,13 @@ export const ChangePasswordBlock = () => {
     validationSchema: editPasswordSchema,
     onSubmit: async () => {
       try {
-        const options = {
-          oldPassword: formik.values.password,
-          newPassword: formik.values.newPassword,
-          confirmPassword: formik.values.confirmPassword,
-        };
-
-        const res = await userApi.editUserPassword(options);
+        const res = await userApi.editUserPassword(
+          {
+            oldPassword: formik.values.password,
+            newPassword: formik.values.newPassword,
+            confirmPassword: formik.values.confirmPassword,
+          },
+        );
 
         dispatch(setUser(res?.data));
         setChangePassword(!changePassword);
@@ -44,10 +45,7 @@ export const ChangePasswordBlock = () => {
     },
   });
 
-  const onClickChangePassword = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    event.preventDefault();
+  const onClickChangePassword = () => {
     setChangePassword(!changePassword);
   };
 
@@ -68,7 +66,7 @@ export const ChangePasswordBlock = () => {
           placeholder="Password"
           value={formik.values.password}
           title={
-            !changePassword
+            changePassword
               ? 'Old password'
               : 'Your password'
           }
@@ -90,21 +88,11 @@ export const ChangePasswordBlock = () => {
               isError={!!formik.errors.newPassword}
               defaultClassState={!changePassword}
             />
-            {
-              formik.errors.newPassword
-                ? (
-                  <label
-                    className="change-password__label"
-                  >
-                    {formik.errors.newPassword}
-                  </label>
-                ) : (
-                  <label
-                    className="change-password__label"
-                  >
-                    Enter your password
-                  </label>
-                )}
+            <InputLabel
+              title="Enter your password"
+              error={formik.errors.newPassword}
+              value={formik.values.newPassword}
+            />
             <Input
               name="confirmPassword"
               type="password"
@@ -116,21 +104,11 @@ export const ChangePasswordBlock = () => {
               isError={!!formik.errors.confirmPassword}
               defaultClassState
             />
-            {
-              formik.errors.confirmPassword
-                ? (
-                  <label
-                    className="change-password__label"
-                  >
-                    {formik.errors.confirmPassword}
-                  </label>
-                ) : (
-                  <label
-                    className="change-password__label"
-                  >
-                    Repeat your password without errors
-                  </label>
-                )}
+            <InputLabel
+              title="Repeat your password without errors"
+              error={formik.errors.confirmPassword}
+              value={formik.values.confirmPassword}
+            />
           </div>)}
         {
           changePassword &&

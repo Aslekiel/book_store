@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { CatalogFiltersContainer } from './CatalogFiltersContainer.styles';
+
 import { CatalogFilter } from '../CatalogFilter/CatalogFilter';
 
 interface IProps {
@@ -7,8 +7,6 @@ interface IProps {
 }
 
 export const CatalogFilters: React.FC<IProps> = ({ title }) => {
-  const [sortByTitleState, setSortByTitleState] = useState('price');
-
   return (
     <CatalogFiltersContainer>
       <h2 className="catalog__title">{title}</h2>
@@ -20,9 +18,7 @@ export const CatalogFilters: React.FC<IProps> = ({ title }) => {
           title="Price"
         />
         <CatalogFilter
-          title={`Sort by ${sortByTitleState}`}
-          sortByTitleState={sortByTitleState}
-          setSortByTitleState={setSortByTitleState}
+          title="Sort by"
         />
       </div>
     </CatalogFiltersContainer>

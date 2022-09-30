@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { HeaderMenuContainer } from './HeaderMenu.styles';
 import { ReactComponent as CartLogo } from '../../../assets/cart.svg';
 import { ReactComponent as HeartLogo } from '../../../assets/heart.svg';
@@ -6,17 +6,15 @@ import { ReactComponent as UserLogo } from '../../../assets/user profile.svg';
 import { useAppSelector } from '../../../store/hooks/hooks';
 
 export const HeaderMenu = () => {
-  const navigate = useNavigate();
-
   const user = useAppSelector((state) => state.user.user);
 
   const booksAmount = !user ? 0 : user.cart?.reduce((acc, cart) => acc + cart.count, 0);
 
   return (
     <HeaderMenuContainer>
-      <button
+      <Link
         className="header-menu__button"
-        onClick={() => navigate('/cart')}
+        to="/cart"
       >
         <CartLogo
           className="header-menu__logo"
@@ -30,10 +28,10 @@ export const HeaderMenu = () => {
             </div>
           )
         }
-      </button>
-      <button
+      </Link>
+      <Link
         className="header-menu__button"
-        onClick={() => navigate('/favorite')}
+        to="/favorite"
       >
         <HeartLogo
           className="header-menu__logo"
@@ -47,15 +45,15 @@ export const HeaderMenu = () => {
             </div>
           )
         }
-      </button>
-      <button
+      </Link>
+      <Link
         className="header-menu__button"
-        onClick={() => navigate('/user-profile')}
+        to="/user-profile"
       >
         <UserLogo
           className="header-menu__logo"
         />
-      </button>
+      </Link>
     </HeaderMenuContainer>
   );
 };

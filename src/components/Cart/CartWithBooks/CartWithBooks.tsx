@@ -13,7 +13,7 @@ export const CartWithBooks = () => {
   const navigate = useNavigate();
 
   const booksPriceArray = books.map((book) => book.price);
-  const booksAmoutFromCart = Object.values(cart.reduce((acc, item) => {
+  const booksAmoutFromCart = Object.values(cart?.reduce((acc, item) => {
     const index = item.bookId;
     acc[index] = item.count;
     return acc;

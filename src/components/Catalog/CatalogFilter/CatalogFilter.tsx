@@ -8,16 +8,13 @@ import { CatalogFilterContainer } from './CatalogFilter.styles';
 
 interface IProps {
   title: string;
-  sortByTitleState?: string;
-  setSortByTitleState?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const CatalogFilter: React.FC<IProps> = ({
   title,
-  sortByTitleState,
-  setSortByTitleState,
 }) => {
   const [filterState, setFilterState] = useState(false);
+  const [sortByTitleState, setSortByTitleState] = useState('Price');
   const container = useRef<HTMLDivElement>();
 
   const onClickHandler = () => {
@@ -35,18 +32,28 @@ export const CatalogFilter: React.FC<IProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const onClickSetTitle = (title: string) => {
+    setSortByTitleState(title);
+  };
+
+  const lowercaseTitle = sortByTitleState.toLowerCase();
+
   return (
     <CatalogFilterContainer
       filterState={filterState}
       title={title}
-      sortByState={sortByTitleState}
+      sortTitle={title}
       ref={container}
     >
       <button
         className="catalog__filter-btn"
         onClick={onClickHandler}
       >
-        {title}
+        {
+          title === 'Sort by'
+            ? `Sort by ${lowercaseTitle}`
+            : title
+        }
       </button>
       <img
         src={forward}
@@ -55,10 +62,10 @@ export const CatalogFilter: React.FC<IProps> = ({
       />
       {title === 'Genre' && filterState && <SortGenre />}
       {title === 'Price' && filterState && <SortSlider />}
-      {title === `Sort by ${sortByTitleState}` && filterState &&
+      {title === 'Sort by' && filterState &&
         (<SortBy
-          title={title}
-          setSortByTitleState={setSortByTitleState}
+          sortByTitleState={sortByTitleState}
+          onClickSetTitle={onClickSetTitle}
         />)}
     </CatalogFilterContainer>
   );

@@ -1,11 +1,18 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+import {
+  getAllBooksThunk,
+  getAllGenresThunk,
+  getBookByIdThunk,
+  getFilteredArrayOfBooksThunk,
+  getRecommendedBooksThunk,
+} from './Thunks/booksThunks';
 
-interface IBooks {
+interface IBooksState {
   books: IBook[] | null;
 }
 
-const initialState: IBooks = {
+const initialState: IBooksState = {
   books: [],
 };
 
@@ -38,22 +45,29 @@ const books = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    setBooks(state, action: PayloadAction<IBooks | null>) {
-      state.books = action.payload.books;
-    },
-    getBookById(state, action: PayloadAction<IBooks | null>) {
-      state.books = action.payload.books;
-    },
-    setBookComments(state, action: PayloadAction<IBooks | null>) {
+    setBooks(state, action: PayloadAction<IBooksState | null>) {
       state.books = action.payload.books;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(getAllBooksThunk.fulfilled, (state, action) => {
+      state.books = action.payload?.books;
+    });
+    builder.addCase(getAllGenresThunk.fulfilled, (state, action) => {
+      state.books = action.payload?.books;
+    });
+    builder.addCase(getFilteredArrayOfBooksThunk.fulfilled, (state, action) => {
+      state.books = action.payload?.books;
+    });
+    builder.addCase(getBookByIdThunk.fulfilled, (state, action) => {
+      state.books = action.payload?.books;
+    });
+    builder.addCase(getRecommendedBooksThunk.fulfilled, (state, action) => {
+      state.books = action.payload?.books;
+    });
+  },
 });
 
-export const {
-  setBooks,
-  getBookById,
-  setBookComments,
-} = books.actions;
+export const { setBooks } = books.actions;
 
 export default books.reducer;

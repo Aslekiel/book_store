@@ -7,7 +7,7 @@ import { setBooks } from '../../../../store/books/books';
 import { setUserCart } from '../../../../store/user/user';
 
 interface IProps {
-  id: number | string;
+  id: number;
   logo: string;
   title: string;
   author: string;
@@ -30,45 +30,37 @@ export const BookInCart: React.FC<IProps> = ({
 
   const dispatch = useAppDispatch();
 
-  const onClickDeleteBook = () => {
-    (async () => {
-      try {
-        const res = await cartApi.deleteBookFromCart(id);
-        dispatch(setBooks(res.data));
-        dispatch(setUserCart(res.data.user));
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
-    })();
-  };
-
-  const onClickIncrement = () => {
-    if (booksAmount > 1) {
-      setBooksAmount(booksAmount - 1);
-      (async () => {
-        try {
-          const res = await cartApi.removeBookCopy(id);
-          dispatch(setUserCart(res.data));
-        } catch (error) {
-          // eslint-disable-next-line no-console
-          console.log(error);
-        }
-      })();
+  const onClickDeleteBook = async () => {
+    try {
+      const res = await cartApi.deleteBookFromCart(id);
+      dispatch(setBooks(res.data));
+      dispatch(setUserCart(res.data?.user));
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
     }
   };
 
-  const onClickDecrement = () => {
-    setBooksAmount(booksAmount + 1);
-    (async () => {
+  const onClickIncrement = async () => {
+    if (booksAmount > 1) {
+      setBooksAmount(booksAmount - 1);
       try {
-        const res = await cartApi.addBookCopy(id);
+        const res = await cartApi.reduceBookAmount(id);
         dispatch(setUserCart(res.data));
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
+        throw new Error();
       }
-    })();
+    }
+  };
+
+  const onClickDecrement = async () => {
+    setBooksAmount(booksAmount + 1);
+    try {
+      const res = await cartApi.increaseBookAmount(id);
+      dispatch(setUserCart(res.data));
+    } catch (error) {
+      throw new Error();
+    }
   };
 
   return (

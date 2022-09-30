@@ -2,15 +2,15 @@ import type { AxiosResponse } from 'axios';
 import { instance } from '.';
 import type { IResDataType, IUserType } from './types';
 
-const addFavoriteBook = async (bookId: number | string): Promise<AxiosResponse<IUserType>> => {
-  const booksData = await instance.post('favorite/add', { bookId });
+const addFavoriteBook = async (bookId: number): Promise<AxiosResponse<IUserType>> => {
+  const booksData = await instance.post('favorite/', { bookId });
 
   return booksData;
 };
 
 const deleteFavoriteBook =
-  async (bookId: number | string): Promise<AxiosResponse<IUserType>> => {
-    const booksData = await instance.post('favorite/delete', { bookId });
+  async (bookId: number): Promise<AxiosResponse<IUserType>> => {
+    const booksData = await instance.delete('favorite/', { data: { bookId } });
 
     return booksData;
   };

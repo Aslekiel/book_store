@@ -37,6 +37,7 @@ export const MainCatalogBannerContainer = styled.section`
     line-height: 30px;
     color: #344966;
     padding: 10px 0 50px;
+    width: 40%;
   }
 
   .main__banner__reading-girl-img {

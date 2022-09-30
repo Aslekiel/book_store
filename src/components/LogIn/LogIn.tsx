@@ -10,6 +10,7 @@ import { logInSchema } from '../../Schemas/logInSchema';
 import { ReactComponent as ReadingMan } from '../../assets/login-signup-man.svg';
 import { userApi } from '../../api/userApi';
 import { setUser } from '../../store/user/user';
+import { InputLabel } from '../InputLabel/InputLabel';
 
 interface ILocationStateType {
   from: { pathname: string };
@@ -32,20 +33,18 @@ const LogIn = () => {
     validationSchema: logInSchema,
     onSubmit: async () => {
       try {
-        const options = { email: formik.values.email, password: formik.values.password };
+        const res = await userApi.logIn({
+          email: formik.values.email,
+          password: formik.values.password,
+        });
 
-        const res = await userApi.logIn(options);
-
-        if (res?.data) {
-          navigate(from, { replace: true });
-        }
         dispatch(setUser(res.data));
+        navigate(from, { replace: true });
       } catch (error) {
         if (error instanceof AxiosError) {
           return toast(error.response?.data.message);
         }
-        // eslint-disable-next-line no-console
-        console.log(error);
+        throw new Error();
       }
     },
   });
@@ -73,23 +72,11 @@ const LogIn = () => {
               isError={!!formik.errors.email}
               defaultClassState
             />
-            {formik.errors.email && formik.values.email
-              ? (
-                <label
-                  className="form__label--err"
-                >
-                  {formik.errors.email}
-                </label>
-              ) : (
-                <label
-                  className={!formik.values.email
-                    ? 'form__label'
-                    : 'form__label--acc'
-                  }
-                >
-                  Enter your email
-                </label>
-              )}
+            <InputLabel
+              title="Enter your email"
+              error={formik.errors.email}
+              value={formik.values.email}
+            />
             <Input
               name="password"
               type="password"
@@ -101,22 +88,11 @@ const LogIn = () => {
               isError={!!formik.errors.password}
               defaultClassState
             />
-            {formik.errors.password && formik.values.password
-              ? (
-                <label
-                  className="form__label--err"
-                >
-                  {formik.errors.password}
-                </label>
-              ) : (
-                <label
-                  className={!formik.values.password
-                    ? 'form__label'
-                    : 'form__label--acc'}
-                >
-                  Enter your password
-                </label>
-              )}
+            <InputLabel
+              title="Enter your password"
+              error={formik.errors.password}
+              value={formik.values.password}
+            />
             <CommonButton
               title="Log In"
               type="submit"

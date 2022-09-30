@@ -2,7 +2,7 @@ import type { AxiosResponse } from 'axios';
 import { instance } from '.';
 import type { IResDataType, IUserType } from './types';
 
-const addBooksToCart = async (bookId: number | string): Promise<AxiosResponse<IUserType>> => {
+const addBooksToCart = async (bookId: number): Promise<AxiosResponse<IUserType>> => {
   const booksData = await instance.post('cart/add', { bookId });
 
   return booksData;
@@ -15,20 +15,20 @@ const getAllBooksFromCart = async (): Promise<AxiosResponse<IResDataType>> => {
 };
 
 const deleteBookFromCart =
-  async (bookId: number | string): Promise<AxiosResponse<IResDataType>> => {
-    const booksData = await instance.post('cart/delete', { bookId });
+  async (bookId: number): Promise<AxiosResponse<IResDataType>> => {
+    const booksData = await instance.delete('cart/', { data: { bookId } });
 
     return booksData;
   };
 
-const addBookCopy = async (bookId: number | string): Promise<AxiosResponse<IUserType>> => {
-  const booksData = await instance.post('cart/add-copy', { bookId });
+const increaseBookAmount = async (bookId: number): Promise<AxiosResponse<IUserType>> => {
+  const booksData = await instance.patch('cart/', { bookId });
 
   return booksData;
 };
 
-const removeBookCopy = async (bookId: number | string): Promise<AxiosResponse<IUserType>> => {
-  const booksData = await instance.post('cart/remove-copy', { bookId });
+const reduceBookAmount = async (bookId: number): Promise<AxiosResponse<IUserType>> => {
+  const booksData = await instance.patch('cart/reduce', { bookId });
 
   return booksData;
 };
@@ -37,6 +37,6 @@ export const cartApi = {
   addBooksToCart,
   getAllBooksFromCart,
   deleteBookFromCart,
-  addBookCopy,
-  removeBookCopy,
+  increaseBookAmount,
+  reduceBookAmount,
 };

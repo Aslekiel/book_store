@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { commentApi } from '../../../api/commentApi';
-import { setBookComments } from '../../../store/books/books';
+import { setBooks } from '../../../store/books/books';
 import { useAppDispatch } from '../../../store/hooks/hooks';
 import { CommonButton } from '../../CommonButton/CommonButton';
 import { CommentBlockContainer } from './CommentBlockContainer.styles';
@@ -24,19 +24,16 @@ export const CommentsBlock: React.FC<IProps> = ({ id, comments, isAuth }) => {
 
   const dispatch = useAppDispatch();
 
-  const onFormSubmitAddComment = (event: React.FormEvent<HTMLFormElement>) => {
+  const onFormSubmitAddComment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!commentValue.trim()) return;
-    (async () => {
-      try {
-        const res = await commentApi.addComment(Number(id), commentValue);
-        dispatch(setBookComments(res.data));
-        setCommentValue('');
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
-    })();
+    try {
+      const res = await commentApi.addComment(Number(id), commentValue);
+      dispatch(setBooks(res.data));
+      setCommentValue('');
+    } catch (error) {
+      throw new Error();
+    }
   };
 
   const onChangeInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -44,36 +41,38 @@ export const CommentsBlock: React.FC<IProps> = ({ id, comments, isAuth }) => {
   };
 
   return (
-    <CommentBlockContainer
-      onSubmit={onFormSubmitAddComment}
-    >
-      {comments && comments.map((comment) => {
-        return (
-          <SingleComment
-            key={comment.id}
-            userId={comment.userId}
-            comment={comment.comment}
-          />
-        );
-      })}
-      {isAuth &&
-        (
-          <>
-            <textarea
-              type="text"
-              placeholder="Share a comment"
-              value={commentValue}
-              className="form__textarea"
-              onChange={onChangeInput}
+    <CommentBlockContainer onSubmit={onFormSubmitAddComment}>
+      <h2 className="comments__title">
+        Comments
+      </h2>
+      <div className="comments__wrapper">
+        {comments && comments.map((comment) => {
+          return (
+            <SingleComment
+              key={comment.id}
+              userId={comment.userId}
+              comment={comment.comment}
             />
-            <CommonButton
-              title="Post a comment"
-              type="submit"
-              toggleBtn
-            />
-          </>
-        )
-      }
+          );
+        })}
+        {isAuth &&
+          (
+            <>
+              <textarea
+                type="text"
+                placeholder="Share a comment"
+                value={commentValue}
+                className="form__textarea"
+                onChange={onChangeInput}
+              />
+              <CommonButton
+                title="Post a comment"
+                type="submit"
+              />
+            </>
+          )
+        }
+      </div>
     </CommentBlockContainer>
   );
 };

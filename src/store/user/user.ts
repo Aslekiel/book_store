@@ -54,7 +54,7 @@ const user = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<IUser | null>) {
-      state.user = action.payload!.user;
+      state.user = action.payload.user;
     },
     setUserCart(state, action: PayloadAction<IUserType | null>) {
       state.user.cart = action.payload.cart;

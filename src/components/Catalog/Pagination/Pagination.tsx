@@ -22,7 +22,7 @@ export const Pagination: React.FC<IProps> = ({ currentPage, setCurrentPage }) =>
   };
 
   const onClickGoForward = () => {
-    if (currentPage < pages.length) {
+    if (currentPage < pages?.length) {
       setCurrentPage(currentPage + 1);
     }
   };

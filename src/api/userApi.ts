@@ -6,7 +6,7 @@ const logIn = async (
   options: IPropsType,
 ): Promise<AxiosResponse<IResDataType>> => {
   const userData = await instance.post('auth/login',
-    { email: options.email, password: options.password });
+    { ...options });
 
   localStorage.setItem('accessToken', userData?.data.accessToken);
 
@@ -17,7 +17,7 @@ const signUp = async (
   options: IPropsType,
 ): Promise<AxiosResponse<IResDataType>> => {
   const userData = await instance.post('auth/signup',
-    { email: options.email, password: options.password });
+    { ...options });
 
   localStorage.setItem('accessToken', userData?.data.accessToken);
 
@@ -27,18 +27,14 @@ const signUp = async (
 const editUserInformation =
   async (options: IPropsType): Promise<AxiosResponse<IResDataType>> => {
     const userData = await instance.patch('user/info',
-      { fullname: options.fullname, email: options.email });
+      { ...options });
 
     return userData;
   };
 
 const editUserPassword =
   async (options: UserPasswordsType): Promise<AxiosResponse> => {
-    const userData = await instance.patch('user/password', {
-      oldPassword: options.oldPassword,
-      newPassword: options.newPassword,
-      confirmPassword: options.confirmPassword,
-    });
+    const userData = await instance.patch('user/password', { ...options });
     return userData;
   };
 

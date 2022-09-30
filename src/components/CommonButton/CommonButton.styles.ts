@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
 interface IProps {
-  toggleBtn: boolean;
+  title: string;
 }
 
 export const CommonButtonContainer = styled.button<IProps>`
-  ${(p) => (p.toggleBtn
+  ${(p) => (p.title !== 'Added to cart'
     ? css`
     background-color: #344966;
     border: 0;

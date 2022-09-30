@@ -18,19 +18,17 @@ export const SortSlider = () => {
     setMaxPrice(changedMaxPrice);
   };
 
-  const onMouseUpHandler = () => {
-    (async () => {
-      try {
-        const res = await booksApi.getAllBooks();
-        const sortedByMinMaxPrice = [...res.data.books].filter(
-          (book) => book.price >= minPrice && book.price <= maxPrice,
-        );
-        dispatch(setBooks({ books: sortedByMinMaxPrice }));
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
-    })();
+  const onMouseUpHandler = async () => {
+    try {
+      const res = await booksApi.getAllBooks();
+      const sortedByMinMaxPrice = [...res.data.books].filter(
+        (book) => book.price >= minPrice && book.price <= maxPrice,
+      );
+      dispatch(setBooks({ books: sortedByMinMaxPrice }));
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
   };
 
   return (

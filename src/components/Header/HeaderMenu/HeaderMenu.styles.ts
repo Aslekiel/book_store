@@ -40,6 +40,8 @@ export const HeaderMenuContainer = styled.div`
       width: 23px;
       height: 23px;
 
+      text-align: center;
+
       top: -6px;
       left: 30px;
 

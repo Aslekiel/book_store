@@ -16,8 +16,7 @@ export const MainCatalogBanner = () => {
           Build your library with us
         </h1>
         <p className="main__banner__info__text">
-          Buy two books and
-          <br /> get one for free
+          Buy two books and get one for free
         </p>
         <CommonButton
           title="Choose a book"

@@ -22,8 +22,7 @@ export const SingleComment: React.FC<IProps> = ({ comment, userId }) => {
         const res = await userApi.getAnotherUser(userId);
         setAnotherUser(res.data);
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
+        throw new Error();
       }
     })();
   }, [userId]);

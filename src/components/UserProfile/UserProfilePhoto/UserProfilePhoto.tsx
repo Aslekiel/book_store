@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
@@ -15,13 +14,9 @@ export const UserProfilePhoto = () => {
 
   const dispatch = useAppDispatch();
 
-  const navigate = useNavigate();
-
   const onClickLogOut = () => {
     localStorage.setItem('accessToken', '');
     dispatch(setUser({ user: null }));
-
-    navigate('/');
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,8 +31,7 @@ export const UserProfilePhoto = () => {
         if (error instanceof AxiosError) {
           return toast(error.response?.data.message);
         }
-        // eslint-disable-next-line no-console
-        console.log(error);
+        throw new Error();
       }
     };
   };

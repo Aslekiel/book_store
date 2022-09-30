@@ -13,7 +13,7 @@ export interface IPropsType {
 }
 
 export interface IUserType {
-  id?: number | string;
+  id?: number;
   fullname?: string;
   email: string;
   avatar?: string;

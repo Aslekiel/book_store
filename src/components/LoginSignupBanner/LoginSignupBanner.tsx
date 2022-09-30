@@ -21,7 +21,7 @@ export const LoginSignupBanner = () => {
           Authorize now
         </h1>
         <p className="banner__info__text">
-          Authorize now and discover the fabulous <br /> world of books
+          Authorize now and discover the fabulous world of books
         </p>
         <LoginSignupButton />
       </div>

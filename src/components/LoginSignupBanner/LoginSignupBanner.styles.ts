@@ -39,6 +39,8 @@ export const LoginSignupBannerContainer = styled.section`
       line-height: 30px;
       color: #0d1821;
       padding: 10px 0 50px;
+
+      width: 80%;
     }
   }
 
