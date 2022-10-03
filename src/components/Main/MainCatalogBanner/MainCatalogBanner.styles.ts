@@ -22,24 +22,25 @@ export const MainCatalogBannerContainer = styled.section`
     justify-content: center;
     align-items: flex-start;
     z-index: 1;
+
+    &_title {
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 60px;
+      color: #0d1821;
+      padding-top: 80px;
+    }
+
+    &_text {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 30px;
+      color: #344966;
+      padding: 10px 0 50px;
+      width: 40%;
+    }
   }
   
-  .main__banner__info__title {
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 60px;
-    color: #0d1821;
-    padding-top: 80px;
-  }
-  .main__banner__info__text {
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 30px;
-    color: #344966;
-    padding: 10px 0 50px;
-    width: 40%;
-  }
-
   .main__banner__reading-girl-img {
     z-index: 10;
   }

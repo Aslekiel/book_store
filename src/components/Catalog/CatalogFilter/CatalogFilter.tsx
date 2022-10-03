@@ -17,6 +17,8 @@ export const CatalogFilter: React.FC<IProps> = ({
   const [sortByTitleState, setSortByTitleState] = useState('Price');
   const container = useRef<HTMLDivElement>();
 
+  const lowercaseTitle = sortByTitleState.toLowerCase();
+
   const onClickHandler = () => {
     setFilterState(!filterState);
   };
@@ -27,16 +29,14 @@ export const CatalogFilter: React.FC<IProps> = ({
     }
   };
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
   const onClickSetTitle = (title: string) => {
     setSortByTitleState(title);
   };
 
-  const lowercaseTitle = sortByTitleState.toLowerCase();
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <CatalogFilterContainer

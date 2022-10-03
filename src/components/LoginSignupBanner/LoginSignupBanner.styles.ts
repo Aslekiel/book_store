@@ -25,7 +25,7 @@ export const LoginSignupBannerContainer = styled.section`
 
     z-index: 1000;
 
-    &__title {
+    &_title {
       font-weight: 700;
       font-size: 40px;
       line-height: 60px;
@@ -33,7 +33,7 @@ export const LoginSignupBannerContainer = styled.section`
       padding-top: 80px;
     }
 
-    &__text {
+    &_text {
       font-weight: 500;
       font-size: 20px;
       line-height: 30px;

@@ -1,13 +1,15 @@
-import React from 'react';
-import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
-import { UserProfilePhotoContainer } from './UserProfilePhoto.styles';
+import { toast } from 'react-toastify';
+
+import { setUser } from '../../../store/user/user';
+import { userApi } from '../../../api/userApi';
+
 import userLogo from '../../../assets/user profile3.png';
 import { ReactComponent as CameraLogo } from '../../../assets/camera.svg';
 import { CommonButton } from '../../CommonButton/CommonButton';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
-import { setUser } from '../../../store/user/user';
-import { userApi } from '../../../api/userApi';
+
+import { UserProfilePhotoContainer } from './UserProfilePhoto.styles';
 
 export const UserProfilePhoto = () => {
   const user = useAppSelector((state) => state.user.user);

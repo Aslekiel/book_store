@@ -55,8 +55,8 @@ export const Pagination = () => {
               key={index}
               className={
                 index + 1 === currentPage
-                  ? 'pagination__list__item-act'
-                  : 'pagination__list__item-def'
+                  ? 'pagination__list_item-act'
+                  : 'pagination__list_item-def'
               }
             />
           );

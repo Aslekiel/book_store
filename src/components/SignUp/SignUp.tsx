@@ -1,18 +1,21 @@
-import { useFormik } from 'formik';
-import React from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { useAppDispatch } from '../../store/hooks/hooks';
-import { CommonButton } from '../CommonButton/CommonButton';
-import { Input } from '../Input/Input';
-import { SignUpContainer } from './SignUp.styles';
+import { toast, ToastContainer } from 'react-toastify';
 
-import { signupSchema } from '../../Schemas/signupSchema';
-import { ReactComponent as ReadingMan } from '../../assets/login-signup-man.svg';
+import { useFormik } from 'formik';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../store/hooks/hooks';
+
 import { setUser } from '../../store/user/user';
 import { userApi } from '../../api/userApi';
+
+import { CommonButton } from '../CommonButton/CommonButton';
+import { Input } from '../Input/Input';
+import { ReactComponent as ReadingMan } from '../../assets/login-signup-man.svg';
 import { InputLabel } from '../InputLabel/InputLabel';
+
+import { signupSchema } from '../../Schemas/signupSchema';
+
+import { SignUpContainer } from './SignUp.styles';
 
 interface ILocationStateType {
   from: { pathname: string };

@@ -17,10 +17,10 @@ export const LoginSignupBanner = () => {
         alt="sprite-img"
       />
       <div className="banner__info">
-        <h1 className="banner__info__title">
+        <h1 className="banner__info_title">
           Authorize now
         </h1>
-        <p className="banner__info__text">
+        <p className="banner__info_text">
           Authorize now and discover the fabulous world of books
         </p>
         <LoginSignupButton />

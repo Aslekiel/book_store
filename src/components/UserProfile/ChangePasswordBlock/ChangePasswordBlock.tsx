@@ -1,15 +1,20 @@
 import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
+
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
-import { userApi } from '../../../api/userApi';
-import { editPasswordSchema } from '../../../Schemas/editPasswordSchema';
 import { useAppDispatch } from '../../../store/hooks/hooks';
+
+import { userApi } from '../../../api/userApi';
 import { setUser } from '../../../store/user/user';
+
 import { CommonButton } from '../../CommonButton/CommonButton';
 import { Input } from '../../Input/Input';
 import { InputLabel } from '../../InputLabel/InputLabel';
 import { UserProfileCaption } from '../UserProfileCaption/UserProfileCaption';
+
+import { editPasswordSchema } from '../../../Schemas/editPasswordSchema';
+
 import { ChangePasswordBlockContainer } from './ChangePasswordBlock.styles';
 
 export const ChangePasswordBlock = () => {

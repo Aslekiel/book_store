@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
-import { FooterContainer } from './Footer.styles';
+
 import { ReactComponent as FooterLogo } from '../../assets/footer-logo.svg';
 import map from '../../assets/map.png';
+
+import { FooterContainer } from './Footer.styles';
 
 const Footer = () => {
   return (

@@ -1,23 +1,27 @@
+import { AxiosError } from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+
 import { useState } from 'react';
 import { useFormik } from 'formik';
-import { toast, ToastContainer } from 'react-toastify';
-import { AxiosError } from 'axios';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
+
+import { setUser } from '../../store/user/user';
+import { userApi } from '../../api/userApi';
+
 import { Input } from '../Input/Input';
 import { UserProfileContainer } from './UserProfile.styles';
 import { UserProfilePhoto } from './UserProfilePhoto/UserProfilePhoto';
 import { UserProfileCaption } from './UserProfileCaption/UserProfileCaption';
-import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import { CommonButton } from '../CommonButton/CommonButton';
-import { editInfoSchema } from '../../Schemas/editInfoSchema';
 import { ChangePasswordBlock } from './ChangePasswordBlock/ChangePasswordBlock';
-import { setUser } from '../../store/user/user';
-import { userApi } from '../../api/userApi';
+
+import { editInfoSchema } from '../../Schemas/editInfoSchema';
 
 export const UserProfile = () => {
   const [changeInformation, setChangeInformation] = useState(false);
+  const dispatch = useAppDispatch();
 
   const user = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues: {

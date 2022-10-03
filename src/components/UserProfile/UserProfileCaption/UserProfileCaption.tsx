@@ -1,13 +1,12 @@
 import { UserProfileCaptionContainer } from './UserProfileCaption.styles';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-type Props = {
+type PropsType = {
   captionTitle: string;
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   buttonTitle: string;
 };
 
-export const UserProfileCaption: React.FC<Props> = (
+export const UserProfileCaption: React.FC<PropsType> = (
   { captionTitle, onClick, buttonTitle },
 ) => {
   return (

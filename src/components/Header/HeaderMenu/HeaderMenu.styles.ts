@@ -34,7 +34,7 @@ export const HeaderMenuContainer = styled.div`
     top: 50%;
     transform: translate(-50%, -50%);
 
-    &__amount-books {
+    &_amount-books {
       position: absolute;
       background: #BFCC94;
       width: 23px;

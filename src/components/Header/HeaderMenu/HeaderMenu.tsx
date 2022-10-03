@@ -22,7 +22,7 @@ export const HeaderMenu = () => {
         {!!user.cart?.length &&
           (
             <div
-              className="header-menu__logo__amount-books"
+              className="header-menu__logo_amount-books"
             >
               {booksAmount}
             </div>
@@ -39,7 +39,7 @@ export const HeaderMenu = () => {
         {!!user.favorites?.length &&
           (
             <div
-              className="header-menu__logo__amount-books"
+              className="header-menu__logo_amount-books"
             >
               {user.favorites.length}
             </div>

@@ -62,7 +62,7 @@ export const BookContainer = styled.section<IProps>`
     max-width: 305px;
     width: 100%;
 
-    &__integer {
+    &_integer {
       line-height: 24px;
       color: #B9BAC4;
     }

@@ -25,31 +25,21 @@ interface IProps {
 
 export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfIssue, rating }) => {
   const user = useAppSelector((state) => state.user.user);
+  const dispatch = useAppDispatch();
 
   const favoriteBooksIds = !user ? [] : user?.favorites?.map((favorite) => favorite.bookId);
 
   const isFavorite = !!favoriteBooksIds?.includes(+id);
-
-  const [favorite, setFavorite] = useState(isFavorite);
-
-  const [toggleBtn, setToggleBtn] = useState(true);
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const booksIdsFromCart = !user ? [] : user?.cart?.map((cart) => cart.bookId);
 
-  const dispatch = useAppDispatch();
-
+  const [favorite, setFavorite] = useState(isFavorite);
+  const [toggleBtn, setToggleBtn] = useState(true);
   const navigate = useNavigate();
 
   const onClickCheckBook = () => {
     navigate(`/book/:${id}`);
   };
-
-  useEffect(() => {
-    if (booksIdsFromCart?.includes(+id)) {
-      setToggleBtn(false);
-    }
-  }, [booksIdsFromCart, id]);
 
   const onClickFavorite = async () => {
     try {
@@ -84,6 +74,12 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
     }
   };
 
+  useEffect(() => {
+    if (booksIdsFromCart?.includes(+id)) {
+      setToggleBtn(false);
+    }
+  }, [booksIdsFromCart, id]);
+
   return (
     <BookContainer favorite={favorite}>
       <img
@@ -112,7 +108,7 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
             key={index}
           />
         ))}
-        <span className="book__rating__integer">{rating}</span>
+        <span className="book__rating_integer">{rating}</span>
       </div>
       <button
         className="book__save"
