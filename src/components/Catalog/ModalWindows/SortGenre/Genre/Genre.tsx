@@ -1,28 +1,28 @@
 import { useState } from 'react';
-import { GenreContainer } from './GenreContainer.styles';
+
 import checkBoxFull from '../../../../../assets/checkbox-full.png';
 import checkBoxEmpty from '../../../../../assets/checkbox-empty.png';
-import { useAppDispatch } from '../../../../../store/hooks/hooks';
-import { removeFilter, setFilteredGenres } from '../../../../../store/books/genres';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-type Props = {
+import { GenreContainer } from './GenreContainer.styles';
+
+type PropsType = {
   id: number;
   title: string;
+  filterByGenres: (id: number) => void;
 };
 
-export const Genre: React.FC<Props> = ({ id, title }) => {
+export const Genre: React.FC<PropsType> = (
+  {
+    id,
+    title,
+    filterByGenres,
+  },
+) => {
   const [checkBoxState, setCheckBoxState] = useState(false);
 
-  const dispatch = useAppDispatch();
-
   const onClickHandler = () => {
+    filterByGenres(id);
     setCheckBoxState(!checkBoxState);
-    if (checkBoxState) {
-      dispatch(removeFilter(id));
-      return;
-    }
-    dispatch(setFilteredGenres(id));
   };
 
   return (

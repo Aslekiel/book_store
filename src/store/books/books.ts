@@ -10,10 +10,12 @@ import {
 
 interface IBooksState {
   books: IBook[] | null;
+  count: number;
 }
 
 const initialState: IBooksState = {
   books: [],
+  count: undefined,
 };
 
 interface IBook {
@@ -47,6 +49,7 @@ const books = createSlice({
   reducers: {
     setBooks(state, action: PayloadAction<IBooksState | null>) {
       state.books = action.payload.books;
+      state.count = action.payload.count;
     },
   },
   extraReducers: (builder) => {

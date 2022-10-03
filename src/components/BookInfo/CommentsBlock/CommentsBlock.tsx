@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useAppDispatch } from '../../../store/hooks/hooks';
+
 import { commentApi } from '../../../api/commentApi';
 import { setBooks } from '../../../store/books/books';
-import { useAppDispatch } from '../../../store/hooks/hooks';
+
 import { CommonButton } from '../../CommonButton/CommonButton';
-import { CommentBlockContainer } from './CommentBlockContainer.styles';
 import { SingleComment } from './SingleComment/SingleComment';
+
+import { CommentBlockContainer } from './CommentBlockContainer.styles';
 
 interface IProps {
   id: number;

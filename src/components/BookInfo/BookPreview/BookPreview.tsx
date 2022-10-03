@@ -120,66 +120,66 @@ export const BookPreview: React.FC<PropsType> = ({
         <img
           src={logo}
           alt="book_logo"
-          className="book__logo__img"
+          className="book__logo_img"
         />
         <button
-          className="book__logo__save"
+          className="book__logo_save"
           onClick={onClickFavorite}
         >
           <img
-            className="book__logo__save-favorite"
+            className="book__logo_save-favorite"
             src={favorite ? heartFull : heartEmpty}
             alt="heart-favorite"
           />
         </button>
       </div>
       <div className="book__info">
-        <h2 className="book__info__title">
+        <h2 className="book__info_title">
           {title}
         </h2>
-        <h3 className="book__info__author-name">
+        <h3 className="book__info_author-name">
           {author}
         </h3>
-        <div className="book__info__rating">
+        <div className="book__info_rating">
           <RatingStar
             name="read-only"
             defaultValue={1}
             readOnly max={1}
-            className="book__info__rating__one-star"
+            className="book__info_rating_one-star"
           />
-          <span className="book__info__rating__integer">
+          <span className="book__info_rating_integer">
             {bookRating}
           </span>
           <RatingStar
             name="half-rating"
-            value={!user ? 0 : rating}
+            value={!rating ? 0 : rating}
             precision={0.5}
             onChange={addRating}
           />
           <img
             src={arrowRating}
             alt="arrow-rating"
-            className="book__info__rating__arrow"
+            className="book__info_rating_arrow"
           />
-          <span className="book__info__rating__rate-this">
+          <span className="book__info_rating_rate-this">
             Rate this book
           </span>
         </div>
-        <h3 className="book__info__description-title">
+        <h3 className="book__info_description-title">
           Description
         </h3>
-        <div className="book__info__description">
+        <div className="book__info_description">
           {description}
         </div>
-        <div className="book__info__buy-btns">
-          <div className="book__info__buy-btns__btn">
-            <span className="book__info__buy-btns__btn__title">
+        <div className="book__info_buy-btns">
+          <div className="book__info_buy-btns_btn">
+            <span className="book__info_buy-btns_btn_title">
               Paperback
             </span>
             <CommonButton title="Not available" />
           </div>
-          <div className="book__info__buy-btns__btn">
-            <span className="book__info__buy-btns__btn__title">
+          <div className="book__info_buy-btns_btn">
+            <span className="book__info_buy-btns_btn_title">
               Hardcover
             </span>
             <CommonButton

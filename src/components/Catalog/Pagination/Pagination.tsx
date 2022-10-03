@@ -1,30 +1,43 @@
+import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { PaginationContainer } from './Pagination.styles';
 import arrow from '../../../assets/forward.png';
 import { useAppSelector } from '../../../store/hooks/hooks';
 
-interface IProps {
-  currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-}
+export const Pagination = () => {
+  const { count } = useAppSelector((state) => state.books);
 
-export const Pagination: React.FC<IProps> = ({ currentPage, setCurrentPage }) => {
-  const books = useAppSelector((state) => state.books.books);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(+searchParams.get('page') || 1);
+  const [booksPerPage] = useState(+searchParams.get('limit') || 12);
+
   const pages = [];
 
-  for (let i = 1; i <= Math.ceil(books.length / 12); i++) {
+  for (let i = 1; i <= Math.ceil(count / booksPerPage); i++) {
     pages.push(i);
   }
 
   const onClickGoBack = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      searchParams.set('page', String(currentPage - 1));
+      searchParams.set('limit', String(booksPerPage));
+      if (currentPage - 1 === 1) {
+        searchParams.delete('page');
+      }
     }
+    searchParams.delete('limit');
+    setSearchParams(searchParams);
   };
 
   const onClickGoForward = () => {
     if (currentPage < pages?.length) {
       setCurrentPage(currentPage + 1);
+      searchParams.set('page', String(currentPage + 1));
+      searchParams.set('limit', String(booksPerPage));
     }
+    searchParams.delete('limit');
+    setSearchParams(searchParams);
   };
 
   return (

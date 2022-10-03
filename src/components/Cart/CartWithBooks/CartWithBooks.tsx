@@ -53,13 +53,13 @@ export const CartWithBooks = () => {
       })}
       <div className="cart__total-price">
         <h2
-          className="cart__total-price__price"
+          className="cart__total-price_price"
         >
           {`Total: ${totalPrice}`}
         </h2>
-        <div className="cart__total-price__btns">
+        <div className="cart__total-price_btns">
           <button
-            className="cart__total-price__btns__continue"
+            className="cart__total-price_btns_continue"
             onClick={onClickContinueShopping}
           >
             Continue shopping

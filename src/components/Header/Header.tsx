@@ -1,21 +1,23 @@
 import { useFormik } from 'formik';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { ReactComponent as HeaderLogo } from '../../assets/logo.svg';
-import { Input } from '../Input/Input';
-import { HeaderContainer } from './Header.styles';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
+
+import { booksApi } from '../../api/booksApi';
 
 import { HeaderMenu } from './HeaderMenu/HeaderMenu';
 import { LoginSignupButton } from '../LogiSignupButton/LogiSignupButton';
-import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
-import { setBooks } from '../../store/books/books';
-import { booksApi } from '../../api/booksApi';
+import { ReactComponent as HeaderLogo } from '../../assets/logo.svg';
+import { Input } from '../Input/Input';
+
+import { HeaderContainer } from './Header.styles';
 
 const Header = () => {
   const user = useAppSelector((state) => state.user.user?.email);
   const dispatch = useAppDispatch();
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams(searchTerm || '');
 
   const navigate = useNavigate();
 
@@ -24,33 +26,37 @@ const Header = () => {
       search: '',
     },
     onSubmit: () => {
-      navigate('/search');
+      navigate('/');
     },
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     formik.handleChange(event);
     setSearchTerm(event.currentTarget.value);
+    searchParams.set('search', event.currentTarget.value);
+    setSearchParams(searchParams);
   };
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await booksApi.getAllBooks();
-        const results = res.data.books
-          .filter((book) => book.title.toLowerCase().includes(searchTerm) ||
-            book.author.toLowerCase().includes(searchTerm));
-        dispatch(setBooks({ books: results }));
-        if (searchTerm.length) {
-          navigate('/search');
+        await booksApi.getAllBooks({ search: searchTerm });
+
+        if (!searchTerm.length) {
+          searchParams.delete('search');
+          setSearchParams(searchParams);
+          return;
         }
+
+        searchParams.set('search', searchTerm);
+        setSearchParams(searchParams);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, searchTerm]);
+  }, [dispatch, searchTerm, searchParams]);
 
   return (
     <HeaderContainer>

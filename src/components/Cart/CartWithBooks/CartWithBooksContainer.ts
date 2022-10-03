@@ -17,7 +17,7 @@ export const CartWithBooksContainer = styled.section`
   
   .cart__total-price {
 
-    &__price {
+    &_price {
       font-weight: 500;
       font-size: 36px;
       line-height: 54px;
@@ -26,14 +26,14 @@ export const CartWithBooksContainer = styled.section`
       padding: 50px 0 30px;
     }
 
-    &__btns {
+    &_btns {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       width: 40%;
 
-      &__continue {
+      &_continue {
         background-color: #FFFFFF;
         border: 1px solid #0D1821;
         border-radius: 16px;

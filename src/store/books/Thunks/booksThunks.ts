@@ -5,7 +5,7 @@ import { booksApi } from '../../../api/booksApi';
 export const getAllBooksThunk = createAsyncThunk('books/',
   async () => {
     try {
-      const res = await booksApi.getAllBooks();
+      const res = await booksApi.getAllBooks({});
       return res.data;
     } catch (error) {
       if (error instanceof AxiosError) {

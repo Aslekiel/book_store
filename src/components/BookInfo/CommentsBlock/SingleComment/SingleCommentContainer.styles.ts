@@ -24,14 +24,14 @@ export const SingleCommentContainer = styled.div`
   .comment__inner {
     padding: 35px 30px 25px 110px;
 
-    &__fullname {
+    &_fullname {
       letter-spacing: 0.75px;
       color: #0D1821;
       
       padding-bottom: 5px;
     }
 
-    &__comment-text {
+    &_comment-text {
       letter-spacing: 0.75px;
       text-align: justify;
       color: #344966;

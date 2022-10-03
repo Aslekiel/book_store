@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
+import { useSearchParams } from 'react-router-dom';
 import { BooksContainer } from './BooksContainer.styles';
 import { Book } from './Book/Book';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
+import { useAppDispatch } from '../../../store/hooks/hooks';
 import { booksApi } from '../../../api/booksApi';
 import { setBooks } from '../../../store/books/books';
 import { Pagination } from '../Pagination/Pagination';
@@ -15,27 +16,25 @@ type PropsType = {
 };
 
 export const Books: React.FC<PropsType> = ({ books }) => {
-  const filteredGenres = useAppSelector((state) => state.filteredGenres.genres);
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [booksPerPage] = useState(12);
-
-  const lastBookIndex = currentPage * booksPerPage;
-  const firstBookIndex = lastBookIndex - booksPerPage;
-  const currentBooks = books?.slice(firstBookIndex, lastBookIndex);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     (async () => {
+      const filter = {
+        page: searchParams.get('page') || undefined,
+        limit: searchParams.get('limit') || 12,
+        search: searchParams.get('search') || undefined,
+        genre: searchParams.get('genre') || undefined,
+        minPrice: searchParams.get('minPrice') || undefined,
+        maxPrice: searchParams.get('maxPrice') || undefined,
+        sortBy: searchParams.get('sortBy') || 'price',
+      };
+
       try {
-        if (!filteredGenres.length) {
-          const res = await booksApi.getAllBooks();
-          dispatch(setBooks(res.data));
-          setIsLoading(false);
-          return;
-        }
-        const res = await booksApi.getFilteredArrayOfBooks(filteredGenres);
+        const res = await booksApi.getAllBooks(filter);
         dispatch(setBooks(res.data));
         setIsLoading(false);
       } catch (error) {
@@ -46,7 +45,7 @@ export const Books: React.FC<PropsType> = ({ books }) => {
         console.log(error);
       }
     })();
-  }, [dispatch, filteredGenres]);
+  }, [dispatch, searchParams]);
 
   if (isLoading) {
     return (
@@ -57,7 +56,7 @@ export const Books: React.FC<PropsType> = ({ books }) => {
   return (
     <>
       <BooksContainer>
-        {currentBooks?.map((book) => {
+        {books?.map((book) => {
           return (
             <Book
               key={book.id}
@@ -72,10 +71,7 @@ export const Books: React.FC<PropsType> = ({ books }) => {
         })}
         <ToastContainer />
       </BooksContainer>
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      <Pagination />
     </>
   );
 };

@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom';
 import { SortByContainer } from './SortByContainer.styles';
 
 type PropsType = {
@@ -14,6 +15,15 @@ export const SortBy: React.FC<PropsType> = ({ sortByTitleState, onClickSetTitle 
     'Data of issue',
   ];
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const onClickHandler = (title: string) => {
+    onClickSetTitle(title);
+    const lowercaseTitle = title.toLowerCase();
+    searchParams.set('sortBy', lowercaseTitle);
+    setSearchParams(searchParams);
+  };
+
   return (
     <SortByContainer>
       <div className="sort__triangle" />
@@ -26,7 +36,7 @@ export const SortBy: React.FC<PropsType> = ({ sortByTitleState, onClickSetTitle 
                 ? 'sort__btn--active'
                 : 'sort__btn'
             }
-            onClick={() => onClickSetTitle(title)}
+            onClick={() => onClickHandler(title)}
           >
             {title}
           </div>

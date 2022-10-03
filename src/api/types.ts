@@ -4,6 +4,7 @@ export interface IResDataType {
   genres: IBookGenres[];
   filters: string[];
   booksIds: number[];
+  count: number;
 }
 
 export interface IPropsType {
@@ -77,3 +78,13 @@ export interface IAnotherUser {
   avatar: string;
   fullname: string;
 }
+
+export type FilterType = {
+  page?: string;
+  limit?: string | number;
+  search?: string;
+  genre?: string;
+  minPrice?: string | number;
+  maxPrice?: string | number;
+  sortBy?: string;
+};

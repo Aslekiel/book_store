@@ -40,7 +40,7 @@ export const SingleComment: React.FC<IProps> = ({ comment, userId }) => {
       />
       <div className="comment__inner">
         <p
-          className="comment__inner__fullname"
+          className="comment__inner_fullname"
         >
           {
             anotherUser?.fullname
@@ -49,7 +49,7 @@ export const SingleComment: React.FC<IProps> = ({ comment, userId }) => {
           }
         </p>
         <p
-          className="comment__inner__comment-text"
+          className="comment__inner_comment-text"
         >
           {comment}
         </p>

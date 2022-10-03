@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 type PropsType = {
-  favorite: boolean;
+    favorite: boolean;
 };
 
 export const BookPreviewContainer = styled.div<PropsType>`
@@ -19,7 +19,7 @@ export const BookPreviewContainer = styled.div<PropsType>`
       max-width: 522px;
       width: 100%;
 
-      &__img {
+      &_img {
       max-width: 522px;
       width: 100%;
       max-height: 779px;
@@ -28,7 +28,7 @@ export const BookPreviewContainer = styled.div<PropsType>`
 
       }
 
-      &__save {
+      &_save {
           background-color: #344966;
           position: absolute;
           right: 20px;
@@ -58,39 +58,39 @@ export const BookPreviewContainer = styled.div<PropsType>`
 
       width: 50%;
 
-      &__title {
+      &_title {
           font-weight: 700;
           font-size: 40px;
           line-height: 60px;
           color: #0D1821;
       }
 
-      &__author-name, &__description-title {
+      &_author-name, &_description-title {
           font-weight: 500;
           font-size: 24px;
           line-height: 36px;
           color: #0D1821;
       }
 
-      &__rating {
+      &_rating {
           display: flex;
           flex-direction: row;
           justify-content: flex-start;
           align-items: center;
           padding: 30px 0;
 
-          &__integer {
+          &_integer {
               line-height: 24px;
               color: #B9BAC4;
 
               padding: 0 40px 0 15px;
           }
 
-          &__arrow {
+          &_arrow {
               padding-left: 45px;
           }
 
-          &__rate-this {
+          &_rate-this {
               line-height: 24px;
               color: #B9BAC4;
               
@@ -99,7 +99,7 @@ export const BookPreviewContainer = styled.div<PropsType>`
           }
       }
 
-      &__description {
+      &_description {
           font-weight: 500;
           font-size: 16px;
           line-height: 24px;
@@ -109,13 +109,13 @@ export const BookPreviewContainer = styled.div<PropsType>`
           padding: 10px 0 74px;
       }
 
-      &__buy-btns {
+      &_buy-btns {
           display: flex;
           flex-direction: row;
           justify-content: flex-start;
           align-items: flex-start;
 
-          &__btn {
+          &_btn {
               display: flex;
               flex-direction: column;
               justify-content: flex-start;
@@ -123,7 +123,7 @@ export const BookPreviewContainer = styled.div<PropsType>`
 
               width: 50%;
 
-              &__title {
+              &_title {
                   font-weight: 500;
                   font-size: 16px;
                   line-height: 24px;

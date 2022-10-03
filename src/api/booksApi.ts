@@ -1,9 +1,9 @@
 import type { AxiosResponse } from 'axios';
 import { instance } from '.';
-import type { IBook, IResDataType } from './types';
+import type { FilterType, IBook, IResDataType } from './types';
 
-const getAllBooks = async (): Promise<AxiosResponse<IResDataType>> => {
-  const booksData = await instance.get('books/');
+const getAllBooks = async (filter: FilterType): Promise<AxiosResponse<IResDataType>> => {
+  const booksData = await instance.get('books/', { params: filter });
 
   return booksData;
 };

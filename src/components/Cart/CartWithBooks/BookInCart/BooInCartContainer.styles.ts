@@ -14,21 +14,21 @@ export const BookInCartContainer = styled.div`
 
     .book__info {
 
-      &__title {
+      &_title {
         font-weight: 700;
         font-size: 40px;
         line-height: 60px;
         color: #0D1821;
       }
 
-      &__author {
+      &_author {
         font-weight: 500;
         font-size: 24px;
         line-height: 36px;
         color: #0D1821;
       }
 
-      &__btns {
+      &_btns {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
@@ -36,7 +36,7 @@ export const BookInCartContainer = styled.div`
 
         height: 40%;
       
-          &__minus, &__plus {
+          &_minus, &_plus {
             background-color: #F0F4EF;
             border: 0;
             border-radius: 22px;
@@ -45,7 +45,7 @@ export const BookInCartContainer = styled.div`
             cursor: pointer;
           }
 
-          &__amount-books {
+          &_amount-books {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -56,13 +56,13 @@ export const BookInCartContainer = styled.div`
             width: 50px;
           }
 
-          &__delete {
+          &_delete {
             margin-left: 60px;
             cursor: pointer;
           }
       }
 
-      &__price {
+      &_price {
         font-weight: 500;
         font-size: 36px;
         line-height: 54px;

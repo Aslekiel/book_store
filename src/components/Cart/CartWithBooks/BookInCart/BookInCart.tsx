@@ -22,13 +22,13 @@ export const BookInCart: React.FC<IProps> = ({
   price,
 }) => {
   const user = useAppSelector((state) => state.user.user);
+  const dispatch = useAppDispatch();
+
   const booksCopies = !user ? [] : user.cart
     .filter((cart) => cart.bookId === id)
     .map((cart) => cart.count);
 
   const [booksAmount, setBooksAmount] = useState(+booksCopies);
-
-  const dispatch = useAppDispatch();
 
   const onClickDeleteBook = async () => {
     try {
@@ -72,40 +72,40 @@ export const BookInCart: React.FC<IProps> = ({
       />
       <div className="book__info">
         <h2
-          className="book__info__title"
+          className="book__info_title"
         >
           {title}
         </h2>
         <h3
-          className="book__info__author"
+          className="book__info_author"
         >
           {author}
         </h3>
-        <div className="book__info__btns">
+        <div className="book__info_btns">
           <button
-            className="book__info__btns__minus"
+            className="book__info_btns_minus"
             onClick={onClickIncrement}
           >
             -
           </button>
           <span
-            className="book__info__btns__amount-books"
+            className="book__info_btns_amount-books"
           >
             {booksCopies}
           </span>
           <button
-            className="book__info__btns__plus"
+            className="book__info_btns_plus"
             onClick={onClickDecrement}
           >
             +
           </button>
           <DeleteBookLogo
-            className="book__info__btns__delete"
+            className="book__info_btns_delete"
             onClick={onClickDeleteBook}
           />
         </div>
         <h2
-          className="book__info__price"
+          className="book__info_price"
         >
           {`$ ${+(price * +booksCopies).toFixed(2)} USD`}
         </h2>
