@@ -47,4 +47,13 @@ export const CatalogFilterContainer = styled.div<Props>`
       z-index: 0;
       transform: translate(-50%, -50%) rotate(${(p) => (!p.filterState ? 0 : 90)}deg);
     }
+
+    @media screen and (max-width: 1000px) {
+      width: 100%;
+
+      .catalog__filter-btn {
+        padding: 10px 80% 10px 15px;
+      };
+
+    }
 `;

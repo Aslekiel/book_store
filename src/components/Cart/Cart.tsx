@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
+import { getAllBooksFromCartThunk } from '../../store/books/Thunks/booksThunks';
 
-import { cartApi } from '../../api/cartApi';
-
-import { setBooks } from '../../store/books/books';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
@@ -18,8 +16,7 @@ export const Cart = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await cartApi.getAllBooksFromCart();
-        dispatch(setBooks(res.data));
+        await dispatch(getAllBooksFromCartThunk()).unwrap();
         setIsLoading(false);
       } catch (error) {
         throw new Error();

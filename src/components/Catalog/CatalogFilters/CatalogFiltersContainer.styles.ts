@@ -18,4 +18,23 @@ export const CatalogFiltersContainer = styled.section`
     justify-content: space-between;
     align-items: center;
   }
+
+  @media screen and (max-width: 1000px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+
+    .catalog__title {
+      font-size: 32px;
+      line-height: 48px;
+      margin-bottom: 20px;
+    }
+
+    .catalog__filters {
+      width: 100%;
+    }
+
+  }
 `;

@@ -3,7 +3,7 @@ import { instance } from '.';
 import type { IResDataType, IUserType } from './types';
 
 const addBooksToCart = async (bookId: number): Promise<AxiosResponse<IUserType>> => {
-  const booksData = await instance.post('cart/add', { bookId });
+  const booksData = await instance.post('cart/', { bookId });
 
   return booksData;
 };

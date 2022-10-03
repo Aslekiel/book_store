@@ -6,4 +6,8 @@ export const CatalogContainer = styled.section`
   margin: auto;
   padding-top: 110px;
 
+  @media screen and (max-width: 1000px) {
+    padding-top: 54px;
+  }
+
 `;

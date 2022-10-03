@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
+import { useAppSelector } from '../../store/hooks/hooks';
 
 import { booksApi } from '../../api/booksApi';
 
@@ -14,10 +14,9 @@ import { HeaderContainer } from './Header.styles';
 
 const Header = () => {
   const user = useAppSelector((state) => state.user.user?.email);
-  const dispatch = useAppDispatch();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchParams, setSearchParams] = useSearchParams(searchTerm || '');
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const navigate = useNavigate();
 
@@ -26,13 +25,20 @@ const Header = () => {
       search: '',
     },
     onSubmit: () => {
-      navigate('/');
+      navigate(`/catalog/?search=${searchParams.get('search')}`);
     },
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     formik.handleChange(event);
     setSearchTerm(event.currentTarget.value);
+
+    if (!event.currentTarget.value) {
+      searchParams.delete('search');
+      setSearchParams(searchParams);
+      return;
+    }
+
     searchParams.set('search', event.currentTarget.value);
     setSearchParams(searchParams);
   };
@@ -41,22 +47,12 @@ const Header = () => {
     (async () => {
       try {
         await booksApi.getAllBooks({ search: searchTerm });
-
-        if (!searchTerm.length) {
-          searchParams.delete('search');
-          setSearchParams(searchParams);
-          return;
-        }
-
-        searchParams.set('search', searchTerm);
-        setSearchParams(searchParams);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, searchTerm, searchParams]);
+  }, [searchTerm]);
 
   return (
     <HeaderContainer>

@@ -1,15 +1,19 @@
-import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
-import { useSearchParams } from 'react-router-dom';
-import { BooksContainer } from './BooksContainer.styles';
-import { Book } from './Book/Book';
+
+import { useEffect, useState } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../store/hooks/hooks';
-import { booksApi } from '../../../api/booksApi';
-import { setBooks } from '../../../store/books/books';
+
+import { getAllBooksThunk } from '../../../store/books/Thunks/booksThunks';
+
+import { Book } from './Book/Book';
 import { Pagination } from '../Pagination/Pagination';
-import type { IBook } from '../../../api/types';
 import { LoadingSpinner } from '../../LoadingSpinner/LoadingSpinner';
+
+import type { IBook } from '../../../api/types';
+
+import { BooksContainer } from './BooksContainer.styles';
 
 type PropsType = {
   books: IBook[];
@@ -20,6 +24,7 @@ export const Books: React.FC<PropsType> = ({ books }) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
+  const location = useLocation();
 
   useEffect(() => {
     (async () => {
@@ -34,8 +39,7 @@ export const Books: React.FC<PropsType> = ({ books }) => {
       };
 
       try {
-        const res = await booksApi.getAllBooks(filter);
-        dispatch(setBooks(res.data));
+        await dispatch(getAllBooksThunk(filter)).unwrap();
         setIsLoading(false);
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -71,7 +75,7 @@ export const Books: React.FC<PropsType> = ({ books }) => {
         })}
         <ToastContainer />
       </BooksContainer>
-      <Pagination />
+      {location.pathname !== '/favorite' && <Pagination />}
     </>
   );
 };

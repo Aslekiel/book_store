@@ -1,10 +1,10 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  getAllBooksFromCartThunk,
   getAllBooksThunk,
   getAllGenresThunk,
   getBookByIdThunk,
-  getFilteredArrayOfBooksThunk,
   getRecommendedBooksThunk,
 } from './Thunks/booksThunks';
 
@@ -55,17 +55,18 @@ const books = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getAllBooksThunk.fulfilled, (state, action) => {
       state.books = action.payload?.books;
+      state.count = action.payload?.count;
     });
     builder.addCase(getAllGenresThunk.fulfilled, (state, action) => {
-      state.books = action.payload?.books;
-    });
-    builder.addCase(getFilteredArrayOfBooksThunk.fulfilled, (state, action) => {
       state.books = action.payload?.books;
     });
     builder.addCase(getBookByIdThunk.fulfilled, (state, action) => {
       state.books = action.payload?.books;
     });
     builder.addCase(getRecommendedBooksThunk.fulfilled, (state, action) => {
+      state.books = action.payload?.books;
+    });
+    builder.addCase(getAllBooksFromCartThunk.fulfilled, (state, action) => {
       state.books = action.payload?.books;
     });
   },
