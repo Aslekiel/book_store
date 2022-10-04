@@ -21,13 +21,13 @@ const deleteBookFromCart =
     return booksData;
   };
 
-const increaseBookAmount = async (bookId: number): Promise<AxiosResponse<IUserCart[]>> => {
+const increaseBookAmount = async (bookId: number): Promise<AxiosResponse<number>> => {
   const booksData = await instance.patch('cart/', { bookId });
 
   return booksData;
 };
 
-const reduceBookAmount = async (bookId: number): Promise<AxiosResponse<IUserCart[]>> => {
+const reduceBookAmount = async (bookId: number): Promise<AxiosResponse<number>> => {
   const booksData = await instance.patch('cart/reduce', { bookId });
 
   return booksData;

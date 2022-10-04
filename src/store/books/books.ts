@@ -1,12 +1,11 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  getAllBooksFromCartThunk,
   getAllBooksThunk,
   getAllGenresThunk,
   getBookByIdThunk,
   getRecommendedBooksThunk,
-} from './Thunks/booksThunks';
+} from './thunks/booksThunks';
 
 interface IBooksState {
   books: IBook[] | null;
@@ -65,9 +64,6 @@ const books = createSlice({
     });
     builder.addCase(getRecommendedBooksThunk.fulfilled, (state, action) => {
       state.books = action.payload?.books;
-    });
-    builder.addCase(getAllBooksFromCartThunk.fulfilled, (state, action) => {
-      state.books = action.payload;
     });
   },
 });

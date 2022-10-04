@@ -10,12 +10,14 @@ import heartFull from '../../../assets/heart-full.png';
 import heartEmpty from '../../../assets/heart-empty.png';
 import arrowRating from '../../../assets/arrow-rating.png';
 
-import { ratingApi } from '../../../api/ratingApi';
-import { setUserCart, setUserFavorite, setUserRating } from '../../../store/user/user';
-import { cartApi } from '../../../api/cartApi';
+import {
+  addBooksToCartThunk,
+  addFavoriteBookThunk,
+  addRatingThunk,
+  deleteFavoriteBookThunk,
+} from '../../../store/user/thunk/userThunks';
 
 import { RatingStar } from '../RatingStars.styles';
-import { favoriteApi } from '../../../api/favoriteApi';
 import { BookPreviewContainer } from './BookPreviewContainer.styles';
 
 type PropsType = {
@@ -54,13 +56,11 @@ export const BookPreview: React.FC<PropsType> = ({
   const onClickFavorite = async () => {
     try {
       if (!favorite) {
-        const res = await favoriteApi.addFavoriteBook(Number(bookId));
-        dispatch(setUserFavorite(res.data));
+        await dispatch(addFavoriteBookThunk(Number(bookId))).unwrap();
         setFavorite(!favorite);
         return;
       }
-      const res = await favoriteApi.deleteFavoriteBook(Number(bookId));
-      dispatch(setUserFavorite(res.data));
+      await dispatch(deleteFavoriteBookThunk(Number(bookId))).unwrap();
       setFavorite(!favorite);
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -74,8 +74,7 @@ export const BookPreview: React.FC<PropsType> = ({
   const addBookToCart = () => {
     (async () => {
       try {
-        const res = await cartApi.addBooksToCart(Number(bookId));
-        dispatch(setUserCart(res.data));
+        await dispatch(addBooksToCartThunk(Number(bookId)));
         setToggleBtn(false);
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -91,8 +90,12 @@ export const BookPreview: React.FC<PropsType> = ({
     const grade = (event.target as HTMLInputElement).value;
     (async () => {
       try {
-        const res = await ratingApi.addRating(Number(bookId), Number(grade));
-        dispatch(setUserRating(res.data));
+        await dispatch(addRatingThunk(
+          {
+            bookId: Number(bookId),
+            grade: Number(grade),
+          },
+        )).unwrap();
       } catch (error) {
         if (error instanceof AxiosError) {
           return toast(error.response?.data.message);

@@ -1,5 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+import { addBooksToCartThunk, addFavoriteBookThunk, addRatingThunk, deleteBookFromCartThunk, deleteFavoriteBookThunk, increaseBookAmountThunk, reduceBookAmountThunk } from './thunk/userThunks';
 
 interface IUserType {
   user: IUser | null;
@@ -59,12 +60,53 @@ const user = createSlice({
     setUserCart(state, action: PayloadAction<IUserCart[] | null>) {
       state.user.cart = action.payload;
     },
+    deleteFromCart(state, action: PayloadAction<number>) {
+      state.user.cart = state.user.cart.filter((book) => book.id !== action.payload);
+    },
     setUserFavorite(state, action: PayloadAction<IUserFavorites[] | null>) {
       state.user.favorites = action.payload;
     },
     setUserRating(state, action: PayloadAction<IUserRating[] | null>) {
       state.user.ratings = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(addBooksToCartThunk.fulfilled, (state, action) => {
+      state.user.cart = action.payload;
+    });
+    builder.addCase(deleteBookFromCartThunk.fulfilled, (state, action) => {
+      state.user.cart = state.user.cart.filter((book) => book.bookId !== action.payload);
+    });
+    builder.addCase(increaseBookAmountThunk.fulfilled, (state, action) => {
+      state.user.cart = state.user.cart.map((book) => {
+        if (book.bookId === action.payload) {
+          return { ...book, count: book.count + 1 };
+        }
+        return book;
+      });
+    });
+    builder.addCase(reduceBookAmountThunk.fulfilled, (state, action) => {
+      state.user.cart = state.user.cart.map((book) => {
+        if (book.bookId === action.payload) {
+          return { ...book, count: book.count - 1 };
+        }
+        return book;
+      });
+    });
+    builder.addCase(addFavoriteBookThunk.fulfilled, (state, action) => {
+      state.user.favorites = action.payload;
+    });
+    builder.addCase(deleteFavoriteBookThunk.fulfilled, (state, action) => {
+      state.user.favorites = state.user.favorites.filter((book) => book.bookId !== action.payload);
+    });
+    builder.addCase(addRatingThunk.fulfilled, (state, action) => {
+      state.user.ratings = state.user.ratings.map((book) => {
+        if (book.bookId === action.payload.bookId) {
+          return { ...book, grade: action.payload.grade };
+        }
+        return book;
+      });
+    });
   },
 });
 
@@ -73,6 +115,7 @@ export const {
   setUserCart,
   setUserFavorite,
   setUserRating,
+  deleteFromCart,
 } = user.actions;
 
 export default user.reducer;

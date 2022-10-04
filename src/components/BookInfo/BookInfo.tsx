@@ -10,7 +10,7 @@ import { BookInfoContainer } from './BookInfoContainer.styles';
 
 import { booksApi } from '../../api/booksApi';
 import type { IBook } from '../../api/types';
-import { getRecommendedBooksThunk } from '../../store/books/Thunks/booksThunks';
+import { getRecommendedBooksThunk } from '../../store/books/thunks/booksThunks';
 
 import { CommentsBlock } from './CommentsBlock/CommentsBlock';
 import { BookPreview } from './BookPreview/BookPreview';

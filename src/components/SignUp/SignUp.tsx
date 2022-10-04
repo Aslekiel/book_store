@@ -13,7 +13,7 @@ import { Input } from '../Input/Input';
 import { ReactComponent as ReadingMan } from '../../assets/login-signup-man.svg';
 import { InputLabel } from '../InputLabel/InputLabel';
 
-import { signupSchema } from '../../Schemas/signupSchema';
+import { signupSchema } from '../../schemas/signupSchema';
 
 import { SignUpContainer } from './SignUp.styles';
 

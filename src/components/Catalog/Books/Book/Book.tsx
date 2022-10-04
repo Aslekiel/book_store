@@ -1,17 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
-import { CommonButton } from '../../../CommonButton/CommonButton';
-import { BookContainer } from './BookContainer.styles';
+
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks/hooks';
+
+import { addBooksToCartThunk, addFavoriteBookThunk, deleteFavoriteBookThunk } from '../../../../store/user/thunk/userThunks';
+
 import heartFull from '../../../../assets/heart-full.png';
 import heartEmpty from '../../../../assets/heart-empty.png';
-import { cartApi } from '../../../../api/cartApi';
+
 import fullStar from '../../../../assets/full-star.png';
 import emptyStar from '../../../../assets/empty-star.png';
-import { useAppDispatch, useAppSelector } from '../../../../store/hooks/hooks';
-import { setUserCart, setUserFavorite } from '../../../../store/user/user';
-import { favoriteApi } from '../../../../api/favoriteApi';
+import { CommonButton } from '../../../CommonButton/CommonButton';
+
+import { BookContainer } from './BookContainer.styles';
 
 interface IProps {
   id: number;
@@ -44,13 +47,11 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
   const onClickFavorite = async () => {
     try {
       if (!favorite) {
-        const res = await favoriteApi.addFavoriteBook(id);
-        dispatch(setUserFavorite(res.data));
+        await dispatch(addFavoriteBookThunk(Number(id))).unwrap();
         setFavorite(!favorite);
         return;
       }
-      const res = await favoriteApi.deleteFavoriteBook(id);
-      dispatch(setUserFavorite(res.data));
+      await dispatch(deleteFavoriteBookThunk(Number(id))).unwrap();
       setFavorite(!favorite);
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -63,8 +64,7 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
 
   const addBookToCart = async () => {
     try {
-      const res = await cartApi.addBooksToCart(id);
-      dispatch(setUserCart(res.data));
+      await dispatch(addBooksToCartThunk(Number(id))).unwrap();
     } catch (error) {
       if (error instanceof AxiosError) {
         return toast(error.response?.data.message);

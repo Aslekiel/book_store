@@ -24,7 +24,7 @@ export const Cart = () => {
         console.log(error);
       }
     })();
-  }, []);
+  }, [cart]);
 
   if (isLoading) {
     return (

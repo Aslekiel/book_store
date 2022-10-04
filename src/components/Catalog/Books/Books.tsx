@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../store/hooks/hooks';
 
-import { getAllBooksThunk } from '../../../store/books/Thunks/booksThunks';
+import { getAllBooksThunk } from '../../../store/books/thunks/booksThunks';
 
 import { Book } from './Book/Book';
 import { Pagination } from '../Pagination/Pagination';

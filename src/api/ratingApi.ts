@@ -1,10 +1,10 @@
 import type { AxiosResponse } from 'axios';
 import { instance } from '.';
-import type { IUserRating } from './types';
+import type { RatingOptionsType } from './types';
 
 const addRating =
-  async (bookId: number | string, grade: number): Promise<AxiosResponse<IUserRating[]>> => {
-    const booksData = await instance.post('rating/add', { bookId, grade });
+  async (options: RatingOptionsType): Promise<AxiosResponse<RatingOptionsType>> => {
+    const booksData = await instance.post('rating/add', { bookId: options.bookId, grade: options.grade });
 
     return booksData;
   };

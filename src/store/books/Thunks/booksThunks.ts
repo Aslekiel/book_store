@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { booksApi } from '../../../api/booksApi';
-import { cartApi } from '../../../api/cartApi';
 import type { FilterType } from '../../../api/types';
 
 export const getAllBooksThunk = createAsyncThunk('books',
@@ -54,10 +53,4 @@ export const getRecommendedBooksThunk = createAsyncThunk('books/recommend',
       }
       throw error;
     }
-  });
-
-export const getAllBooksFromCartThunk = createAsyncThunk('user/cart',
-  async () => {
-    const res = await cartApi.getAllBooksFromCart();
-    return res.data;
   });

@@ -9,7 +9,7 @@ const addFavoriteBook = async (bookId: number): Promise<AxiosResponse<IUserFavor
 };
 
 const deleteFavoriteBook =
-  async (bookId: number): Promise<AxiosResponse<IUserFavorites[]>> => {
+  async (bookId: number): Promise<AxiosResponse<number>> => {
     const booksData = await instance.delete('favorite/', { data: { bookId } });
 
     return booksData;

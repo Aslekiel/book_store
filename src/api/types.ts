@@ -88,3 +88,8 @@ export type FilterType = {
   maxPrice?: string | number;
   sortBy?: string;
 };
+
+export type RatingOptionsType = {
+  bookId: number;
+  grade: number;
+};

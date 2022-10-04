@@ -14,7 +14,7 @@ import { Input } from '../Input/Input';
 import { ReactComponent as ReadingMan } from '../../assets/login-signup-man.svg';
 import { InputLabel } from '../InputLabel/InputLabel';
 
-import { logInSchema } from '../../Schemas/logInSchema';
+import { logInSchema } from '../../schemas/logInSchema';
 
 import { LogInContainer } from './LogIn.styles';
 

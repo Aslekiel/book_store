@@ -34,13 +34,13 @@ export const CartWithBooks: React.FC<PropsType> = ({ booksFromCart }) => {
 
   const sum = sumPerAmountBooks.reduce((acc, item) => acc + item, 0);
 
-  useEffect(() => {
-    setTotalPrice(+sum.toFixed(2));
-  }, [sum]);
-
   const onClickContinueShopping = () => {
     navigate('/catalog');
   };
+
+  useEffect(() => {
+    setTotalPrice(+sum.toFixed(2));
+  }, [sum]);
 
   return (
     <CartWithBooksContainer>

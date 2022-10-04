@@ -15,7 +15,7 @@ import { UserProfileCaption } from './UserProfileCaption/UserProfileCaption';
 import { CommonButton } from '../CommonButton/CommonButton';
 import { ChangePasswordBlock } from './ChangePasswordBlock/ChangePasswordBlock';
 
-import { editInfoSchema } from '../../Schemas/editInfoSchema';
+import { editInfoSchema } from '../../schemas/editInfoSchema';
 
 export const UserProfile = () => {
   const [changeInformation, setChangeInformation] = useState(false);

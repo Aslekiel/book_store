@@ -13,7 +13,7 @@ import { Input } from '../../Input/Input';
 import { InputLabel } from '../../InputLabel/InputLabel';
 import { UserProfileCaption } from '../UserProfileCaption/UserProfileCaption';
 
-import { editPasswordSchema } from '../../../Schemas/editPasswordSchema';
+import { editPasswordSchema } from '../../../schemas/editPasswordSchema';
 
 import { ChangePasswordBlockContainer } from './ChangePasswordBlock.styles';
 
