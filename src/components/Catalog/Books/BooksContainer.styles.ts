@@ -8,4 +8,8 @@ export const BooksContainer = styled.section`
   @media screen and (max-width: 1000px) {
     grid-template-columns: repeat(auto-fill, minmax(254px, 1fr));
   }
+
+  @media screen and (max-width: 420px) {
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  }
 `;

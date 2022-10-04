@@ -43,7 +43,7 @@ export const BookContainer = styled.section<IProps>`
     font-size: 20px;
     line-height: 30px;
     color: #B9BAC4;
-
+    
     padding: 10px 0 20px;
   }
 
@@ -94,6 +94,124 @@ export const BookContainer = styled.section<IProps>`
 
     :hover {
       opacity: 1;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    max-width: 254px;
+    width: 100%;
+
+    .book__logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 254px;
+      width: 100%;
+      max-height: 372px;
+      height: 100%;
+    }
+
+    .book__title {
+      font-size: 16px;
+      line-height: 24px;
+
+      max-width: 254px;
+      width: 100%;
+      height: 40px;
+    }
+
+    .book__author {
+      font-size: 16px;
+      line-height: 24px;
+
+      max-width: 254px;
+      width: 100%;
+    }
+
+    .book__save {
+      left: 16px;
+      top: 16px;
+      padding: 20px;
+
+      &-favorite {
+        width: 20px;
+      }
+    }
+
+    > button:nth-child(odd), .book__rating {
+      max-width: 254px;
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    max-width: 135px;
+    width: 100%;
+
+    .book__logo {
+      max-width: 135px;
+      width: 100%;
+      max-height: 192px;
+      height: 100%;
+
+      margin-bottom: 15px;
+    }
+
+    .book__title {
+      font-size: 14px;
+      line-height: 21px;
+
+      max-width: 135px;
+      width: 100%;
+      height: 80px;
+    }
+
+    .book__author {
+      font-size: 14px;
+      line-height: 21px;
+
+      max-width: 135px;
+      width: 100%;
+
+      max-height: 50px;
+    }
+
+    .book__data-of-issue {
+      font-size: 14px;
+      line-height: 21px;
+
+      max-width: 135px;
+      width: 100%;
+
+      padding: 0;
+    }
+
+    .book__save {
+      left: 16px;
+      top: 16px;
+      padding: 14px;
+
+      &-favorite {
+        width: 14px;
+      }
+    }
+
+    .book__rating {
+      max-width: 135px;
+      width: 100%;
+
+      padding: 0 0 17px;
+
+      > img {
+        max-width: 14px;
+        max-height: 14px;
+      }
+    }
+
+    > button:nth-child(odd) {
+      max-width: 135px;
+      width: 100%;
+      padding: 10px 0;
     }
   }
 `;

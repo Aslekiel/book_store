@@ -4,8 +4,13 @@ export const CatalogFiltersContainer = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 38px;
+  padding: 0 15px 38px;
   
+  max-width: 1290px;
+  width: 100%;
+
+  z-index: 999;
+
   .catalog__title {
     font-weight: 700;
     font-size: 40px;
@@ -24,7 +29,6 @@ export const CatalogFiltersContainer = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    width: 100%;
 
     .catalog__title {
       font-size: 32px;
@@ -33,8 +37,26 @@ export const CatalogFiltersContainer = styled.section`
     }
 
     .catalog__filters {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       width: 100%;
+      justify-items: center;
+      gap: 15px;
     }
 
+  }
+
+  @media screen and (max-width: 580px) {
+    .catalog__title {
+      font-size: 18px;
+      line-height: 27px;
+    }
+
+    .catalog__filters {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   }
 `;

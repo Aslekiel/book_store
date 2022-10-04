@@ -54,4 +54,60 @@ export const SignUpContainer = styled.main`
   .signup__img {
     padding-left: 10px;
   }
+
+  @media screen and (max-width: 1000px) {
+
+    .signup__wrapper {
+      padding: 0 15px;
+    }
+
+    .signup__title {
+      font-size: 32px;
+      line-height: 48px;
+    }
+
+    .signup__registration {
+      width: 50%;
+    }
+
+    .signup__form {
+      padding: 50px 0 0;
+    }
+
+    .form__label {
+      font-size: 13px;
+      padding: 9px 0 15px;
+    }
+
+    .signup__img {
+      max-width: 390px;
+      max-height: 330px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    padding: 30px 0;
+    
+    .signup__wrapper {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    .signup__registration {
+      width: 100%;
+    }
+
+    .signup__form {
+      padding-top: 30px;
+    }
+
+    .signup__img {
+      padding-top: 30px;
+      margin: auto;
+    }
+
+  }
 `;

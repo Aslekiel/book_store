@@ -11,11 +11,11 @@ export const CommentBlockContainer = styled.form`
   width: 55%;
 
   .comments__title {
-      font-weight: 700;
-      font-size: 40px;
-      line-height: 60px;
-      color: #0D1821;
-      padding-bottom: 50px;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 60px;
+    color: #0D1821;
+    padding-bottom: 50px;
   }
 
   .comments__wrapper {
@@ -40,10 +40,26 @@ export const CommentBlockContainer = styled.form`
     padding: 20px 10px 0 24px;
     margin: 50px 0 30px;
 
-      ::placeholder {
-        line-height: 28px;
-        letter-spacing: 0.75px;
-        color: #B9BAC4;
-      }
+    ::placeholder {
+      line-height: 28px;
+      letter-spacing: 0.75px;
+      color: #B9BAC4;
+    }
   }
+
+  @media screen and (max-width: 1000px) {
+    width: 80%;
+
+    padding: 110px 0 0;
+    
+    .comments__title {
+      font-size: 32px;
+      line-height: 48px;
+    }
+
+    .form__textarea {
+      width: 110%;
+    }
+  }
+
 `;

@@ -5,12 +5,13 @@ export const UserProfileContainer = styled.main`
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 60px 5px 0;
+  padding: 60px 15px 0;
 
   .user-profile__wrapper {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    width: 1290px;
+    max-width: 1290px;
+    width: 100%;
   }
 
   .info__wrapper {
@@ -47,8 +48,14 @@ export const UserProfileContainer = styled.main`
       }
   }
 
+  @media screen and (max-width: 1050px) {
 
+    .user-profile__wrapper {
+      grid-template-columns: 1fr 2fr;
+    }
 
-
-
+    .info__wrapper {
+      width: 95%;
+    }
+  }
 `;

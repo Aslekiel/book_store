@@ -5,7 +5,7 @@ export const EmptyCartContainer = styled.main`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 118px 10px 0;
+  padding: 118px 15px 0;
 
   .cart__info {
     display: flex;

@@ -141,29 +141,34 @@ export const BookPreview: React.FC<PropsType> = ({
           {author}
         </h3>
         <div className="book__info_rating">
-          <RatingStar
-            name="read-only"
-            defaultValue={1}
-            readOnly max={1}
-            className="book__info_rating_one-star"
-          />
-          <span className="book__info_rating_integer">
-            {bookRating}
-          </span>
-          <RatingStar
-            name="half-rating"
-            value={!rating ? 0 : rating}
-            precision={0.5}
-            onChange={addRating}
-          />
-          <img
-            src={arrowRating}
-            alt="arrow-rating"
-            className="book__info_rating_arrow"
-          />
-          <span className="book__info_rating_rate-this">
-            Rate this book
-          </span>
+          <div className="book__info_rating_wrapper">
+            <RatingStar
+              name="read-only"
+              defaultValue={1}
+              readOnly max={1}
+              className="book__info_rating_one-star"
+            />
+            <span className="book__info_rating_integer">
+              {bookRating}
+            </span>
+          </div>
+          <div className="book__info_rating_wrapper">
+            <RatingStar
+              name="half-rating"
+              value={!rating ? 0 : rating}
+              precision={0.5}
+              onChange={addRating}
+            />
+            <img
+              src={arrowRating}
+              alt="arrow-rating"
+              className="book__info_rating_arrow"
+            />
+            <span className="book__info_rating_rate-this">
+              Rate this book
+            </span>
+          </div>
+
         </div>
         <h3 className="book__info_description-title">
           Description

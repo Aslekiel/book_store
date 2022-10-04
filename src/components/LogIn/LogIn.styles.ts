@@ -12,7 +12,8 @@ export const LogInContainer = styled.main`
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    width: 1290px;
+    max-width: 1290px;
+    width: 100%;
     padding: 0 5px;
   }
 
@@ -92,5 +93,61 @@ export const LogInContainer = styled.main`
   .form__email::placeholder,
   .form__password::placeholder {
     color: #b9bac3;
+  }
+
+  @media screen and (max-width: 1000px) {
+
+    .login__wrapper {
+      padding: 0 15px;
+    }
+
+    .login__title {
+      font-size: 32px;
+      line-height: 48px;
+    }
+
+    .login__registration {
+      width: 50%;
+    }
+
+    .login__form {
+      padding: 50px 0 0;
+    }
+
+    .form__label {
+      font-size: 13px;
+      padding: 9px 0 15px;
+    }
+
+    .login__img {
+      max-width: 390px;
+      max-height: 330px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    padding: 30px 0;
+    
+    .login__wrapper {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    .login__registration {
+      width: 100%;
+    }
+
+    .login__form {
+      padding-top: 30px;
+    }
+
+    .login__img {
+      padding-top: 30px;
+      margin: auto;
+    }
+
   }
 `;

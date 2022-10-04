@@ -10,5 +10,5 @@ export const BookInfoContainer = styled.section`
   width: 100%;
 
   margin: auto;
-  padding: 60px 5px 0;
+  padding: 60px 15px 0;
 `;

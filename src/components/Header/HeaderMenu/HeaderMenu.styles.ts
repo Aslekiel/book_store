@@ -50,4 +50,41 @@ export const HeaderMenuContainer = styled.div`
       border-radius: 50%;
     }
   }
+  @media screen and (max-width: 420px) {
+    grid-column: 2/3;
+    justify-self: end;
+
+    .header-menu__button {
+      padding: 16px;
+    }
+
+    .header-menu__button:nth-child(1) {
+    margin-left: 10px;
+  }
+
+  .header-menu__button:nth-child(2) {
+    margin: 0 18px;
+  }
+
+  .header-menu__button:nth-child(3) {
+    margin-right: 10px;
+  }
+
+    .header-menu__logo {
+      max-width: 20px;
+
+      &_amount-books {
+        width: 16px;
+        height: 16px;
+
+        top: -6px;
+        left: 20px;
+
+        font-size: 10px;
+        line-height: 10px;
+
+        padding: 4px;
+      }
+    }
+  }
 `;

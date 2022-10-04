@@ -13,6 +13,8 @@ export const SortByContainer = styled.div`
 
     width: 190px;
 
+    z-index: 999;
+    
     .sort__triangle {
       position: absolute;
       left: 20px;
@@ -42,4 +44,15 @@ export const SortByContainer = styled.div`
         padding-bottom: 12px;
       }
     }
+
+  @media screen and (max-width: 1000px) {
+    max-width: 230px;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 420px) {
+    max-width: 290px;
+    width: 100%;
+  }
+
 `;

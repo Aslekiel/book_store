@@ -74,4 +74,10 @@ export const SortSliderContainer = styled.div`
     letter-spacing: 0.75px;
     color: #344966;
   }
+
+  @media screen and (max-width: 1000px) {
+    max-width: 290px;
+    width: 100%;
+  }
+
 `;

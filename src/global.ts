@@ -14,7 +14,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  
+  margin: auto;
 }
 
 #root {
@@ -23,18 +23,5 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-}
-
-.button {
-  background-color: #344966;
-  border: 0;
-  border-radius: 16px;
-  padding: 10px 50px;
-  color: #F0F4EF;
-  letter-spacing: 0.75px;
-
-  white-space: nowrap;
-
-  cursor: pointer;
 }
 `;

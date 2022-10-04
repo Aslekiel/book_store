@@ -10,8 +10,6 @@ type Props = {
 export const CatalogFilterContainer = styled.div<Props>`
     position: relative;
 
-    z-index: 10;
-
     :nth-child(2) {
       margin: 0 20px;
     }
@@ -35,7 +33,7 @@ export const CatalogFilterContainer = styled.div<Props>`
   )};
 
       cursor: pointer;
-      z-index: 2;
+      z-index: 1;
 
     }
     
@@ -49,11 +47,18 @@ export const CatalogFilterContainer = styled.div<Props>`
     }
 
     @media screen and (max-width: 1000px) {
-      width: 100%;
+      width: 90%;
 
       .catalog__filter-btn {
-        padding: 10px 80% 10px 15px;
+        width: 100%;
+        height: 44px;
+        padding-left: 10px;
+        text-align: justify;
       };
+
+      :nth-child(2) {
+        margin: 0;
+      }
 
     }
 `;

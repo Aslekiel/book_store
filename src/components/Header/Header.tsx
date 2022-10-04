@@ -1,6 +1,7 @@
 import { useFormik } from 'formik';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useDebounce } from 'use-debounce';
 import { useAppSelector } from '../../store/hooks/hooks';
 
 import { booksApi } from '../../api/booksApi';
@@ -17,6 +18,7 @@ const Header = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const navigate = useNavigate();
 
@@ -46,13 +48,15 @@ const Header = () => {
   useEffect(() => {
     (async () => {
       try {
-        await booksApi.getAllBooks({ search: searchTerm });
+        if (debouncedSearchTerm) {
+          await booksApi.getAllBooks({ search: searchTerm });
+        }
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
       }
     })();
-  }, [searchTerm]);
+  }, [debouncedSearchTerm, searchTerm]);
 
   return (
     <HeaderContainer>

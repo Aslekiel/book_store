@@ -10,11 +10,13 @@ export const PaginationContainer = styled.div<IProps>`
   justify-content: space-between;
   align-items: center;
 
-  width: 268px;
+  max-width: 268px;
+  width: 100%;
 
   margin: auto;
 
   margin-top: 20px;
+  margin-bottom: 100px;
 
   .pagination__back-arrow {
     transform: rotate(180deg);
@@ -48,5 +50,9 @@ export const PaginationContainer = styled.div<IProps>`
       border: 2px solid #0D1821;
       border-radius: 50%;
     }
+  }
+
+  @media screen and (max-width: 480px) {
+    margin-bottom: 70px;
   }
 `;
