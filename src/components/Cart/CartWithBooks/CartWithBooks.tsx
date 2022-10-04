@@ -1,18 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import type { IBook } from '../../../api/types';
 import { useAppSelector } from '../../../store/hooks/hooks';
+
 import { CommonButton } from '../../CommonButton/CommonButton';
 import { BookInCart } from './BookInCart/BookInCart';
+
 import { CartWithBooksContainer } from './CartWithBooksContainer';
 
-export const CartWithBooks = () => {
-  const books = useAppSelector((state) => state.books.books);
+type PropsType = {
+  booksFromCart: IBook[];
+};
+
+export const CartWithBooks: React.FC<PropsType> = ({ booksFromCart }) => {
   const { cart } = useAppSelector((state) => state.user.user);
 
   const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
 
-  const booksPriceArray = books.map((book) => book.price);
+  const booksPriceArray = booksFromCart.map((book) => book.price);
   const booksAmoutFromCart = Object.values(cart?.reduce((acc, item) => {
     const index = item.bookId;
     acc[index] = item.count;
@@ -37,7 +44,7 @@ export const CartWithBooks = () => {
 
   return (
     <CartWithBooksContainer>
-      {books.map((book) => {
+      {booksFromCart.map((book) => {
         return (
           <div key={book.id} className="book">
             <BookInCart

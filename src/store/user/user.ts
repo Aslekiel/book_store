@@ -1,11 +1,11 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-interface IUser {
-  user: IUserType | null;
+interface IUserType {
+  user: IUser | null;
 }
 
-const initialState: IUser = {
+const initialState: IUserType = {
   user: {
     id: '',
     fullname: '',
@@ -18,7 +18,7 @@ const initialState: IUser = {
   },
 };
 
-interface IUserType {
+interface IUser {
   id?: number | string;
   fullname?: string;
   email: string;
@@ -53,17 +53,17 @@ const user = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<IUser | null>) {
+    setUser(state, action: PayloadAction<IUserType | null>) {
       state.user = action.payload.user;
     },
-    setUserCart(state, action: PayloadAction<IUserType | null>) {
-      state.user.cart = action.payload.cart;
+    setUserCart(state, action: PayloadAction<IUserCart[] | null>) {
+      state.user.cart = action.payload;
     },
-    setUserFavorite(state, action: PayloadAction<IUserType | null>) {
-      state.user.favorites = action.payload.favorites;
+    setUserFavorite(state, action: PayloadAction<IUserFavorites[] | null>) {
+      state.user.favorites = action.payload;
     },
-    setUserRating(state, action: PayloadAction<IUserType | null>) {
-      state.user.ratings = action.payload.ratings;
+    setUserRating(state, action: PayloadAction<IUserRating[] | null>) {
+      state.user.ratings = action.payload;
     },
   },
 });

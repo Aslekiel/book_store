@@ -33,7 +33,8 @@ export const UserProfilePhoto = () => {
         if (error instanceof AxiosError) {
           return toast(error.response?.data.message);
         }
-        throw new Error();
+        // eslint-disable-next-line no-console
+        console.log(error);
       }
     };
   };

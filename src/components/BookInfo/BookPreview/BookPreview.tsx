@@ -66,7 +66,8 @@ export const BookPreview: React.FC<PropsType> = ({
       if (error instanceof AxiosError) {
         return toast(error.response?.data.message);
       }
-      throw new Error();
+      // eslint-disable-next-line no-console
+      console.log(error);
     }
   };
 
@@ -80,7 +81,8 @@ export const BookPreview: React.FC<PropsType> = ({
         if (error instanceof AxiosError) {
           return toast(error.response?.data.message);
         }
-        throw new Error();
+        // eslint-disable-next-line no-console
+        console.log(error);
       }
     })();
   };
@@ -95,7 +97,8 @@ export const BookPreview: React.FC<PropsType> = ({
         if (error instanceof AxiosError) {
           return toast(error.response?.data.message);
         }
-        throw new Error();
+        // eslint-disable-next-line no-console
+        console.log(error);
       }
     })();
   };

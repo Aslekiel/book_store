@@ -58,13 +58,6 @@ export const getRecommendedBooksThunk = createAsyncThunk('books/recommend',
 
 export const getAllBooksFromCartThunk = createAsyncThunk('user/cart',
   async () => {
-    try {
-      const res = await cartApi.getAllBooksFromCart();
-      return res.data;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        return error.response?.data.message;
-      }
-      throw error;
-    }
+    const res = await cartApi.getAllBooksFromCart();
+    return res.data;
   });

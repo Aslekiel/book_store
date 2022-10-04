@@ -1,10 +1,10 @@
-export interface IResDataType {
-  user: IUserType;
+export interface IBookType {
   books: IBook[];
-  genres: IBookGenres[];
-  filters: string[];
-  booksIds: number[];
   count: number;
+}
+
+export interface IUserType {
+  user: IUser | null;
 }
 
 export interface IPropsType {
@@ -13,7 +13,7 @@ export interface IPropsType {
   password?: string;
 }
 
-export interface IUserType {
+export interface IUser {
   id?: number;
   fullname?: string;
   email: string;

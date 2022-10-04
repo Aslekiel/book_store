@@ -38,7 +38,8 @@ function App() {
         const res = await userApi.checkUser();
         dispatch(setUser(res.data));
       } catch (error) {
-        throw new Error();
+        // eslint-disable-next-line no-console
+        console.log(error);
       } finally {
         setIsInit(true);
       }

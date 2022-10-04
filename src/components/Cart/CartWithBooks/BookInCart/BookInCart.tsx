@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BookInCartContainer } from './BooInCartContainer.styles';
 import { ReactComponent as DeleteBookLogo } from '../../../../assets/delete.svg';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks/hooks';
+
 import { cartApi } from '../../../../api/cartApi';
-import { setBooks } from '../../../../store/books/books';
 import { setUserCart } from '../../../../store/user/user';
+
+import type { IUserCart } from '../../../../api/types';
 
 interface IProps {
   id: number;
@@ -24,6 +26,8 @@ export const BookInCart: React.FC<IProps> = ({
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
 
+  const [cart, setCart] = useState<IUserCart[]>([]);
+
   const booksCopies = !user ? [] : user.cart
     .filter((cart) => cart.bookId === id)
     .map((cart) => cart.count);
@@ -33,8 +37,8 @@ export const BookInCart: React.FC<IProps> = ({
   const onClickDeleteBook = async () => {
     try {
       const res = await cartApi.deleteBookFromCart(id);
-      dispatch(setBooks(res.data));
-      dispatch(setUserCart(res.data?.user));
+      const resultCart = user.cart.filter((book) => book.id !== res.data);
+      setCart(resultCart);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
@@ -48,7 +52,8 @@ export const BookInCart: React.FC<IProps> = ({
         const res = await cartApi.reduceBookAmount(id);
         dispatch(setUserCart(res.data));
       } catch (error) {
-        throw new Error();
+        // eslint-disable-next-line no-console
+        console.log(error);
       }
     }
   };
@@ -59,7 +64,8 @@ export const BookInCart: React.FC<IProps> = ({
       const res = await cartApi.increaseBookAmount(id);
       dispatch(setUserCart(res.data));
     } catch (error) {
-      throw new Error();
+      // eslint-disable-next-line no-console
+      console.log(error);
     }
   };
 

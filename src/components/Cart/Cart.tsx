@@ -1,28 +1,30 @@
 import { useEffect, useState } from 'react';
-import { getAllBooksFromCartThunk } from '../../store/books/Thunks/booksThunks';
+import { cartApi } from '../../api/cartApi';
 
-import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
+import { useAppSelector } from '../../store/hooks/hooks';
 
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { CartWithBooks } from './CartWithBooks/CartWithBooks';
 import { EmptyCart } from './EmptyCart/EmptyCart';
 
 export const Cart = () => {
-  const books = useAppSelector((state) => state.books.books);
-  const dispatch = useAppDispatch();
+  const { cart } = useAppSelector((state) => state.user.user);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [booksFromCart, setBooksFromCart] = useState([]);
 
   useEffect(() => {
     (async () => {
       try {
-        await dispatch(getAllBooksFromCartThunk()).unwrap();
+        const res = await cartApi.getAllBooksFromCart();
+        setBooksFromCart(res.data);
         setIsLoading(false);
       } catch (error) {
-        throw new Error();
+        // eslint-disable-next-line no-console
+        console.log(error);
       }
     })();
-  }, [dispatch]);
+  }, []);
 
   if (isLoading) {
     return (
@@ -32,8 +34,8 @@ export const Cart = () => {
 
   return (
     <div>
-      {books.length
-        ? <CartWithBooks />
+      {cart.length
+        ? <CartWithBooks booksFromCart={booksFromCart} />
         : <EmptyCart />}
     </div>
   );

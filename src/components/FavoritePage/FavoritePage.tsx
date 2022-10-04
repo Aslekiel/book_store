@@ -18,9 +18,10 @@ export const FavoritePage = () => {
     (async () => {
       try {
         const res = await favoriteApi.getFavoriteBooks();
-        setFavoriteBooks(res.data?.books);
+        setFavoriteBooks(res.data);
       } catch (error) {
-        throw new Error();
+        // eslint-disable-next-line no-console
+        console.log(error);
       }
     })();
   }, [dispatch, favorites.length]);

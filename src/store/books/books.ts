@@ -67,7 +67,7 @@ const books = createSlice({
       state.books = action.payload?.books;
     });
     builder.addCase(getAllBooksFromCartThunk.fulfilled, (state, action) => {
-      state.books = action.payload?.books;
+      state.books = action.payload;
     });
   },
 });

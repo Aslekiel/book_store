@@ -1,10 +1,10 @@
 import type { AxiosResponse } from 'axios';
 import { instance } from '.';
-import type { IResDataType, UserPasswordsType, IPropsType, IAnotherUser } from './types';
+import type { UserPasswordsType, IPropsType, IAnotherUser, IUserType } from './types';
 
 const logIn = async (
   options: IPropsType,
-): Promise<AxiosResponse<IResDataType>> => {
+): Promise<AxiosResponse<IUserType>> => {
   const userData = await instance.post('auth/login',
     { ...options });
 
@@ -15,7 +15,7 @@ const logIn = async (
 
 const signUp = async (
   options: IPropsType,
-): Promise<AxiosResponse<IResDataType>> => {
+): Promise<AxiosResponse<IUserType>> => {
   const userData = await instance.post('auth/signup',
     { ...options });
 
@@ -25,7 +25,7 @@ const signUp = async (
 };
 
 const editUserInformation =
-  async (options: IPropsType): Promise<AxiosResponse<IResDataType>> => {
+  async (options: IPropsType): Promise<AxiosResponse<IUserType>> => {
     const userData = await instance.patch('user/info',
       { ...options });
 
@@ -38,14 +38,14 @@ const editUserPassword =
     return userData;
   };
 
-const checkUser = async (): Promise<AxiosResponse<IResDataType>> => {
+const checkUser = async (): Promise<AxiosResponse<IUserType>> => {
   const userData = await instance.get('auth/');
 
   return userData;
 };
 
 const uploadAvatar =
-  async (avatar: string | ArrayBuffer): Promise<AxiosResponse<IResDataType>> => {
+  async (avatar: string | ArrayBuffer): Promise<AxiosResponse<IUserType>> => {
     const userData = await instance.post('user/upload', { avatar });
 
     return userData;

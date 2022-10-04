@@ -35,7 +35,8 @@ export const CommentsBlock: React.FC<IProps> = ({ id, comments, isAuth }) => {
       dispatch(setBooks(res.data));
       setCommentValue('');
     } catch (error) {
-      throw new Error();
+      // eslint-disable-next-line no-console
+      console.log(error);
     }
   };
 

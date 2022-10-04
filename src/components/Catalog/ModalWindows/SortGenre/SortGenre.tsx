@@ -23,7 +23,7 @@ export const SortGenre = () => {
     (async () => {
       try {
         const res = await booksApi.getAllGenres();
-        setGenres(res.data.genres);
+        setGenres(res.data);
 
         if (!filteredGenres.length) {
           searchParams.delete('genre');

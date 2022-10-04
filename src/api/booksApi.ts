@@ -1,14 +1,14 @@
 import type { AxiosResponse } from 'axios';
 import { instance } from '.';
-import type { FilterType, IBook, IResDataType } from './types';
+import type { FilterType, IBook, IBookGenres } from './types';
 
-const getAllBooks = async (filter: FilterType): Promise<AxiosResponse<IResDataType>> => {
+const getAllBooks = async (filter: FilterType): Promise<AxiosResponse<IBook[]>> => {
   const booksData = await instance.get('books/', { params: filter });
 
   return booksData;
 };
 
-const getAllGenres = async (): Promise<AxiosResponse<IResDataType>> => {
+const getAllGenres = async (): Promise<AxiosResponse<IBookGenres[]>> => {
   const genresData = await instance.get('books/genres');
 
   return genresData;
@@ -20,7 +20,7 @@ const getBookById = async (id: number): Promise<AxiosResponse<IBook>> => {
   return genresData;
 };
 
-const getRecommendedBooks = async (id: number): Promise<AxiosResponse<IResDataType>> => {
+const getRecommendedBooks = async (id: number): Promise<AxiosResponse<IBook[]>> => {
   const genresData = await instance.post('books/recommend', { id });
 
   return genresData;
