@@ -1,22 +1,23 @@
-import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
+
 import { booksApi } from '../../../../api/booksApi';
+
 import { Genre } from './Genre/Genre';
+
 import { SortGenreContainer } from './SortGenreContainer.styles';
 
 export const SortGenre = () => {
   const [genres, setGenres] = useState([]);
-  const [filteredGenres, setFilteredGenres] = useState([]);
+  const [selectedGenres, setSelectedGenres] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const filterByGenres = (id: number) => {
-    if (!filteredGenres.includes(id)) {
-      return setFilteredGenres((prevState) => [...prevState, id]);
+    if (!selectedGenres.includes(id)) {
+      return setSelectedGenres((prevState) => [...prevState, id]);
     }
 
-    setFilteredGenres((prevState) => prevState.filter((genreId) => genreId !== id));
+    setSelectedGenres((prevState) => prevState.filter((genreId) => genreId !== id));
   };
 
   useEffect(() => {
@@ -24,24 +25,23 @@ export const SortGenre = () => {
       try {
         const res = await booksApi.getAllGenres();
         setGenres(res.data);
-
-        if (!filteredGenres.length) {
-          searchParams.delete('genre');
-          setSearchParams(searchParams);
-          return;
-        }
-
-        searchParams.set('genre', filteredGenres.join());
-        setSearchParams(searchParams);
       } catch (error) {
-        if (error instanceof AxiosError) {
-          return toast(error.response?.data.message);
-        }
         // eslint-disable-next-line no-console
         console.log(error);
       }
     })();
-  }, [filteredGenres, searchParams, setSearchParams]);
+  }, []);
+
+  useEffect(() => {
+    if (!selectedGenres.length) {
+      searchParams.delete('genre');
+      setSearchParams(searchParams);
+      return;
+    }
+
+    searchParams.set('genre', selectedGenres.join());
+    setSearchParams(searchParams);
+  }, [searchParams, selectedGenres, setSearchParams]);
 
   return (
     <SortGenreContainer>

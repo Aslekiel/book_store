@@ -7,21 +7,21 @@ interface IProps {
 export const CommonButtonContainer = styled.button<IProps>`
   ${(p) => (p.title !== 'Added to cart'
     ? css`
-    background-color: #344966;
+    background-color: ${(p) => p.theme.btnColor.main};
     border: 0;
     border-radius: 16px;
     padding: 10px 50px;
-    color: #f0f4ef;
+    color: ${(p) => p.theme.textColor.btnMain};
     letter-spacing: 0.75px;
     white-space: nowrap;
     cursor: pointer;
     `
     : css`
-    background-color: #FFFFFF;
+    background-color: ${(p) => p.theme.btnColor.secondary};
     border: 1px solid #0D1821;
     border-radius: 16px;
     padding: 9px 50px;
-    color: #0D1821;
+    color: ${(p) => p.theme.textColor.secondary};
     letter-spacing: 0.75px;
     white-space: nowrap;
     z-index: -1;

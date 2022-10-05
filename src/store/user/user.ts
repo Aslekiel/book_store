@@ -27,7 +27,6 @@ interface IUser {
   cart?: IUserCart[];
   favorites?: IUserFavorites[];
   ratings?: IUserRating[];
-  totalPrice?: number[];
 }
 
 interface IUserCart {

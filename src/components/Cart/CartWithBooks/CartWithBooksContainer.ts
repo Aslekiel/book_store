@@ -21,7 +21,7 @@ export const CartWithBooksContainer = styled.section`
       font-weight: 500;
       font-size: 36px;
       line-height: 54px;
-      color: #0D1821;
+      color: ${(p) => p.theme.textColor.secondary};
 
       padding: 50px 0 30px;
     }
@@ -34,11 +34,11 @@ export const CartWithBooksContainer = styled.section`
       width: 40%;
 
       &_continue {
-        background-color: #FFFFFF;
+        background-color: ${(p) => p.theme.btnColor.secondary};
         border: 1px solid #0D1821;
         border-radius: 16px;
         padding: 10px 50px;
-        color: #0D1821;
+        color: ${(p) => p.theme.textColor.secondary};
         width: fit-content;
         white-space: nowrap;
         cursor: pointer;

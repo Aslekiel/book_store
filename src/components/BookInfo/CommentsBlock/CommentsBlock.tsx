@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { useAppDispatch } from '../../../store/hooks/hooks';
 
 import { commentApi } from '../../../api/commentApi';
-import { setBooks } from '../../../store/books/books';
 
 import { CommonButton } from '../../CommonButton/CommonButton';
 import { SingleComment } from './SingleComment/SingleComment';
@@ -24,16 +22,15 @@ export interface IBookComment {
 
 export const CommentsBlock: React.FC<IProps> = ({ id, comments, isAuth }) => {
   const [commentValue, setCommentValue] = useState('');
-
-  const dispatch = useAppDispatch();
+  const [userComments, setUserComments] = useState(comments || []);
 
   const onFormSubmitAddComment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!commentValue.trim()) return;
     try {
       const res = await commentApi.addComment(Number(id), commentValue);
-      dispatch(setBooks(res.data));
       setCommentValue('');
+      setUserComments(res.data);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
@@ -50,7 +47,7 @@ export const CommentsBlock: React.FC<IProps> = ({ id, comments, isAuth }) => {
         Comments
       </h2>
       <div className="comments__wrapper">
-        {comments && comments.map((comment) => {
+        {userComments && userComments.map((comment) => {
           return (
             <SingleComment
               key={comment.id}

@@ -10,7 +10,6 @@ import { BookInfoContainer } from './BookInfoContainer.styles';
 
 import { booksApi } from '../../api/booksApi';
 import type { IBook } from '../../api/types';
-import { getRecommendedBooksThunk } from '../../store/books/thunks/booksThunks';
 
 import { CommentsBlock } from './CommentsBlock/CommentsBlock';
 import { BookPreview } from './BookPreview/BookPreview';
@@ -19,7 +18,6 @@ import { RecommendationBlock } from './RecommendationBlock/RecommendationBlock';
 
 export const BookInfo = () => {
   const user = useAppSelector((state) => state.user.user);
-  const books = useAppSelector((state) => state.books.books);
   const dispatch = useAppDispatch();
 
   const { id } = useParams();
@@ -27,12 +25,14 @@ export const BookInfo = () => {
 
   const [book, setBook] = useState<IBook>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [recommendBooks, setRecommendBooks] = useState([]);
 
   useEffect(() => {
     (async () => {
       try {
         const resBookById = await booksApi.getBookById(Number(bookId));
-        await dispatch(getRecommendedBooksThunk(Number(bookId))).unwrap();
+        const resRecommendBooks = await booksApi.getRecommendedBooks(Number(bookId));
+        setRecommendBooks(resRecommendBooks.data);
         setBook(resBookById.data);
         setIsLoading(false);
       } catch (error) {
@@ -43,7 +43,7 @@ export const BookInfo = () => {
         console.log(error);
       }
     })();
-  }, [bookId, dispatch, books?.length]);
+  }, [bookId, dispatch]);
 
   if (isLoading) {
     return (
@@ -67,11 +67,11 @@ export const BookInfo = () => {
         <CommentsBlock
           key={+bookId}
           id={+bookId}
-          comments={book?.comments}
+          comments={book.comments}
           isAuth={user?.email}
         />
         {!user?.email ? <LoginSignupBanner /> : null}
-        <RecommendationBlock books={books} />
+        <RecommendationBlock books={recommendBooks} />
         <ToastContainer />
       </BookInfoContainer>
     )

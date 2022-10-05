@@ -7,38 +7,37 @@ type PropsType = {
 };
 
 export const SortBy: React.FC<PropsType> = ({ sortByTitleState, onClickSetTitle }) => {
-  const sortByTitleArray = [
-    'Price',
-    'Name',
-    'Author name',
-    'Rating',
-    'Data of issue',
+  const sortBy = [
+    { title: 'Price', type: 'price' },
+    { title: 'Name', type: 'title' },
+    { title: 'Author name', type: 'author' },
+    { title: 'Rating', type: 'rating' },
+    { title: 'Data of issue', type: 'dateOfIssue' },
   ];
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const onClickHandler = (title: string) => {
+  const onClickHandler = (title: string, type: string) => {
     onClickSetTitle(title);
-    const lowercaseTitle = title.toLowerCase();
-    searchParams.set('sortBy', lowercaseTitle);
+    searchParams.set('sortBy', type);
     setSearchParams(searchParams);
   };
 
   return (
     <SortByContainer>
       <div className="sort__triangle" />
-      {sortByTitleArray.map((title, index) => {
+      {sortBy.map((item, index) => {
         return (
           <div
             key={index}
             className={
-              sortByTitleState === title
+              sortByTitleState === item.title
                 ? 'sort__btn--active'
                 : 'sort__btn'
             }
-            onClick={() => onClickHandler(title)}
+            onClick={() => onClickHandler(item.title, item.type)}
           >
-            {title}
+            {item.title}
           </div>
         );
       })}

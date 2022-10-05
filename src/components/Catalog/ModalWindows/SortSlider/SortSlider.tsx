@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ReactSlider from 'react-slider';
-import { booksApi } from '../../../../api/booksApi';
 import { SortSliderContainer } from './SortSliderContainer.styles';
 
 export const SortSlider = () => {
@@ -30,11 +29,6 @@ export const SortSlider = () => {
         searchParams.delete('maxPrice');
       }
       setSearchParams(searchParams);
-
-      await booksApi.getAllBooks({
-        minPrice,
-        maxPrice,
-      });
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
