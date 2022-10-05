@@ -6,19 +6,13 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
 
 import { CommonButton } from '../../CommonButton/CommonButton';
 
-import heartFull from '../../../assets/heart-full.png';
-import heartEmpty from '../../../assets/heart-empty.png';
 import arrowRating from '../../../assets/arrow-rating.png';
 
-import {
-  addBooksToCartThunk,
-  addFavoriteBookThunk,
-  addRatingThunk,
-  deleteFavoriteBookThunk,
-} from '../../../store/user/thunk/userThunks';
+import { addBooksToCartThunk, addRatingThunk } from '../../../store/user/thunk/userThunks';
 
 import { RatingStar } from '../RatingStars.styles';
 import { BookPreviewContainer } from './BookPreviewContainer.styles';
+import { FavoriteButton } from '../../FavoriteButton/FavoriteButton';
 
 type PropsType = {
   logo: string;
@@ -44,32 +38,11 @@ export const BookPreview: React.FC<PropsType> = ({
 
   const [rating, setRating] = useState(null);
 
-  const favoriteBooksIds = useMemo(() => {
-    return !user ? [] : user?.favorites?.map((favorite) => favorite.bookId);
-  }, [user]);
-
   const booksInCartIds = useMemo(() => {
     return !user ? [] : user?.cart?.map((cart) => cart.bookId);
   }, [user]);
 
-  const isFavorite = !!favoriteBooksIds?.includes(Number(bookId));
   const inCart = !!booksInCartIds?.includes(Number(bookId));
-
-  const onClickFavorite = async () => {
-    try {
-      if (!isFavorite) {
-        await dispatch(addFavoriteBookThunk(Number(bookId))).unwrap();
-        return;
-      }
-      await dispatch(deleteFavoriteBookThunk(Number(bookId))).unwrap();
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        return toast(error.response?.data.message);
-      }
-      // eslint-disable-next-line no-console
-      console.log(error);
-    }
-  };
 
   const addBookToCart = async () => {
     try {
@@ -109,23 +82,17 @@ export const BookPreview: React.FC<PropsType> = ({
   }, [bookId, user?.ratings]);
 
   return (
-    <BookPreviewContainer favorite={isFavorite}>
+    <BookPreviewContainer>
       <div className="book__logo">
         <img
           src={logo}
           alt="book_logo"
           className="book__logo_img"
         />
-        <button
-          className="book__logo_save"
-          onClick={onClickFavorite}
-        >
-          <img
-            className="book__logo_save-favorite"
-            src={isFavorite ? heartFull : heartEmpty}
-            alt="heart-favorite"
-          />
-        </button>
+      <FavoriteButton
+        id={+bookId}
+        mirrorState
+        />
       </div>
       <div className="book__info">
         <h2 className="book__info_title">

@@ -13,6 +13,7 @@ export const LoginSignupButtonContainer = styled.div`
     color: #f0f4ef;
     letter-spacing: 0.75px;
     white-space: nowrap;
+    text-decoration: none;
     cursor: pointer;
   }
 

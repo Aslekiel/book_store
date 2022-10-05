@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import type { IBook } from '../../../types';
+import type { IBook, IUserCart } from '../../../types';
 import { useAppSelector } from '../../../store/hooks/hooks';
 
 import { CommonButton } from '../../CommonButton/CommonButton';
@@ -17,26 +17,14 @@ export const CartWithBooks: React.FC<PropsType> = ({ booksFromCart }) => {
   const { cart } = useAppSelector((state) => state.user.user);
 
   const [totalPrice, setTotalPrice] = useState(0);
-  const navigate = useNavigate();
 
-  const booksPriceArray = booksFromCart.map((book) => book.price);
-  const booksAmoutFromCart = Object.values(cart?.reduce((acc, item) => {
-    const index = item.bookId;
-    acc[index] = item.count;
-    return acc;
-  }, {} as { [index: string]: number }));
-
-  const sumPerAmountBooks = [];
-
-  for (let i = 0; i < booksPriceArray.length; i++) {
-    sumPerAmountBooks.push(+(booksPriceArray[i] * booksAmoutFromCart[i]).toFixed(2));
-  }
-
-  const sum = sumPerAmountBooks.reduce((acc, item) => acc + item, 0);
-
-  const onClickContinueShopping = () => {
-    navigate('/catalog');
-  };
+  // eslint-disable-next-line array-callback-return
+  const sum = booksFromCart.reduce((acc, item) => {
+    const inCartValue: IUserCart = cart?.find((i) => i.bookId === item.id);
+    if (inCartValue) {
+      return acc + inCartValue.count * item.price;
+    }
+  }, 0);
 
   useEffect(() => {
     setTotalPrice(+sum.toFixed(2));
@@ -65,12 +53,12 @@ export const CartWithBooks: React.FC<PropsType> = ({ booksFromCart }) => {
           {`Total: ${totalPrice}`}
         </h2>
         <div className="cart__total-price_btns">
-          <button
+          <Link
             className="cart__total-price_btns_continue"
-            onClick={onClickContinueShopping}
+            to="/catalog"
           >
             Continue shopping
-          </button>
+          </Link>
           <CommonButton
             title="Chekout"
             toggleBtn

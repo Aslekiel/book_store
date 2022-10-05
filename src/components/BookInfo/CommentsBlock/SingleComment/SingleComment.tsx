@@ -1,41 +1,18 @@
-import { useEffect, useState } from 'react';
-import { userApi } from '../../../../api/userApi';
 import noAvatar from '../../../../assets/user profile3.png';
+
 import { SingleCommentContainer } from './SingleCommentContainer.styles';
 
 interface IProps {
   comment: string;
-  userId: number;
-}
-
-interface IAnotherUser {
-  avatar: string;
   fullname: string;
+  avatar: string;
 }
 
-export const SingleComment: React.FC<IProps> = ({ comment, userId }) => {
-  const [anotherUser, setAnotherUser] = useState<IAnotherUser>(null);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await userApi.getAnotherUser(userId);
-        setAnotherUser(res.data);
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
-    })();
-  }, [userId]);
-
+export const SingleComment: React.FC<IProps> = ({ comment, fullname, avatar }) => {
   return (
     <SingleCommentContainer>
       <img
-        src={
-          anotherUser?.avatar
-            ? anotherUser.avatar
-            : noAvatar
-        }
+        src={avatar || noAvatar}
         alt="user-avatar"
         className="comment__author-avatar"
       />
@@ -44,9 +21,7 @@ export const SingleComment: React.FC<IProps> = ({ comment, userId }) => {
           className="comment__inner_fullname"
         >
           {
-            anotherUser?.fullname
-              ? anotherUser?.fullname
-              : 'The user has not entered their fullname yet'
+            fullname || 'The user has not entered their fullname yet'
           }
         </p>
         <p

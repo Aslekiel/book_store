@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-type PropsType = {
-  favorite: boolean;
-};
-
-export const BookPreviewContainer = styled.div<PropsType>`
+export const BookPreviewContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 0.3fr 1fr;
@@ -31,29 +27,6 @@ export const BookPreviewContainer = styled.div<PropsType>`
 
     }
 
-    &_save {
-      background-color: #344966;
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      color: #f0f4ef;
-      border: 0;
-      padding: 24px;
-      border-radius: 50%;
-      opacity: ${(p) => (p.favorite ? 1 : 0.5)};
-      cursor: pointer;
-
-    &-favorite {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
-    }
-
-    :hover {
-    opacity: 1;
-    }
-    }
   }
 
   .book__info {
@@ -288,16 +261,6 @@ export const BookPreviewContainer = styled.div<PropsType>`
       max-height: 222px;
       width: 100%;
       height: 100%;
-
-      &_save {
-        right: 14px;
-        top: 14px;
-        padding: 18px;
-
-        &-favorite {
-          width: 50%;
-        }
-      }
 
     }
 

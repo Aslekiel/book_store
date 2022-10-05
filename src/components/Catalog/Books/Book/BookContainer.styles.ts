@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-interface IProps {
-  favorite: boolean;
-}
-
-export const BookContainer = styled.section<IProps>`
+export const BookContainer = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -73,30 +69,6 @@ export const BookContainer = styled.section<IProps>`
     width: 100%;
   }
 
-  .book__save {
-    background-color: #344966;
-    position: absolute;
-    left: 20px;
-    top: 20px;
-    color: #f0f4ef;
-    border: 0;
-    padding: 24px;
-    border-radius: 50%;
-    opacity: ${(p) => (p.favorite ? 1 : 0.5)};
-    cursor: pointer;
-
-    &-favorite {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
-    }
-
-    :hover {
-      opacity: 1;
-    }
-  }
-
   @media screen and (max-width: 1000px) {
     max-width: 254px;
     width: 100%;
@@ -128,16 +100,6 @@ export const BookContainer = styled.section<IProps>`
 
       max-width: 254px;
       width: 100%;
-    }
-
-    .book__save {
-      left: 16px;
-      top: 16px;
-      padding: 20px;
-
-      &-favorite {
-        width: 20px;
-      }
     }
 
     > button:nth-child(odd), .book__rating {
@@ -186,16 +148,6 @@ export const BookContainer = styled.section<IProps>`
       width: 100%;
 
       padding: 0;
-    }
-
-    .book__save {
-      left: 16px;
-      top: 16px;
-      padding: 14px;
-
-      &-favorite {
-        width: 14px;
-      }
     }
 
     .book__rating {

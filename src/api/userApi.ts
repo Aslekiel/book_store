@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import { instance } from '.';
-import type { UserPasswordsType, IPropsType, IAnotherUser, IUserType } from '../types';
+import type { UserPasswordsType, IPropsType, IUserType, CommentatorType } from '../types';
 
 const logIn = async (
   options: IPropsType,
@@ -51,11 +51,12 @@ const uploadAvatar =
     return userData;
   };
 
-const getAnotherUser = async (anotherUserId: number): Promise<AxiosResponse<IAnotherUser>> => {
-  const userData = await instance.post('user/find-another', { anotherUserId });
+const getCommentators =
+  async (commentatorsIds: number[]): Promise<AxiosResponse<CommentatorType[]>> => {
+    const userData = await instance.post('user/find-another', { commentatorsIds });
 
-  return userData;
-};
+    return userData;
+  };
 
 export const userApi = {
   logIn,
@@ -64,5 +65,5 @@ export const userApi = {
   editUserPassword,
   checkUser,
   uploadAvatar,
-  getAnotherUser,
+  getCommentators,
 };

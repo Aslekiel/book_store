@@ -4,13 +4,13 @@ import { SortBy } from '../ModalWindows/SortBy/SortBy';
 import { SortGenre } from '../ModalWindows/SortGenre/SortGenre';
 import { SortSlider } from '../ModalWindows/SortSlider/SortSlider';
 
-import { CatalogFilterContainer } from './CatalogFilter.styles';
+import { FilterContainer } from './Filter.styles';
 
 interface IProps {
   title: string;
 }
 
-export const CatalogFilter: React.FC<IProps> = ({
+export const Filter: React.FC<IProps> = ({
   title,
 }) => {
   const [filterState, setFilterState] = useState(false);
@@ -39,7 +39,7 @@ export const CatalogFilter: React.FC<IProps> = ({
   }, []);
 
   return (
-    <CatalogFilterContainer
+    <FilterContainer
       filterState={filterState}
       title={title}
       sortTitle={title}
@@ -67,6 +67,6 @@ export const CatalogFilter: React.FC<IProps> = ({
           sortByTitleState={sortByTitleState}
           onClickSetTitle={onClickSetTitle}
         />)}
-    </CatalogFilterContainer>
+    </FilterContainer>
   );
 };

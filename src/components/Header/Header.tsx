@@ -62,10 +62,11 @@ const Header = () => {
     <HeaderContainer>
       <div className="header__wrapper">
         <nav className="header__nav">
-          <HeaderLogo
-            className="header__logo"
-            onClick={() => navigate('/')}
-          />
+          <Link to="/">
+            <HeaderLogo
+              className="header__logo"
+            />
+          </Link>
           <Link
             className="header__catalog"
             to="/catalog"

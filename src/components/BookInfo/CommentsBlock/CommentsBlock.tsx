@@ -1,76 +1,75 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { commentApi } from '../../../api/commentApi';
+import type { CommentatorInfoType, CommentatorType, IBookComments } from '../../../types';
 
-import { CommonButton } from '../../CommonButton/CommonButton';
 import { SingleComment } from './SingleComment/SingleComment';
+import { Textarea } from './Textarea/Textarea';
 
 import { CommentBlockContainer } from './CommentBlockContainer.styles';
+import { userApi } from '../../../api/userApi';
 
 interface IProps {
   id: number;
-  comments: IBookComment[];
+  comments: IBookComments[];
   isAuth: string;
 }
 
-export interface IBookComment {
-  id: number;
-  bookId: number;
-  userId: number;
-  comment: string;
-}
-
 export const CommentsBlock: React.FC<IProps> = ({ id, comments, isAuth }) => {
-  const [commentValue, setCommentValue] = useState('');
-  const [userComments, setUserComments] = useState(comments || []);
+  const [commentators, seеСommentators] = useState<CommentatorInfoType[]>([]);
 
-  const onFormSubmitAddComment = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!commentValue.trim()) return;
-    try {
-      const res = await commentApi.addComment(Number(id), commentValue);
-      setCommentValue('');
-      setUserComments(res.data);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
-    }
-  };
+  const commentatorsIds = useMemo(() => {
+    const arr = Array.from(new Set(comments.map((comment) => comment.userId)));
+    return arr;
+  }, [comments]);
 
-  const onChangeInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setCommentValue(event.currentTarget.value);
-  };
+  const commentsWithCommentators = useMemo(() => {
+    return comments.reduce((acc, comment) => {
+      (commentators as CommentatorType[]).forEach((commentator) => {
+        if (commentator.id === comment.userId) {
+          acc.push({
+            id: comment.id,
+            fullname: commentator.fullname,
+            avatar: commentator.avatar,
+            comment: comment.comment,
+          });
+        }
+      });
+      return acc;
+    }, []);
+  }, [commentators, comments]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await userApi.getCommentators(commentatorsIds);
+        seеСommentators(res.data);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    })();
+  }, [commentatorsIds]);
 
   return (
-    <CommentBlockContainer onSubmit={onFormSubmitAddComment}>
+    <CommentBlockContainer>
       <h2 className="comments__title">
         Comments
       </h2>
       <div className="comments__wrapper">
-        {userComments && userComments.map((comment) => {
+        {commentsWithCommentators.map((comment) => {
           return (
             <SingleComment
               key={comment.id}
-              userId={comment.userId}
               comment={comment.comment}
+              fullname={comment.fullname}
+              avatar={comment.avatar}
             />
           );
         })}
-        {isAuth &&
+        {
+        isAuth &&
           (
-            <>
-              <textarea
-                type="text"
-                placeholder="Share a comment"
-                value={commentValue}
-                className="form__textarea"
-                onChange={onChangeInput}
-              />
-              <CommonButton
-                title="Post a comment"
-                type="submit"
-              />
-            </>
+            <Textarea id={id} />
           )
         }
       </div>

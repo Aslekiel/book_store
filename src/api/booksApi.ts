@@ -1,9 +1,15 @@
 import type { AxiosResponse } from 'axios';
+import QueryString from 'qs';
 import { instance } from '.';
 import type { FilterType, IBook, IBookGenres, IBookType } from '../types';
 
 const getAllBooks = async (filter: FilterType): Promise<AxiosResponse<IBookType>> => {
-  const booksData = await instance.get('books/', { params: filter });
+  const booksData = await instance.get('books/', {
+    params: filter,
+    paramsSerializer: (params) => {
+      return QueryString.stringify(params);
+    },
+  });
 
   return booksData;
 };

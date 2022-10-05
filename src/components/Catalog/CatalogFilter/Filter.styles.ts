@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-type Props = {
+type PropsType = {
   filterState?: boolean;
   sortTitle?: string;
   title?: string;
 };
 
-export const CatalogFilterContainer = styled.div<Props>`
+export const FilterContainer = styled.div<PropsType>`
     position: relative;
 
     :nth-child(2) {

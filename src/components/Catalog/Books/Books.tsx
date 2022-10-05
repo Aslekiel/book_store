@@ -29,12 +29,12 @@ export const Books: React.FC<PropsType> = ({ books }) => {
   useEffect(() => {
     (async () => {
       const filter = {
-        page: searchParams.get('page') || undefined,
+        page: searchParams.get('page'),
         limit: searchParams.get('limit') || 12,
-        search: searchParams.get('search') || undefined,
-        genre: searchParams.get('genre') || undefined,
-        minPrice: searchParams.get('minPrice') || undefined,
-        maxPrice: searchParams.get('maxPrice') || undefined,
+        search: searchParams.get('search'),
+        genre: searchParams.get('genre'),
+        minPrice: searchParams.get('minPrice'),
+        maxPrice: searchParams.get('maxPrice'),
         sortBy: searchParams.get('sortBy') || 'price',
       };
 

@@ -74,11 +74,6 @@ export interface IBookComments {
   comment: string;
 }
 
-export interface IAnotherUser {
-  avatar: string;
-  fullname: string;
-}
-
 export type FilterType = {
   page?: string;
   limit?: string | number;
@@ -94,7 +89,7 @@ export type RatingOptionsType = {
   grade: number;
 };
 
-type ServiceInfoType = {
+export type ServiceInfoType = {
   page: number;
   limit: number;
   prevPage: number | null;
@@ -103,4 +98,15 @@ type ServiceInfoType = {
   totalBooks: number;
   hasPrevPage: boolean;
   hasNextPage: boolean;
+};
+
+export type CommentatorType = {
+  id: number;
+  fullname: string;
+  avatar: string;
+};
+
+export type CommentatorInfoType = {
+  avatar: string;
+  fullname: string;
 };
