@@ -1,4 +1,4 @@
-import type { IBook } from '../../../api/types';
+import type { IBook } from '../../../types';
 import { Book } from '../../Catalog/Books/Book/Book';
 import { RecommendationBlockContainer } from './RecommendationBlockContainer.styles';
 

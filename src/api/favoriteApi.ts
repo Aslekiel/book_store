@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import { instance } from '.';
-import type { IUserFavorites } from './types';
+import type { IUserFavorites } from '../types';
 
 const addFavoriteBook = async (bookId: number): Promise<AxiosResponse<IUserFavorites[]>> => {
   const booksData = await instance.post('favorite/', { bookId });

@@ -1,14 +1,19 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import { addBooksToCartThunk, addFavoriteBookThunk, addRatingThunk, deleteBookFromCartThunk, deleteFavoriteBookThunk, increaseBookAmountThunk, reduceBookAmountThunk } from './thunk/userThunks';
-
-interface IUserType {
-  user: IUser | null;
-}
+import type { IUserType } from '../../types';
+import {
+  addBooksToCartThunk,
+  addFavoriteBookThunk,
+  addRatingThunk,
+  deleteBookFromCartThunk,
+  deleteFavoriteBookThunk,
+  increaseBookAmountThunk,
+  reduceBookAmountThunk,
+} from './thunk/userThunks';
 
 const initialState: IUserType = {
   user: {
-    id: '',
+    id: null,
     fullname: '',
     email: '',
     avatar: '',
@@ -19,54 +24,12 @@ const initialState: IUserType = {
   },
 };
 
-interface IUser {
-  id?: number | string;
-  fullname?: string;
-  email: string;
-  avatar?: string;
-  cart?: IUserCart[];
-  favorites?: IUserFavorites[];
-  ratings?: IUserRating[];
-}
-
-interface IUserCart {
-  id: number;
-  bookId: number;
-  userId: number;
-  count: number;
-}
-
-interface IUserFavorites {
-  id: number;
-  bookId: number;
-  userId: number;
-}
-
-interface IUserRating {
-  id: number;
-  bookId: number;
-  userId: number;
-  grade: number;
-}
-
 const user = createSlice({
   name: 'user',
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<IUserType | null>) {
       state.user = action.payload.user;
-    },
-    setUserCart(state, action: PayloadAction<IUserCart[] | null>) {
-      state.user.cart = action.payload;
-    },
-    deleteFromCart(state, action: PayloadAction<number>) {
-      state.user.cart = state.user.cart.filter((book) => book.id !== action.payload);
-    },
-    setUserFavorite(state, action: PayloadAction<IUserFavorites[] | null>) {
-      state.user.favorites = action.payload;
-    },
-    setUserRating(state, action: PayloadAction<IUserRating[] | null>) {
-      state.user.ratings = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -109,12 +72,6 @@ const user = createSlice({
   },
 });
 
-export const {
-  setUser,
-  setUserCart,
-  setUserFavorite,
-  setUserRating,
-  deleteFromCart,
-} = user.actions;
+export const { setUser } = user.actions;
 
 export default user.reducer;

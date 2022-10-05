@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { PaginationContainer } from './Pagination.styles';
 import arrow from '../../../assets/forward.png';
@@ -8,21 +8,21 @@ export const Pagination = () => {
   const { serviceInfo } = useAppSelector((state) => state.books);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(+searchParams.get('page') || 1);
   const [booksPerPage] = useState(+searchParams.get('limit') || 12);
 
-  const pages = [];
-
-  for (let i = 1; i <= Math.ceil(serviceInfo.totalBooks / booksPerPage); i++) {
-    pages.push(i);
-  }
+  const pages = useMemo(() => {
+    const arr = [];
+    for (let i = 1; i <= Math.ceil(serviceInfo.totalBooks / booksPerPage); i++) {
+      arr.push(i);
+    }
+    return arr;
+  }, [booksPerPage, serviceInfo.totalBooks]);
 
   const onClickGoBack = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-      searchParams.set('page', String(currentPage - 1));
+    if (+searchParams.get('page') > 1) {
+      searchParams.set('page', String(+searchParams.get('page') - 1));
       searchParams.set('limit', String(booksPerPage));
-      if (currentPage - 1 === 1) {
+      if (+searchParams.get('page') - 1 === 1) {
         searchParams.delete('page');
       }
     }
@@ -31,9 +31,8 @@ export const Pagination = () => {
   };
 
   const onClickGoForward = () => {
-    if (currentPage < pages?.length) {
-      setCurrentPage(currentPage + 1);
-      searchParams.set('page', String(currentPage + 1));
+    if (+searchParams.get('page') < pages?.length) {
+      searchParams.set('page', String(+searchParams.get('page') + 1));
       searchParams.set('limit', String(booksPerPage));
     }
     searchParams.delete('limit');
@@ -54,9 +53,9 @@ export const Pagination = () => {
             <div
               key={index}
               className={
-                index + 1 === currentPage
-                  ? 'pagination__list_item-act'
-                  : 'pagination__list_item-def'
+                index + 1 === +searchParams.get('page')
+                  ? 'pagination__list_item-active'
+                  : 'pagination__list_item-default'
               }
             />
           );

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import type { IBook } from '../../../api/types';
+import type { IBook } from '../../../types';
 import { useAppSelector } from '../../../store/hooks/hooks';
 
 import { CommonButton } from '../../CommonButton/CommonButton';

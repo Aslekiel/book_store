@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import { instance } from '.';
-import type { IBook, IUserCart } from './types';
+import type { IBook, IUserCart } from '../types';
 
 const addBooksToCart = async (bookId: number): Promise<AxiosResponse<IUserCart[]>> => {
   const booksData = await instance.post('cart/', { bookId });

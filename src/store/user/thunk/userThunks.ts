@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { cartApi } from '../../../api/cartApi';
 import { favoriteApi } from '../../../api/favoriteApi';
 import { ratingApi } from '../../../api/ratingApi';
-import type { RatingOptionsType } from '../../../api/types';
+import type { RatingOptionsType } from '../../../types';
 
 export const addBooksToCartThunk = createAsyncThunk('user/cart/add',
   async (id: number) => {

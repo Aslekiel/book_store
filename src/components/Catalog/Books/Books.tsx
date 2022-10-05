@@ -11,7 +11,7 @@ import { Book } from './Book/Book';
 import { Pagination } from '../Pagination/Pagination';
 import { LoadingSpinner } from '../../LoadingSpinner/LoadingSpinner';
 
-import type { IBook } from '../../../api/types';
+import type { IBook } from '../../../types';
 
 import { BooksContainer } from './BooksContainer.styles';
 

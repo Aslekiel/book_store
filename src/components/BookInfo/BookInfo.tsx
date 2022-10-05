@@ -9,7 +9,7 @@ import { LoginSignupBanner } from '../LoginSignupBanner/LoginSignupBanner';
 import { BookInfoContainer } from './BookInfoContainer.styles';
 
 import { booksApi } from '../../api/booksApi';
-import type { IBook } from '../../api/types';
+import type { IBook } from '../../types';
 
 import { CommentsBlock } from './CommentsBlock/CommentsBlock';
 import { BookPreview } from './BookPreview/BookPreview';
@@ -21,7 +21,6 @@ export const BookInfo = () => {
   const dispatch = useAppDispatch();
 
   const { id } = useParams();
-  const bookId = id.slice(1);
 
   const [book, setBook] = useState<IBook>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,8 +29,11 @@ export const BookInfo = () => {
   useEffect(() => {
     (async () => {
       try {
-        const resBookById = await booksApi.getBookById(Number(bookId));
-        const resRecommendBooks = await booksApi.getRecommendedBooks(Number(bookId));
+        const resBookById = await booksApi.getBookById(Number(id));
+        const resRecommendBooks = await booksApi.getRecommendedBooks(Number(id));
+
+        await Promise.all([resBookById, resRecommendBooks]);
+
         setRecommendBooks(resRecommendBooks.data);
         setBook(resBookById.data);
         setIsLoading(false);
@@ -43,7 +45,7 @@ export const BookInfo = () => {
         console.log(error);
       }
     })();
-  }, [bookId, dispatch]);
+  }, [id, dispatch]);
 
   if (isLoading) {
     return (
@@ -61,12 +63,11 @@ export const BookInfo = () => {
           author={book.author}
           description={book.description}
           price={book.price}
-          bookId={bookId}
+          bookId={id}
           bookRating={book.rating}
         />
         <CommentsBlock
-          key={+bookId}
-          id={+bookId}
+          id={+id}
           comments={book.comments}
           isAuth={user?.email}
         />

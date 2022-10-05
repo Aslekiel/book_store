@@ -146,7 +146,7 @@ export const BookContainer = styled.section<IProps>`
     }
   }
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 420px) {
     max-width: 135px;
     width: 100%;
 

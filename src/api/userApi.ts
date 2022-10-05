@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import { instance } from '.';
-import type { UserPasswordsType, IPropsType, IAnotherUser, IUserType } from './types';
+import type { UserPasswordsType, IPropsType, IAnotherUser, IUserType } from '../types';
 
 const logIn = async (
   options: IPropsType,

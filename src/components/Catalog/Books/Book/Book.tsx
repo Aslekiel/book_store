@@ -1,7 +1,7 @@
 import { toast, ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks/hooks';
 
@@ -33,26 +33,26 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
   const favoriteBooksIds = !user ? [] : user?.favorites?.map((favorite) => favorite.bookId);
 
   const isFavorite = !!favoriteBooksIds?.includes(+id);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const booksIdsFromCart = !user ? [] : user?.cart?.map((cart) => cart.bookId);
 
-  const [favorite, setFavorite] = useState(isFavorite);
-  const [toggleBtn, setToggleBtn] = useState(true);
+  const booksIdsFromCart = useMemo(() => {
+    return !user ? [] : user?.cart?.map((cart) => cart.bookId);
+  }, [user]);
+
+  const inCart = !!booksIdsFromCart?.includes(Number(id));
+
   const navigate = useNavigate();
 
   const onClickCheckBook = () => {
-    navigate(`/book/:${id}`);
+    navigate(`/book/${id}`);
   };
 
   const onClickFavorite = async () => {
     try {
-      if (!favorite) {
+      if (!isFavorite) {
         await dispatch(addFavoriteBookThunk(Number(id))).unwrap();
-        setFavorite(!favorite);
         return;
       }
       await dispatch(deleteFavoriteBookThunk(Number(id))).unwrap();
-      setFavorite(!favorite);
     } catch (error) {
       if (error instanceof AxiosError) {
         return toast(error.response?.data.message);
@@ -74,14 +74,8 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
     }
   };
 
-  useEffect(() => {
-    if (booksIdsFromCart?.includes(+id)) {
-      setToggleBtn(false);
-    }
-  }, [booksIdsFromCart, id]);
-
   return (
-    <BookContainer favorite={favorite}>
+    <BookContainer favorite={isFavorite}>
       <img
         className="book__logo"
         src={logo}
@@ -116,12 +110,12 @@ export const Book: React.FC<IProps> = ({ id, title, author, price, logo, dataOfI
       >
         <img
           className="book__save-favorite"
-          src={favorite ? heartFull : heartEmpty}
+          src={isFavorite ? heartFull : heartEmpty}
           alt="heart-favorite"
         />
       </button>
       <CommonButton
-        title={toggleBtn ? `$ ${price} USD` : 'Added to cart'}
+        title={!inCart ? `$ ${price} USD` : 'Added to cart'}
         onClick={addBookToCart}
       />
       <ToastContainer />

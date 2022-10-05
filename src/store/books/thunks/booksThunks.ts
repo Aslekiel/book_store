@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { booksApi } from '../../../api/booksApi';
-import type { FilterType } from '../../../api/types';
+import type { FilterType } from '../../../types';
 
 export const getAllBooksThunk = createAsyncThunk('books',
   async (filter: FilterType) => {

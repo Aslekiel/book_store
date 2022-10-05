@@ -36,14 +36,14 @@ export const PaginationContainer = styled.div<IProps>`
 
     width: 40%;
 
-    &_item-def {
+    &_item-default {
       width: 14px;
       height: 14px;
       border: 2px solid #0D1821;
       border-radius: 50%;
     }
 
-    &_item-act {
+    &_item-active {
       background-color: #0D1821;
       width: 14px;
       height: 14px;

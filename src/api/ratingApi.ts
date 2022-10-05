@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import { instance } from '.';
-import type { RatingOptionsType } from './types';
+import type { RatingOptionsType } from '../types';
 
 const addRating =
   async (options: RatingOptionsType): Promise<AxiosResponse<RatingOptionsType>> => {

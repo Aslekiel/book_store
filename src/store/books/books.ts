@@ -1,58 +1,18 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+import type { IBookType } from '../../types';
 import { getAllBooksThunk } from './thunks/booksThunks';
 
-interface IBooksState {
-  books: IBook[] | null;
-  serviceInfo: ServiceInfoType;
-}
-
-const initialState: IBooksState = {
+const initialState: IBookType = {
   books: [],
   serviceInfo: undefined,
-};
-
-interface IBook {
-  id?: number;
-  title: string;
-  author: string;
-  genres: IBookGenres[];
-  description?: string;
-  logo: string;
-  rating?: string;
-  price: number;
-  dateOfIssue?: string;
-  comments?: IBookComments[];
-}
-
-interface IBookGenres {
-  id?: number;
-  name: string;
-}
-
-export interface IBookComments {
-  id: number;
-  bookId: number;
-  userId: number;
-  comment: string;
-}
-
-type ServiceInfoType = {
-  page: number;
-  limit: number;
-  prevPage: number | null;
-  nextPage: number | null;
-  totalPages: number;
-  totalBooks: number;
-  hasPrevPage: boolean;
-  hasNextPage: boolean;
 };
 
 const books = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    setBooks(state, action: PayloadAction<IBooksState | null>) {
+    setBooks(state, action: PayloadAction<IBookType | null>) {
       state.books = action.payload.books;
       state.serviceInfo = action.payload.serviceInfo;
     },
