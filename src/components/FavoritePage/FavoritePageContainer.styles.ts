@@ -22,6 +22,7 @@ export const FavoritePageContainer = styled.section`
     .favorite__title {
       font-size: 18px;
       line-height: 27px;
+      padding: 25px 0 15px;
     }
   }
 

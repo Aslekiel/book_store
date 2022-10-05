@@ -9,6 +9,10 @@ export const InputLabelContainerError = styled.label`
   line-height: 24px;
   color:  #C30052;
   padding: 9px 0 30px;
+
+  @media screen and (max-width: 650px) {
+    padding: 9px 0 10px;
+  }
 `;
 
 export const InputLabelContainerDefault = styled.label<PropsType>`
@@ -16,4 +20,8 @@ export const InputLabelContainerDefault = styled.label<PropsType>`
   line-height: 24px;
   color: ${(p) => (!p.value ? '#344966' : '#00966D')};
   padding: 9px 0 30px;
+  
+  @media screen and (max-width: 650px) {
+    padding: 9px 0 10px;
+  }
 `;

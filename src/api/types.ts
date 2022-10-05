@@ -1,6 +1,6 @@
 export interface IBookType {
   books: IBook[];
-  count: number;
+  serviceInfo: ServiceInfoType;
 }
 
 export interface IUserType {
@@ -92,4 +92,15 @@ export type FilterType = {
 export type RatingOptionsType = {
   bookId: number;
   grade: number;
+};
+
+type ServiceInfoType = {
+  page: number;
+  limit: number;
+  prevPage: number | null;
+  nextPage: number | null;
+  totalPages: number;
+  totalBooks: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
 };

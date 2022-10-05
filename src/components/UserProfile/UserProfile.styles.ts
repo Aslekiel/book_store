@@ -58,4 +58,19 @@ export const UserProfileContainer = styled.main`
       width: 95%;
     }
   }
+
+  @media screen and (max-width: 650px) {
+
+    .user-profile__wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .info__wrapper {
+      margin-top: 30px;
+      width: 95%;
+    }
+  }
 `;

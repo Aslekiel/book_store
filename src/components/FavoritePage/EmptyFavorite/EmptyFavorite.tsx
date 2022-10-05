@@ -12,14 +12,14 @@ export const EmptyFavorite = () => {
 
   return (
     <EmptyFavoriteContainer>
-      <BooksImg />
-      <div className="cart__info">
-        <h2 className="cart__title">
+      <BooksImg className="favorite__img" />
+      <div className="favorite__info">
+        <h2 className="favorite__title">
           Your favorite is empty
         </h2>
-        <p className="cart__help">
+        <p className="favorite__help">
           Add items to favorite to make a purchase.
-          <br /> Go to the catalogue no.
+          Go to the catalogue no.
         </p>
         <CommonButton
           title="Go to catalog"

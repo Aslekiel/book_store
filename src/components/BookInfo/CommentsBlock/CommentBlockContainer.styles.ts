@@ -50,7 +50,7 @@ export const CommentBlockContainer = styled.form`
   @media screen and (max-width: 1000px) {
     width: 80%;
 
-    padding: 110px 0 0;
+    padding: 30px 0 0;
     
     .comments__title {
       font-size: 32px;
@@ -59,6 +59,25 @@ export const CommentBlockContainer = styled.form`
 
     .form__textarea {
       width: 110%;
+    }
+
+    .comments__wrapper {
+      :last-child {
+        margin-bottom: 30px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+   
+    .comments__title {
+      display: none;
+    }
+
+    .form__textarea {
+      width: 120%;
+
+      margin: 20px 0 30px;
     }
   }
 

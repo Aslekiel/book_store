@@ -47,4 +47,43 @@ export const CartWithBooksContainer = styled.section`
       }
     }
   }
+
+  @media screen and (max-width: 680px) {
+    .cart__total-price {
+
+      &_price {
+        font-size: 24px;
+        line-height: 36px;
+      }
+
+      &_btns {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        > button {
+          width: 50%;
+          padding: 10px 0;
+        }
+
+        &_continue {
+          margin-right: 0;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .cart__total-price {
+
+      &_btns {
+        width: 100%;
+
+        > button {
+          width: 100%;
+        }
+      }
+    }
+  }
 `;

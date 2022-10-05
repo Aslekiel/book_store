@@ -38,6 +38,7 @@ export const SortSlider = () => {
   return (
     <SortSliderContainer
       onMouseUp={onMouseUpHandler}
+      onTouchEnd={onMouseUpHandler}
     >
       <div className="sort__triangle" />
       <ReactSlider

@@ -152,7 +152,6 @@ export const BookPreview: React.FC<PropsType> = ({
               name="read-only"
               defaultValue={1}
               readOnly max={1}
-              className="book__info_rating_one-star"
             />
             <span className="book__info_rating_integer">
               {bookRating}
@@ -174,23 +173,24 @@ export const BookPreview: React.FC<PropsType> = ({
               Rate this book
             </span>
           </div>
-
         </div>
-        <h3 className="book__info_description-title">
+      </div>
+      <div className="book__description">
+        <h3 className="book__description_title">
           Description
         </h3>
-        <div className="book__info_description">
+        <div className="book__description_text">
           {description}
         </div>
-        <div className="book__info_buy-btns">
-          <div className="book__info_buy-btns_btn">
-            <span className="book__info_buy-btns_btn_title">
+        <div className="book__description_buy-btns">
+          <div className="book__description_buy-btns_btn">
+            <span className="book__description_buy-btns_btn_title">
               Paperback
             </span>
             <CommonButton title="Not available" />
           </div>
-          <div className="book__info_buy-btns_btn">
-            <span className="book__info_buy-btns_btn_title">
+          <div className="book__description_buy-btns_btn">
+            <span className="book__description_buy-btns_btn_title">
               Hardcover
             </span>
             <CommonButton

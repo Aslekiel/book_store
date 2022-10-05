@@ -5,19 +5,22 @@ type PropsType = {
 };
 
 export const BookPreviewContainer = styled.div<PropsType>`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 0.3fr 1fr;
 
   max-width: 1290px;
   width: 100%;
 
   .book__logo {
+    grid-column: 1;
+    grid-row: 1/4;
+
     position: relative;
 
     max-width: 522px;
     width: 100%;
+    height: 100%;
 
     &_img {
     max-width: 522px;
@@ -56,7 +59,7 @@ export const BookPreviewContainer = styled.div<PropsType>`
   .book__info {
     padding-left: 10px;
 
-    width: 50%;
+    width: 100%;
 
     &_title {
       font-weight: 700;
@@ -65,7 +68,7 @@ export const BookPreviewContainer = styled.div<PropsType>`
       color: #0D1821;
     }
 
-    &_author-name, &_description-title {
+    &_author-name {
       font-weight: 500;
       font-size: 24px;
       line-height: 36px;
@@ -104,15 +107,28 @@ export const BookPreviewContainer = styled.div<PropsType>`
                 
       }
     }
+  }
 
-      &_description {
+    .book__description {
+      padding: 10px 0 0 10px;
+
+      &_title {
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 36px;
+        color: #0D1821;
+
+        padding-bottom: 10px;
+      }
+
+      &_text {
         font-weight: 500;
         font-size: 16px;
         line-height: 24px;
         color: #344966;
         text-align: justify;
 
-        padding: 10px 0 74px;
+        padding-bottom: 70px;
       }
 
       &_buy-btns {
@@ -144,11 +160,13 @@ export const BookPreviewContainer = styled.div<PropsType>`
   @media screen and (max-width: 1000px) {
 
     .book__logo {
-      width: 50%;
+      max-width: 391px;
+        max-height: 584px;
+        width: 100%;
+        height: 100%;
     }
 
     .book__info {
-      padding-left: 20px;
       padding-right: 10px;
 
       &_title {
@@ -159,16 +177,6 @@ export const BookPreviewContainer = styled.div<PropsType>`
       &_author-name {
         font-size: 20px;
         line-height: 30px;
-      }
-
-      &_description-title {
-        font-size: 16px;
-        line-height: 24px;
-      }
-
-      &_description {
-        font-size: 14px;
-        line-height: 21px;
       }
 
       &_rating {
@@ -196,6 +204,18 @@ export const BookPreviewContainer = styled.div<PropsType>`
           padding-left: 10px;
 
         }
+      }
+    }
+
+    .book__description {
+      &_title {
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      &_text {
+        font-size: 14px;
+        line-height: 21px;
       }
 
       &_buy-btns {
@@ -209,76 +229,146 @@ export const BookPreviewContainer = styled.div<PropsType>`
     }
   }
 
-  @media screen and (max-width: 720px) {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+  @media screen and (max-width: 830px) {
+    grid-template-rows: 1fr 0.5fr;
 
     .book__logo {
-      max-width: 135px;
-      max-height: 202px;
-      width: 100%;
-      height: 100%;
+      grid-row: 1;
     }
-    
+
+    .book__description {
+      grid-column: 1/3;
+      grid-row: 2;
+
+      &_text {
+        padding-bottom: 20px;
+      }
+
+      &_buy-btns {
+        width: 60%;
+      }
+    }
+
+  }
+
+  @media screen and (max-width: 670px) {
     .book__info {
 
+      &_rating {
+        
+        &_wrapper:nth-child(2) {
+          flex-direction: column;
+          justify-content:center;
+          align-items: flex-start;
+        }
+
+        &_arrow {
+          display: none;
+        }
+
+        &_rate-this {
+          padding-left: 5px;
+          padding-top: 5px;
+        }
+      }
+    }
+
+    .book__description {
+      &_buy-btns {
+        width: 100%;
+      }
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    grid-template-rows: 0.3fr 0.5fr;
+
+    .book__logo {
+      max-width: 155px;
+      max-height: 222px;
+      width: 100%;
+      height: 100%;
+
+      &_save {
+        right: 14px;
+        top: 14px;
+        padding: 18px;
+
+        &-favorite {
+          width: 50%;
+        }
+      }
+
+    }
+
+    .book__info {
+      
       &_title {
         font-size: 18px;
         line-height: 20px;
       }
-    
+
       &_author-name {
         font-size: 12px;
         line-height: 18px;
-      }
-
-      &_description-title {
-        font-size: 14px;
-        line-height: 21px;
-      }
-
-      &_description {
-        grid-column: 1/2;
-        grid-row: 2/3;
-        font-size: 12px;
-        line-height: 18px;
+        padding-top: 5px;
       }
 
       &_rating {
-        display: grid;
-        grid-template-rows: repeat(2, 1fr);
-        justify-items: flex-start;
+        padding-bottom: 0;
 
-        padding: 20px 0 30px;
-
-        &_integer {
-          line-height: 24px;
-          color: #B9BAC4;
-
-          padding: 0 40px 0 15px;
+        &_wrapper {
+          justify-content: flex-end;
+          align-items: flex-start;
         }
 
-        &_arrow {
-          padding-left: 45px;
+        &_wrapper
+          > span 
+          > span 
+          > span 
+          > .css-1vooibu-MuiSvgIcon-root {
+            width: 20px;
+            height: 20px;
+          }
+
+        &_wrapper 
+          > span 
+          > span 
+          > label 
+          > span 
+          > .css-1vooibu-MuiSvgIcon-root {
+            width: 20px;
+            height: 20px;
+          }
+
+        &_integer {
+          font-size: 13px;
+
+          padding-left: 15px;
+          padding-right: 0;
         }
 
         &_rate-this {
-          line-height: 24px;
-          color: #B9BAC4;
-
-          padding-left: 10px;
-
+          font-size: 12px;
+          line-height: 18px;
         }
       }
+    }
+
+    .book__description {
 
       &_buy-btns {
         &_btn {
-            width: 100%;
           > button {
-            padding: 10px 22px;
+            font-size: 12px;
+            line-height: 18px;
           }
         }
+
+        &_btn:nth-child(2) {
+          margin-left: 10px;
+        }
+
       }
     }
   }

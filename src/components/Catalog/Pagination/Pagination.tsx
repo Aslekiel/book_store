@@ -5,7 +5,7 @@ import arrow from '../../../assets/forward.png';
 import { useAppSelector } from '../../../store/hooks/hooks';
 
 export const Pagination = () => {
-  const { count } = useAppSelector((state) => state.books);
+  const { serviceInfo } = useAppSelector((state) => state.books);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(+searchParams.get('page') || 1);
@@ -13,7 +13,7 @@ export const Pagination = () => {
 
   const pages = [];
 
-  for (let i = 1; i <= Math.ceil(count / booksPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(serviceInfo.totalBooks / booksPerPage); i++) {
     pages.push(i);
   }
 

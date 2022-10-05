@@ -37,4 +37,30 @@ export const SingleCommentContainer = styled.div`
       color: #344966;
     }
   }
+
+
+  @media screen and (max-width: 400px) {
+    .comment__author-avatar {
+      top: 10px;
+      left: 10px;
+      width: 45px;
+    }
+
+    .comment__inner {
+      padding: 0;
+
+      &_fullname {
+        font-size: 14px;
+        line-height: 21px;
+        padding: 15px 30px 25px 78px;
+
+      }
+
+      &_comment-text {
+        font-size: 12px;
+        line-height: 18px;
+        padding: 0 10px 10px;
+      }
+  }
+ }
 `;

@@ -16,8 +16,8 @@ export const ChangePasswordBlockContainer = styled.div`
       width: 100%;
 
       > button {
-      width: fit-content;
-    }
+        width: fit-content;
+      }
     }
 
     .change-password__label {
@@ -26,4 +26,15 @@ export const ChangePasswordBlockContainer = styled.div`
       color: #344966;
     }
 
+  @media screen and (max-width: 650px) {
+    > div {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      h2 {
+        margin: 0;
+      }
+    }
+  }
 `;

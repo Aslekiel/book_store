@@ -17,6 +17,20 @@ export const RecommendationBlockContainer = styled.div`
     grid-template-columns: repeat(4, 1fr);
   }
 
+  @media screen and (max-width: 1250px) {
+
+    .recommendations__books {
+      grid-template-columns: repeat(3, 1fr);
+      > section {
+        :last-child {
+          display: none;
+        }
+        margin-bottom: 0;
+      }
+    }
+
+  }
+
   @media screen and (max-width: 1000px) {
 
     .recommendations__title {
@@ -28,10 +42,37 @@ export const RecommendationBlockContainer = styled.div`
 
     .recommendations__books {
       > section {
-        margin-bottom: 0;
+        h3 {
+          height: 50px;
+        }
+        > button:nth-child(odd) {
+          padding: 10px 0;
+        }
       }
     }
+  }
 
+  @media screen and (max-width: 740px) {
+    .recommendations__title {
+      font-size: 18px;
+      line-height: 27px;
 
+      padding: 60px 0 30px;
+    }
+
+    .recommendations__books {
+      grid-template-columns: repeat(2, 1fr);
+      > section {
+        :nth-child(3), :nth-child(4) {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .recommendations__title {
+      padding: 10px 0 30px;
+    }
   }
 `;

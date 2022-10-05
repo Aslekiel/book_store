@@ -31,4 +31,23 @@ export const UserProfileCaptionContainer = styled.div`
       color: #8d9f4f;
       cursor: pointer;
     }
+
+  @media screen and (max-width: 650px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+
+    &:first-child {
+      margin: 0 0 10px;
+    }
+
+    .caption__title {
+      font-size: 16px;
+      line-height: 24px;
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
 `;

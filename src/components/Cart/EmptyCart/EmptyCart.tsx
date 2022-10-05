@@ -12,14 +12,14 @@ export const EmptyCart = () => {
 
   return (
     <EmptyCartContainer>
-      <BooksImg />
+      <BooksImg className="cart__img" />
       <div className="cart__info">
         <h2 className="cart__title">
           Your cart is empty
         </h2>
         <p className="cart__help">
           Add items to cart to make a purchase.
-          <br /> Go to the catalogue no.
+          Go to the catalogue no.
         </p>
         <CommonButton
           title="Go to catalog"

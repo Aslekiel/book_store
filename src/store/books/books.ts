@@ -4,12 +4,12 @@ import { getAllBooksThunk } from './thunks/booksThunks';
 
 interface IBooksState {
   books: IBook[] | null;
-  count: number;
+  serviceInfo: ServiceInfoType;
 }
 
 const initialState: IBooksState = {
   books: [],
-  count: undefined,
+  serviceInfo: undefined,
 };
 
 interface IBook {
@@ -37,19 +37,30 @@ export interface IBookComments {
   comment: string;
 }
 
+type ServiceInfoType = {
+  page: number;
+  limit: number;
+  prevPage: number | null;
+  nextPage: number | null;
+  totalPages: number;
+  totalBooks: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+};
+
 const books = createSlice({
   name: 'books',
   initialState,
   reducers: {
     setBooks(state, action: PayloadAction<IBooksState | null>) {
       state.books = action.payload.books;
-      state.count = action.payload.count;
+      state.serviceInfo = action.payload.serviceInfo;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllBooksThunk.fulfilled, (state, action) => {
       state.books = action.payload?.books;
-      state.count = action.payload?.count;
+      state.serviceInfo = action.payload.serviceInfo;
     });
   },
 });

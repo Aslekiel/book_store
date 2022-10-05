@@ -22,7 +22,6 @@ export const BookContainer = styled.section<IProps>`
     width: 100%;
     max-height: 448px;
     height: 100%;
-    margin-bottom: 30px;
     border-radius: 16px;
 
     cursor: pointer;
@@ -35,8 +34,9 @@ export const BookContainer = styled.section<IProps>`
 
     max-width: 305px;
     width: 100%;
-
     height: 50px;
+
+    margin-top: 30px;
   }
 
   .book__author {
@@ -118,6 +118,8 @@ export const BookContainer = styled.section<IProps>`
       max-width: 254px;
       width: 100%;
       height: 40px;
+
+      margin-top: 30px;
     }
 
     .book__author {
@@ -153,8 +155,6 @@ export const BookContainer = styled.section<IProps>`
       width: 100%;
       max-height: 192px;
       height: 100%;
-
-      margin-bottom: 15px;
     }
 
     .book__title {
@@ -164,6 +164,8 @@ export const BookContainer = styled.section<IProps>`
       max-width: 135px;
       width: 100%;
       height: 80px;
+
+      margin-top: 15px;
     }
 
     .book__author {
