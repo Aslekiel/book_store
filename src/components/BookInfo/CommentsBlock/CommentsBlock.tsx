@@ -15,7 +15,7 @@ interface IProps {
 }
 
 export const CommentsBlock: React.FC<IProps> = ({ id, comments, isAuth }) => {
-  const [commentators, seеСommentators] = useState<CommentatorInfoType[]>([]);
+  const [commentators, setСommentators] = useState<CommentatorInfoType[]>([]);
 
   const commentatorsIds = useMemo(() => {
     const arr = Array.from(new Set(comments.map((comment) => comment.userId)));
@@ -41,8 +41,10 @@ export const CommentsBlock: React.FC<IProps> = ({ id, comments, isAuth }) => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await userApi.getCommentators(commentatorsIds);
-        seеСommentators(res.data);
+        if (commentatorsIds.length) {
+          const res = await userApi.getCommentators(commentatorsIds);
+          setСommentators(res.data);
+        }
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
@@ -67,7 +69,7 @@ export const CommentsBlock: React.FC<IProps> = ({ id, comments, isAuth }) => {
           );
         })}
         {
-        isAuth &&
+          isAuth &&
           (
             <Textarea id={id} />
           )

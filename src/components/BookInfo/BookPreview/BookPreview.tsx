@@ -75,7 +75,7 @@ export const BookPreview: React.FC<PropsType> = ({
   };
 
   useEffect(() => {
-    const rating = user.ratings.find((book) => book.bookId === +bookId);
+    const rating = user?.ratings.find((book) => book.bookId === +bookId);
     if (rating) {
       setRating(+rating.grade);
     }
@@ -89,9 +89,9 @@ export const BookPreview: React.FC<PropsType> = ({
           alt="book_logo"
           className="book__logo_img"
         />
-      <FavoriteButton
-        id={+bookId}
-        mirrorState
+        <FavoriteButton
+          id={+bookId}
+          mirrorState
         />
       </div>
       <div className="book__info">
