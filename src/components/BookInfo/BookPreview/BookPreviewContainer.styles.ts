@@ -24,9 +24,7 @@ export const BookPreviewContainer = styled.div`
     max-height: 779px;
     height: 100%;
     border-radius: 16px;
-
     }
-
   }
 
   .book__info {
@@ -46,39 +44,6 @@ export const BookPreviewContainer = styled.div`
       font-size: 24px;
       line-height: 36px;
       color: #0D1821;
-    }
-
-    &_rating {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: center;
-      padding: 30px 0;
-
-      &_wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      &_integer {
-        line-height: 24px;
-        color: #B9BAC4;
-
-        padding: 0 40px 0 15px;
-      }
-
-      &_arrow {
-        padding-left: 45px;
-      }
-
-      &_rate-this {
-        line-height: 24px;
-        color: #B9BAC4;
-                
-        padding-left: 10px;
-                
-      }
     }
   }
 
@@ -151,33 +116,6 @@ export const BookPreviewContainer = styled.div`
         font-size: 20px;
         line-height: 30px;
       }
-
-      &_rating {
-        display: grid;
-        grid-template-rows: repeat(2, 1fr);
-        justify-items: flex-start;
-
-        padding: 20px 0 30px;
-
-        &_integer {
-          line-height: 24px;
-          color: #B9BAC4;
-
-          padding: 0 40px 0 15px;
-        }
-
-        &_arrow {
-          padding-left: 45px;
-        }
-
-        &_rate-this {
-          line-height: 24px;
-          color: #B9BAC4;
-
-          padding-left: 10px;
-
-        }
-      }
     }
 
     .book__description {
@@ -225,27 +163,6 @@ export const BookPreviewContainer = styled.div`
   }
 
   @media screen and (max-width: 670px) {
-    .book__info {
-
-      &_rating {
-        
-        &_wrapper:nth-child(2) {
-          flex-direction: column;
-          justify-content:center;
-          align-items: flex-start;
-        }
-
-        &_arrow {
-          display: none;
-        }
-
-        &_rate-this {
-          padding-left: 5px;
-          padding-top: 5px;
-        }
-      }
-    }
-
     .book__description {
       &_buy-btns {
         width: 100%;
@@ -275,46 +192,6 @@ export const BookPreviewContainer = styled.div`
         font-size: 12px;
         line-height: 18px;
         padding-top: 5px;
-      }
-
-      &_rating {
-        padding-bottom: 0;
-
-        &_wrapper {
-          justify-content: flex-end;
-          align-items: flex-start;
-        }
-
-        &_wrapper
-          > span 
-          > span 
-          > span 
-          > .css-1vooibu-MuiSvgIcon-root {
-            width: 20px;
-            height: 20px;
-          }
-
-        &_wrapper 
-          > span 
-          > span 
-          > label 
-          > span 
-          > .css-1vooibu-MuiSvgIcon-root {
-            width: 20px;
-            height: 20px;
-          }
-
-        &_integer {
-          font-size: 13px;
-
-          padding-left: 15px;
-          padding-right: 0;
-        }
-
-        &_rate-this {
-          font-size: 12px;
-          line-height: 18px;
-        }
       }
     }
 

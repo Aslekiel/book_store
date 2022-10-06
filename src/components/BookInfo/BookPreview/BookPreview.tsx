@@ -1,18 +1,16 @@
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
 
 import { CommonButton } from '../../CommonButton/CommonButton';
 
-import arrowRating from '../../../assets/arrow-rating.png';
+import { addBooksToCartThunk } from '../../../store/user/thunk/userThunks';
 
-import { addBooksToCartThunk, addRatingThunk } from '../../../store/user/thunk/userThunks';
-
-import { RatingStar } from '../RatingStars.styles';
 import { BookPreviewContainer } from './BookPreviewContainer.styles';
 import { FavoriteButton } from '../../FavoriteButton/FavoriteButton';
+import { RatingStars } from './RatingStars/RatingStars';
 
 type PropsType = {
   logo: string;
@@ -36,8 +34,6 @@ export const BookPreview: React.FC<PropsType> = ({
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
 
-  const [rating, setRating] = useState(null);
-
   const booksInCartIds = useMemo(() => {
     return !user ? [] : user?.cart?.map((cart) => cart.bookId);
   }, [user]);
@@ -55,31 +51,6 @@ export const BookPreview: React.FC<PropsType> = ({
       console.log(error);
     }
   };
-
-  const addRating = async (event: React.SyntheticEvent) => {
-    const grade = (event.target as HTMLInputElement).value;
-    try {
-      await dispatch(addRatingThunk(
-        {
-          bookId: Number(bookId),
-          grade: Number(grade),
-        },
-      )).unwrap();
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        return toast(error.response?.data.message);
-      }
-      // eslint-disable-next-line no-console
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    const rating = user?.ratings.find((book) => book.bookId === +bookId);
-    if (rating) {
-      setRating(+rating.grade);
-    }
-  }, [bookId, user?.ratings]);
 
   return (
     <BookPreviewContainer>
@@ -101,34 +72,10 @@ export const BookPreview: React.FC<PropsType> = ({
         <h3 className="book__info_author-name">
           {author}
         </h3>
-        <div className="book__info_rating">
-          <div className="book__info_rating_wrapper">
-            <RatingStar
-              name="read-only"
-              defaultValue={1}
-              readOnly max={1}
-            />
-            <span className="book__info_rating_integer">
-              {bookRating}
-            </span>
-          </div>
-          <div className="book__info_rating_wrapper">
-            <RatingStar
-              name="half-rating"
-              value={!rating ? 0 : rating}
-              precision={0.5}
-              onChange={addRating}
-            />
-            <img
-              src={arrowRating}
-              alt="arrow-rating"
-              className="book__info_rating_arrow"
-            />
-            <span className="book__info_rating_rate-this">
-              Rate this book
-            </span>
-          </div>
-        </div>
+        <RatingStars
+          bookId={bookId}
+          bookRating={bookRating}
+        />
       </div>
       <div className="book__description">
         <h3 className="book__description_title">
